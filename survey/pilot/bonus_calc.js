@@ -33,13 +33,13 @@ const q2Bonus = [];
 const q3Bonus = [];
 
 // bonus per question
-var bonusPerQ = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('bonus_per_q'));
+var bonusPerQ = parseFloat(Qualtrics.SurveyEngine.getEmbeddedData('bonus_per_q'));
 
 
 for (let i = 1; i <= 11; i++) {
-  urnColors[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_urn_color'));
-  ball1Colors[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_ball_1_color'));
-  ball2Colors[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_ball_2_color'));
+  urnColors[i - 1] = Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_urn_color'.toString());
+  ball1Colors[i - 1] = Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_ball_1_color'.toString());
+  ball2Colors[i - 1] = Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_ball_2_color'.toString());
 
   q1Guesses[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_guess_1'));
   q2Guesses[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_guess_2'));
@@ -47,13 +47,13 @@ for (let i = 1; i <= 11; i++) {
 
   // random number between 1 and 100 inclusive
   q1RandNum1[i - 1] = Math.floor(Math.random() * 100 + 1);
-  q1RandNum1[i - 1] = Math.floor(Math.random() * 100 + 1);
+  q1RandNum2[i - 1] = Math.floor(Math.random() * 100 + 1);
 
   q2RandNum1[i - 1] = Math.floor(Math.random() * 100 + 1);
-  q2RandNum1[i - 1] = Math.floor(Math.random() * 100 + 1);
+  q2RandNum2[i - 1] = Math.floor(Math.random() * 100 + 1);
 
   q3RandNum1[i - 1] = Math.floor(Math.random() * 100 + 1);
-  q3RandNum1[i - 1] = Math.floor(Math.random() * 100 + 1);
+  q3RandNum2[i - 1] = Math.floor(Math.random() * 100 + 1);
 
   // question 1 payment: if random number 1 <= guess, use payment on event
   if (q1RandNum1[i - 1] <= q1Guesses[i - 1]) {
@@ -79,7 +79,7 @@ for (let i = 1; i <= 11; i++) {
   if (q2RandNum1[i - 1] <= q2Guesses[i - 1]) {
     q2PayMethods[i - 1] = "event";
     // if selected urn is red, earn bonus
-    if (ball1Colors[i - 1] == "red") {
+    if (urnColors[i - 1] == "red") {
       q2Bonus[i - 1] = bonusPerQ;
     } else {
       q2Bonus[i - 1] = 0;
@@ -99,7 +99,7 @@ for (let i = 1; i <= 11; i++) {
   if (q3RandNum1[i - 1] <= q3Guesses[i - 1]) {
     q3PayMethods[i - 1] = "event";
     // if selected urn is red, earn bonus
-    if (ball2Colors[i - 1] == "red") {
+    if (urnColors[i - 1] == "red") {
       q3Bonus[i - 1] = bonusPerQ;
     } else {
       q3Bonus[i - 1] = 0;
@@ -136,4 +136,4 @@ for (let i = 1; i <= 11; i++) {
 }
 
 
-// need to test code and test whether qualtrics saves embedded data from .addEmbeddedData function 
+// qualtrics does not save embedded data from .addEmbeddedData function

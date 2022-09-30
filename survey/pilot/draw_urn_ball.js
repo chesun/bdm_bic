@@ -1,4 +1,4 @@
-// randomly draw a ball twice with replacement from the selected urn
+// randomly draw urn and balls twice with replacement from the selected urn in all scenarios
 
 // declare an empty array for storing number of red urns
 const nRedUrns = [];
@@ -29,7 +29,7 @@ for (let i = 1; i <= 11; i++) {
 
   Qualtrics.SurveyEngine.setEmbeddedData('sce_' + i + '_rand_num_1', draw1RandNums[i -1]);
   Qualtrics.SurveyEngine.setEmbeddedData('sce_' + i + '_rand_num_2', draw2RandNums[i -1]);
-  Qualtrics.SurveyEngine.addEmbeddedData('sce_' + i + '_rand_num_3', draw3RandNums[i -1]);
+  Qualtrics.SurveyEngine.setEmbeddedData('sce_' + i + '_rand_num_3', draw3RandNums[i -1]);
 
 
   // rule to determine the color of the selected urn
