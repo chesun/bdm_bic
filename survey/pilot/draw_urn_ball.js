@@ -18,7 +18,11 @@ const urnColors = [];
 const ball1Colors = [];
 const ball2Colors = [];
 
-for (let i = 1; i <= 11; i++) {
+// number of scenarios
+var numScenarios = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('num_scenarios'));
+
+
+for (let i = 1; i <= numScenarios; i++) {
   nRedUrns[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_n_red_urn'));
   nRedBallsRedUrn[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_n_red_ball_red_urn'));
 

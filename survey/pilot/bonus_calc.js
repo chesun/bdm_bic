@@ -1,5 +1,9 @@
 // calculate bonus earnings.
 // First written by Christina Sun on September 28, 2022
+// edited October 5, 2022 to use a variable for number of scenarios
+
+// number of scenarios in the experiment
+var numScenarios = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('num_scenarios'));
 
 // array for the color of the selected urn in all scenarios
 const urnColors = [];
@@ -35,8 +39,13 @@ const q3Bonus = [];
 // bonus per question
 var bonusPerQ = parseFloat(Qualtrics.SurveyEngine.getEmbeddedData('bonus_per_q'));
 
+//total bonus for questions
+var totalQ1Bonus = 0;
+var totalQ2Bonus = 0;
+var totalQ3Bonus = 0;
 
-for (let i = 1; i <= 11; i++) {
+
+for (let i = 1; i <= numScenarios; i++) {
   urnColors[i - 1] = Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_urn_color'.toString());
   ball1Colors[i - 1] = Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_ball_1_color'.toString());
   ball2Colors[i - 1] = Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_ball_2_color'.toString());
@@ -115,6 +124,11 @@ for (let i = 1; i <= 11; i++) {
     }
   }
 
+  totalQ1Bonus = totalQ1Bonus + q1Bonus[i - 1];
+  totalQ2Bonus = totalQ2Bonus + q2Bonus[i - 1];
+  totalQ3Bonus = totalQ3Bonus + q3Bonus[i - 1];
+
+
   // set embedded data for bonus and payment methods
   Qualtrics.SurveyEngine.setEmbeddedData('sce_' + i + '_q_1_bonus', q1Bonus[i -1]);
   Qualtrics.SurveyEngine.setEmbeddedData('sce_' + i + '_q_2_bonus', q2Bonus[i -1]);
@@ -134,6 +148,16 @@ for (let i = 1; i <= 11; i++) {
   Qualtrics.SurveyEngine.addEmbeddedData('sce_' + i + '_q_3_rand_num_1', q3RandNum1[i -1]);
   Qualtrics.SurveyEngine.addEmbeddedData('sce_' + i + '_q_3_rand_num_2', q3RandNum2[i -1]);
 }
+
+
+var totalBonus = totalQ1Bonus + totalQ2Bonus + totalQ3Bonus;
+
+var baseFee = parseFloat(Qualtrics.SurveyEngine.getEmbeddedData('base_fee'));
+
+var totalPayment = baseFee + totalBonus;
+
+Qualtrics.SurveyEngine.setEmbeddedData('total_bonus', totalBonus);
+Qualtrics.SurveyEngine.setEmbeddedData('total_payment', totalPayment);
 
 
 // qualtrics does not save embedded data from .addEmbeddedData function

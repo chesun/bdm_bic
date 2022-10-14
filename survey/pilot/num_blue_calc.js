@@ -1,12 +1,16 @@
-// calculate the number of blue jars and the number of blue balls in each jar in each scenario
+// calculate the number of blue urns and the number of blue balls in each jar in each scenario
 
 // declare an empty array for storing number of red urns
 const nRedUrns = [];
 // red balls in red urn in all scenarios
 const nRedBallsRedUrn = [];
 
+// number of scenarios
+var numScenarios = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('num_scenarios'));
+
+
 // load embedded data
-for (let i = 1; i <= 11; i++) {
+for (let i = 1; i <= numScenarios; i++) {
   nRedUrns[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_n_red_urn'));
   nRedBallsRedUrn[i - 1] = parseInt(Qualtrics.SurveyEngine.getEmbeddedData('sce_' + i + '_n_red_ball_red_urn'));
 }
@@ -18,7 +22,7 @@ const nBlueUrns = nRedUrns.map(n => 10 - n);
 const nBlueBallsRedUrn = nRedBallsRedUrn.map(n => 10 - n);
 
 // set embedded data
-for (let i = 1; i <= 11; i++) {
+for (let i = 1; i <= numScenarios; i++) {
   Qualtrics.SurveyEngine.setEmbeddedData('sce_' + i + '_n_blue_urn', nBlueUrns[i - 1]);
   Qualtrics.SurveyEngine.setEmbeddedData('sce_' + i + '_n_blue_ball_red_urn', nBlueBallsRedUrn[i - 1]);
 }
