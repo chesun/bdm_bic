@@ -1,0 +1,637 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\bdm_
+> analysis/log/clean_10_24_2022.smcl
+  log type:  smcl
+ opened on:  25 Oct 2022, 12:49:48
+
+. 
+. graph drop _all
+
+. set more off
+
+. set varabbrev off
+
+. set graphics off
+
+. set scheme s1color
+
+. set seed 1984
+
+. 
+. 
+. import delimited using $datadir/raw/bdm_40ppl_10_24_2022_for_import.csv, clea
+> r varnames(1)
+(406 vars, 42 obs)
+
+. 
+. drop if prolific_pid == ""
+(1 observation deleted)
+
+. drop if status == "Survey Preview"
+(0 observations deleted)
+
+. 
+. gen full_info = 0
+
+. replace full_info = 1 if treatment == "full_info"
+(20 real changes made)
+
+. 
+. forvalues i = 1/9 {
+  2.   local sce_`i'_guess_1_prob = sce_`i'_n_red_urn * 10
+  3. 
+.   gen sce_`i'_guess_1_misreport = 0
+  4.   replace sce_`i'_guess_1_misreport = 1 if sce_`i'_guess_1 != `sce_`i'_gue
+> ss_1_prob'
+  5. 
+.   gen sce_`i'_guess_1_misreport_up = 0
+  6.   replace sce_`i'_guess_1_misreport_up = 1 if sce_`i'_guess_1 > `sce_`i'_g
+> uess_1_prob'
+  7. 
+.   gen sce_`i'_guess_1_misreport_down = 0
+  8.   replace sce_`i'_guess_1_misreport_down = 1 if sce_`i'_guess_1 < `sce_`i'
+> _guess_1_prob'
+  9. 
+. }
+(9 real changes made)
+(7 real changes made)
+(2 real changes made)
+(13 real changes made)
+(5 real changes made)
+(8 real changes made)
+(13 real changes made)
+(6 real changes made)
+(7 real changes made)
+(14 real changes made)
+(7 real changes made)
+(7 real changes made)
+(17 real changes made)
+(6 real changes made)
+(11 real changes made)
+(11 real changes made)
+(5 real changes made)
+(6 real changes made)
+(15 real changes made)
+(7 real changes made)
+(8 real changes made)
+(15 real changes made)
+(10 real changes made)
+(5 real changes made)
+(13 real changes made)
+(5 real changes made)
+(8 real changes made)
+
+. 
+. gen n_misreports_total = 0
+
+. // misreports in scenarios where prior is less than 50%
+. gen n_misreports_lower50 = 0
+
+. // misreports in scenarios where prior is greater than 50%
+. gen n_misreports_higher50 = 0
+
+. // misreports in scenarios where prior is equal to 50%
+. gen n_misreports_50 = 0
+
+. 
+. gen n_misreports_up = 0
+
+. gen n_misreports_down = 0
+
+. 
+. 
+. 
+. forvalues i = 1/9 {
+  2.   replace n_misreports_total = n_misreports_total + sce_`i'_guess_1_misrep
+> ort
+  3.   replace n_misreports_lower50 = n_misreports_lower50 + sce_`i'_guess_1_mi
+> sreport if `sce_`i'_guess_1_prob' < 50
+  4.   replace n_misreports_higher50 = n_misreports_higher50 + sce_`i'_guess_1_
+> misreport if `sce_`i'_guess_1_prob' > 50
+  5.   replace n_misreports_50 = n_misreports_50 + sce_`i'_guess_1_misreport if
+>  `sce_`i'_guess_1_prob' == 50
+  6. 
+.   replace n_misreports_up = n_misreports_up + sce_`i'_guess_1_misreport_up
+  7.   replace n_misreports_down = n_misreports_down + sce_`i'_guess_1_misrepor
+> t_down
+  8. }
+(9 real changes made)
+(0 real changes made)
+(0 real changes made)
+(9 real changes made)
+(7 real changes made)
+(2 real changes made)
+(13 real changes made)
+(0 real changes made)
+(13 real changes made)
+(0 real changes made)
+(5 real changes made)
+(8 real changes made)
+(13 real changes made)
+(0 real changes made)
+(13 real changes made)
+(0 real changes made)
+(6 real changes made)
+(7 real changes made)
+(14 real changes made)
+(0 real changes made)
+(14 real changes made)
+(0 real changes made)
+(7 real changes made)
+(7 real changes made)
+(17 real changes made)
+(0 real changes made)
+(17 real changes made)
+(0 real changes made)
+(6 real changes made)
+(11 real changes made)
+(11 real changes made)
+(11 real changes made)
+(0 real changes made)
+(0 real changes made)
+(5 real changes made)
+(6 real changes made)
+(15 real changes made)
+(15 real changes made)
+(0 real changes made)
+(0 real changes made)
+(7 real changes made)
+(8 real changes made)
+(15 real changes made)
+(15 real changes made)
+(0 real changes made)
+(0 real changes made)
+(10 real changes made)
+(5 real changes made)
+(13 real changes made)
+(13 real changes made)
+(0 real changes made)
+(0 real changes made)
+(5 real changes made)
+(8 real changes made)
+
+. 
+. forvalues i = 1/9 {
+  2.   di "misreports by treatment in scenario `i'"
+  3.   bysort treatment: sum sce_`i'_guess_1_misreport
+  4. 
+.   di "t-test of percentage misreports in scenario `i' by treatment"
+  5.   ttest sce_`i'_guess_1_misreport, by(treatment)
+  6. }
+misreports by treatment in scenario 1
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_1_gues~t |         20          .3    .4701623          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_1_gues~t |         21    .1428571    .3585686          0          1
+
+t-test of percentage misreports in scenario 1 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20          .3    .1051315    .4701623    .0799572    .5200428
+ no_info |      21    .1428571    .0782461    .3585686   -.0203613    .3060756
+---------+--------------------------------------------------------------------
+combined |      41    .2195122    .0654459    .4190582    .0872411    .3517833
+---------+--------------------------------------------------------------------
+    diff |            .1571429    .1301893               -.1061898    .4204755
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.2070
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.8827         Pr(|T| > |t|) = 0.2347          Pr(T > t) = 0.1173
+misreports by treatment in scenario 2
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_2_gues~t |         20         .45    .5104178          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_2_gues~t |         21    .1904762    .4023739          0          1
+
+t-test of percentage misreports in scenario 2 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20         .45    .1141329    .5104178    .2111171    .6888829
+ no_info |      21    .1904762    .0878052    .4023739    .0073178    .3736346
+---------+--------------------------------------------------------------------
+combined |      41    .3170732    .0735761     .471117    .1683703     .465776
+---------+--------------------------------------------------------------------
+    diff |            .2595238    .1431616               -.0300478    .5490954
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.8128
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.9612         Pr(|T| > |t|) = 0.0776          Pr(T > t) = 0.0388
+misreports by treatment in scenario 3
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_3_gues~t |         20          .4    .5026247          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_3_gues~t |         21    .2380952    .4364358          0          1
+
+t-test of percentage misreports in scenario 3 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20          .4    .1123903    .5026247    .1647644    .6352356
+ no_info |      21    .2380952    .0952381    .4364358    .0394321    .4367584
+---------+--------------------------------------------------------------------
+combined |      41    .3170732    .0735761     .471117    .1683703     .465776
+---------+--------------------------------------------------------------------
+    diff |            .1619048    .1467995               -.1350252    .4588348
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.1029
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.8616         Pr(|T| > |t|) = 0.2768          Pr(T > t) = 0.1384
+misreports by treatment in scenario 4
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_4_gues~t |         20          .4    .5026247          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_4_gues~t |         21    .2857143      .46291          0          1
+
+t-test of percentage misreports in scenario 4 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20          .4    .1123903    .5026247    .1647644    .6352356
+ no_info |      21    .2857143    .1010153      .46291    .0750002    .4964284
+---------+--------------------------------------------------------------------
+combined |      41    .3414634    .0749777    .4800915    .1899279     .492999
+---------+--------------------------------------------------------------------
+    diff |            .1142857    .1508046               -.1907453    .4193168
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   0.7578
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.7734         Pr(|T| > |t|) = 0.4531          Pr(T > t) = 0.2266
+misreports by treatment in scenario 5
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_5_gues~t |         20          .6    .5026247          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_5_gues~t |         21    .2380952    .4364358          0          1
+
+t-test of percentage misreports in scenario 5 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20          .6    .1123903    .5026247    .3647644    .8352356
+ no_info |      21    .2380952    .0952381    .4364358    .0394321    .4367584
+---------+--------------------------------------------------------------------
+combined |      41    .4146341    .0778962     .498779    .2572001    .5720682
+---------+--------------------------------------------------------------------
+    diff |            .3619048    .1467995                .0649748    .6588348
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   2.4653
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.9909         Pr(|T| > |t|) = 0.0182          Pr(T > t) = 0.0091
+misreports by treatment in scenario 6
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_6_gues~t |         20          .4    .5026247          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_6_gues~t |         21    .1428571    .3585686          0          1
+
+t-test of percentage misreports in scenario 6 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20          .4    .1123903    .5026247    .1647644    .6352356
+ no_info |      21    .1428571    .0782461    .3585686   -.0203613    .3060756
+---------+--------------------------------------------------------------------
+combined |      41    .2682927    .0700556     .448575    .1267049    .4098804
+---------+--------------------------------------------------------------------
+    diff |            .2571429    .1358347               -.0176088    .5318945
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.8931
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.9671         Pr(|T| > |t|) = 0.0658          Pr(T > t) = 0.0329
+misreports by treatment in scenario 7
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_7_gues~t |         20         .45    .5104178          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_7_gues~t |         21    .2857143      .46291          0          1
+
+t-test of percentage misreports in scenario 7 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20         .45    .1141329    .5104178    .2111171    .6888829
+ no_info |      21    .2857143    .1010153      .46291    .0750002    .4964284
+---------+--------------------------------------------------------------------
+combined |      41    .3658537    .0761585    .4876524    .2119316    .5197758
+---------+--------------------------------------------------------------------
+    diff |            .1642857    .1520443                -.143253    .4718244
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.0805
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.8567         Pr(|T| > |t|) = 0.2866          Pr(T > t) = 0.1433
+misreports by treatment in scenario 8
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_8_gues~t |         20          .5    .5129892          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_8_gues~t |         21    .2380952    .4364358          0          1
+
+t-test of percentage misreports in scenario 8 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20          .5    .1147079    .5129892    .2599137    .7400863
+ no_info |      21    .2380952    .0952381    .4364358    .0394321    .4367584
+---------+--------------------------------------------------------------------
+combined |      41    .3658537    .0761585    .4876524    .2119316    .5197758
+---------+--------------------------------------------------------------------
+    diff |            .2619048    .1484948               -.0384543    .5622638
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.7637
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.9572         Pr(|T| > |t|) = 0.0856          Pr(T > t) = 0.0428
+misreports by treatment in scenario 9
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_9_gues~t |         20          .4    .5026247          0          1
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+sce_9_gues~t |         21    .2380952    .4364358          0          1
+
+t-test of percentage misreports in scenario 9 by treatment
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20          .4    .1123903    .5026247    .1647644    .6352356
+ no_info |      21    .2380952    .0952381    .4364358    .0394321    .4367584
+---------+--------------------------------------------------------------------
+combined |      41    .3170732    .0735761     .471117    .1683703     .465776
+---------+--------------------------------------------------------------------
+    diff |            .1619048    .1467995               -.1350252    .4588348
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.1029
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.8616         Pr(|T| > |t|) = 0.2768          Pr(T > t) = 0.1384
+
+. 
+. di "Total misreports by treatment"
+Total misreports by treatment
+
+. by treatment: sum n_misreports_total
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+n_misrepor~l |         20         3.9     3.79612          0          9
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+n_misrepor~l |         21           2    3.193744          0          9
+
+
+. 
+. di "total misreports by treatment and objective prior"
+total misreports by treatment and objective prior
+
+. by treatment: sum n_misreports_lower50 n_misreports_50 n_misreports_higher50
+
+-------------------------------------------------------------------------------
+-> treatment = full_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+n_misr~wer50 |         20        1.75    1.773341          0          4
+n_misrep~_50 |         20          .3    .4701623          0          1
+n_misr~her50 |         20        1.85    1.755443          0          4
+
+-------------------------------------------------------------------------------
+-> treatment = no_info
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+n_misr~wer50 |         21    .9047619    1.480026          0          4
+n_misrep~_50 |         21    .1428571    .3585686          0          1
+n_misr~her50 |         21     .952381    1.596126          0          4
+
+
+. 
+. 
+. di "t-test of total misreports by treatment"
+t-test of total misreports by treatment
+
+. ttest n_misreports_total, by(treatment)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20         3.9    .8488382     3.79612    2.123361    5.676639
+ no_info |      21           2    .6969321    3.193744    .5462252    3.453775
+---------+--------------------------------------------------------------------
+combined |      41    2.926829    .5602594     3.58741    1.794503    4.059156
+---------+--------------------------------------------------------------------
+    diff |                 1.9    1.093599               -.3120125    4.112013
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.7374
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.9549         Pr(|T| > |t|) = 0.0902          Pr(T > t) = 0.0451
+
+. 
+. di "t-test of misreports when objective prior < 50% by treatment"
+t-test of misreports when objective prior < 50% by treatment
+
+. ttest n_misreports_lower50, by(treatment)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20        1.75     .396531    1.773341    .9200511    2.579949
+ no_info |      21    .9047619    .3229681    1.480026    .2310623    1.578462
+---------+--------------------------------------------------------------------
+combined |      41    1.317073    .2600165    1.664918    .7915603    1.842586
+---------+--------------------------------------------------------------------
+    diff |            .8452381    .5091315               -.1845776    1.875054
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.6602
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.9475         Pr(|T| > |t|) = 0.1049          Pr(T > t) = 0.0525
+
+. 
+. di "t-test of misreports when objective prior = 50% by treatment"
+t-test of misreports when objective prior = 50% by treatment
+
+. ttest n_misreports_50, by(treatment)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20          .3    .1051315    .4701623    .0799572    .5200428
+ no_info |      21    .1428571    .0782461    .3585686   -.0203613    .3060756
+---------+--------------------------------------------------------------------
+combined |      41    .2195122    .0654459    .4190582    .0872411    .3517833
+---------+--------------------------------------------------------------------
+    diff |            .1571429    .1301893               -.1061898    .4204755
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.2070
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.8827         Pr(|T| > |t|) = 0.2347          Pr(T > t) = 0.1173
+
+. 
+. di "t-test of misreports when objective prior > 50% by treatment"
+t-test of misreports when objective prior > 50% by treatment
+
+. ttest n_misreports_higher50, by(treatment)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+full_inf |      20        1.85    .3925289    1.755443    1.028428    2.671572
+ no_info |      21     .952381    .3483033    1.596126     .225833    1.678929
+---------+--------------------------------------------------------------------
+combined |      41    1.390244    .2679599     1.71578    .8486768    1.931811
+---------+--------------------------------------------------------------------
+    diff |             .897619    .5235363                -.161333    1.956571
+------------------------------------------------------------------------------
+    diff = mean(full_inf) - mean(no_info)                         t =   1.7145
+Ho: diff = 0                                     degrees of freedom =       39
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.9528         Pr(|T| > |t|) = 0.0944          Pr(T > t) = 0.0472
+
+. 
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\bdm_
+> analysis/log/clean_10_24_2022.smcl
+  log type:  smcl
+ closed on:  25 Oct 2022, 12:49:48
+-------------------------------------------------------------------------------

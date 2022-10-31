@@ -1,0 +1,551 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
+> ics_data.smcl
+  log type:  smcl
+ opened on:  30 Oct 2022, 22:27:15
+
+. 
+. graph drop _all
+
+. set more off
+
+. set varabbrev off
+
+. set graphics off
+
+. set scheme s1color
+
+. set seed 1984
+
+. 
+. local date1 = c(current_date)
+
+. local time1 = c(current_time)
+
+. 
+. // import data that has been preliminarily cleaned in csv
+. import delimited using $datadir/raw/bdm_10_26_2022_for_import.csv, clear varn
+> ames(1)
+(406 vars, 102 obs)
+
+. 
+. // drop observations missing prolific ID, are incomplete, or from survey prev
+> iew
+. drop if prolific_pid == ""
+(1 observation deleted)
+
+. drop if status == "Survey Preview"
+(0 observations deleted)
+
+. drop if response_type != "complete"
+(2 observations deleted)
+
+. 
+. // subject ID
+. gen id = _n
+
+. label var id "Subject ID"
+
+. 
+. // delete prolific ID
+. drop prolific_pid
+
+. 
+. // drop variables that have no observations
+. drop recipientlastname recipientfirstname recipientemail externalreference //
+> /
+>   sce_10* sce_11* *rand_num* *guess_3 *q_3_bonus *q_3_pay_method
+
+. 
+. 
+. //recode the start and end date into Stata date time numeric format
+. gen recordeddate_temp = date(startdate, "MDYhm")
+
+. format recordeddate_temp %tdnn/dd/CCYY
+
+. drop recordeddate
+
+. rename recordeddate_temp recordeddate
+
+. label var recordeddate "Survey recorded date"
+
+. 
+. rename durationinseconds duration_sec
+
+. 
+. 
+. // incentive reading time
+. rename q25_pagesubmit incentive_time
+
+. label var incentive_time "Read time for incentives"
+
+. 
+. // timing for reporting guesses, in seconds
+. rename q43_pagesubmit belief1_time_sce1
+
+. rename q49_pagesubmit belief2_time_sce1
+
+. 
+. rename q55_pagesubmit belief1_time_sce2
+
+. rename q61_pagesubmit belief2_time_sce2
+
+. 
+. rename q67_pagesubmit belief1_time_sce3
+
+. rename q73_pagesubmit belief2_time_sce3
+
+. 
+. rename q79_pagesubmit belief1_time_sce4
+
+. rename q85_pagesubmit belief2_time_sce4
+
+. 
+. rename q93_pagesubmit belief1_time_sce5
+
+. rename q99_pagesubmit belief2_time_sce5
+
+. 
+. rename q105_pagesubmit belief1_time_sce6
+
+. rename q111_pagesubmit belief2_time_sce6
+
+. 
+. rename q117_pagesubmit belief1_time_sce7
+
+. rename q123_pagesubmit belief2_time_sce7
+
+. 
+. rename q129_pagesubmit belief1_time_sce8
+
+. rename q135_pagesubmit belief2_time_sce8
+
+. 
+. rename q144_pagesubmit belief1_time_sce9
+
+. rename q150_pagesubmit belief2_time_sce9
+
+. 
+. rename q163 guess_process
+
+. rename q164 feedback
+
+. rename q165 age
+
+. rename q166 education
+
+. rename q167 gender
+
+. replace gender = q167_4_text if gender == "Other (please specify)"
+(1 real change made)
+
+. rename q168 race
+
+. replace race = q168_6_text if race == "Other"
+(3 real changes made)
+
+. rename q169 coursework
+
+. rename q170 instruction_confusion
+
+. 
+. 
+. 
+. 
+. // rename variables for reshape
+. forvalues i = 1/9 {
+  2.   // prior
+.   rename sce_`i'_guess_1 belief1_sce`i'
+  3.   // update
+.   rename sce_`i'_guess_2 belief2_sce`i'
+  4. 
+.   // number of red urns
+.   rename sce_`i'_n_red_urn n_red_urn_sce`i'
+  5.   // number of red balls in red urn
+.   rename sce_`i'_n_red_ball_red_urn n_red_ball_rurn_sce`i'
+  6.   // color of selected urn
+.   rename sce_`i'_urn_color urn_sce`i'
+  7.   // color of the first ball ball
+.   rename sce_`i'_ball_1_color ball1_sce`i'
+  8. 
+. }
+
+. 
+. 
+. // dummies for answering the incentive understanding questions at the end of 
+> survey correctly
+. gen bdm_check_1_pass = .
+(99 missing values generated)
+
+. replace bdm_check_1_pass = 1 if q157 == "Number Lottery"
+(39 real changes made)
+
+. replace bdm_check_1_pass = 0 if q157 != "Number Lottery" & q157 != ""
+(6 real changes made)
+
+. 
+. gen bdm_check_2_pass = .
+(99 missing values generated)
+
+. replace bdm_check_2_pass = 1 if q158 == "I win the bonus with 20% chance"
+(25 real changes made)
+
+. replace bdm_check_2_pass = 0 if q158 != "I win the bonus with 20% chance" & q
+> 158 != ""
+(20 real changes made)
+
+. 
+. gen bdm_check_3_pass = .
+(99 missing values generated)
+
+. replace bdm_check_3_pass = 1 if q160 == "Event Lottery"
+(37 real changes made)
+
+. replace bdm_check_3_pass = 0 if q160 != "Event Lottery" & q160 != ""
+(8 real changes made)
+
+. 
+. gen bdm_check_4_pass = .
+(99 missing values generated)
+
+. replace bdm_check_4_pass = 1 if q161 == "I win the bonus if the selected urn 
+> is red"
+(31 real changes made)
+
+. replace bdm_check_4_pass = 0 if q161 != "I win the bonus if the selected urn 
+> is red" & q161 != ""
+(14 real changes made)
+
+. 
+. // number of correct answers for the incentive understanding checks
+. gen n_bdm_check_pass = bdm_check_1_pass ///
+>   + bdm_check_2_pass ///
+>   + bdm_check_3_pass ///
+>   + bdm_check_4_pass
+(54 missing values generated)
+
+. 
+. // answered all incentive understanding check questions at the end of survey 
+> correctly
+. gen bdm_check_pass_all = .
+(99 missing values generated)
+
+. replace bdm_check_pass_all = 1 if n_bdm_check_pass == 4
+(23 real changes made)
+
+. replace bdm_check_pass_all = 0 if n_bdm_check_pass < 4 & n_bdm_check_pass != 
+> .
+(22 real changes made)
+
+. 
+. 
+. rename q157 bdm_check_1
+
+. rename q158 bdm_check_2
+
+. rename q160 bdm_check_3
+
+. rename q161 bdm_check_4
+
+. 
+. 
+. 
+. // dummmy for full info treatment
+. gen full_info = 0
+
+. replace full_info = 1 if treatment == "full_info"
+(50 real changes made)
+
+. 
+. forvalues i = 1/9 {
+  2.   // objective prior in percentage points
+.   gen prior_sce`i' = n_red_urn_sce`i' * 10
+  3. 
+.   // distance to true prior
+.   gen belief1_dist_sce`i' = belief1_sce`i' - prior_sce`i'
+  4.   label var belief1_dist_sce`i' "Distance to objective prior in scenario `
+> i'"
+  5. 
+.   // misreporting in scenario i first question guess
+.   gen belief1_false_sce`i' = 0
+  6.   replace belief1_false_sce`i' = 1 if belief1_sce`i' != prior_sce`i'
+  7. 
+. 
+.   // tolerance band 5, inclusive
+.   gen belief1_false_band_5_sce`i' = 0
+  8.   replace belief1_false_band_5_sce`i' = 1 if abs(belief1_sce`i' - prior_sc
+> e`i') > 5
+  9. 
+.   // direction of misreporting
+.   gen belief1_up_sce`i' = 0
+ 10.   replace belief1_up_sce`i' = 1 if belief1_sce`i' > prior_sce`i'
+ 11. 
+.   gen belief1_down_sce`i' = 0
+ 12.   replace belief1_down_sce`i' = 1 if belief1_sce`i' < prior_sce`i'
+ 13. 
+. }
+(22 real changes made)
+(16 real changes made)
+(18 real changes made)
+(4 real changes made)
+(37 real changes made)
+(22 real changes made)
+(14 real changes made)
+(23 real changes made)
+(32 real changes made)
+(18 real changes made)
+(18 real changes made)
+(14 real changes made)
+(30 real changes made)
+(17 real changes made)
+(19 real changes made)
+(11 real changes made)
+(37 real changes made)
+(19 real changes made)
+(16 real changes made)
+(21 real changes made)
+(28 real changes made)
+(14 real changes made)
+(14 real changes made)
+(14 real changes made)
+(32 real changes made)
+(15 real changes made)
+(15 real changes made)
+(17 real changes made)
+(31 real changes made)
+(17 real changes made)
+(22 real changes made)
+(9 real changes made)
+(27 real changes made)
+(8 real changes made)
+(14 real changes made)
+(13 real changes made)
+
+. 
+. 
+. // total number of misreports
+. gen n_false_total = 0
+
+. // misreports in scenarios where prior is less than 50%
+. gen n_false_lower50 = 0
+
+. // misreports in scenarios where prior is greater than 50%
+. gen n_false_higher50 = 0
+
+. // misreports in scenarios where prior is equal to 50%
+. gen n_false_50 = 0
+
+. 
+. gen n_false_up = 0
+
+. gen n_false_down = 0
+
+. 
+. 
+. 
+. 
+. 
+. forvalues i = 1/9 {
+  2.   replace n_false_total = n_false_total + belief1_false_sce`i'
+  3.   replace n_false_lower50 = n_false_lower50 + belief1_false_sce`i' if prio
+> r_sce`i' < 50
+  4.   replace n_false_higher50 = n_false_higher50 + belief1_false_sce`i' if pr
+> ior_sce`i' > 50
+  5.   replace n_false_50 = n_false_50 + belief1_false_sce`i' if prior_sce`i' =
+> = 50
+  6. 
+. }
+(22 real changes made)
+(0 real changes made)
+(0 real changes made)
+(22 real changes made)
+(37 real changes made)
+(0 real changes made)
+(37 real changes made)
+(0 real changes made)
+(32 real changes made)
+(0 real changes made)
+(32 real changes made)
+(0 real changes made)
+(30 real changes made)
+(0 real changes made)
+(30 real changes made)
+(0 real changes made)
+(37 real changes made)
+(0 real changes made)
+(37 real changes made)
+(0 real changes made)
+(28 real changes made)
+(28 real changes made)
+(0 real changes made)
+(0 real changes made)
+(32 real changes made)
+(32 real changes made)
+(0 real changes made)
+(0 real changes made)
+(31 real changes made)
+(31 real changes made)
+(0 real changes made)
+(0 real changes made)
+(27 real changes made)
+(27 real changes made)
+(0 real changes made)
+(0 real changes made)
+
+. 
+. 
+. save $datadir/clean/bdm_full_sample_wide.dta, replace
+file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
+> full_sample_wide.dta saved
+
+. 
+. keep duration_sec belief* ///
+>   guess_process feedback age education gender race coursework instruction_con
+> fusion ///
+>   total_bonus total_payment ///
+>   n_red* urn* ball* treatment request_info id recordeddate ///
+>   bdm_check* n_bdm* full_info prior* n_false*
+
+. 
+. order id treatment prior* belief?_sce? belief*false_sce* n_false*
+
+. 
+. // reshape into long format
+. reshape long prior_sce belief1_sce belief2_sce belief1_false_sce ///
+>   belief1_time_sce belief2_time_sce ///
+>   n_red_urn_sce n_red_ball_rurn_sce urn_sce ball1_sce ///
+>   belief1_dist_sce belief1_false_band_5_sce ///
+>   belief1_up_sce belief1_down_sce, i(id) j(scenario)
+(note: j = 1 2 3 4 5 6 7 8 9)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                       99   ->     891
+Number of variables                 158   ->      47
+j variable (9 values)                     ->   scenario
+xij variables:
+   prior_sce1 prior_sce2 ... prior_sce9   ->   prior_sce
+belief1_sce1 belief1_sce2 ... belief1_sce9->   belief1_sce
+belief2_sce1 belief2_sce2 ... belief2_sce9->   belief2_sce
+belief1_false_sce1 belief1_false_sce2 ... belief1_false_sce9->belief1_false_sce
+belief1_time_sce1 belief1_time_sce2 ... belief1_time_sce9->belief1_time_sce
+belief2_time_sce1 belief2_time_sce2 ... belief2_time_sce9->belief2_time_sce
+n_red_urn_sce1 n_red_urn_sce2 ... n_red_urn_sce9->n_red_urn_sce
+n_red_ball_rurn_sce1 n_red_ball_rurn_sce2 ... n_red_ball_rurn_sce9->n_red_ball_
+> rurn_sce
+         urn_sce1 urn_sce2 ... urn_sce9   ->   urn_sce
+   ball1_sce1 ball1_sce2 ... ball1_sce9   ->   ball1_sce
+belief1_dist_sce1 belief1_dist_sce2 ... belief1_dist_sce9->belief1_dist_sce
+belief1_false_band_5_sce1 belief1_false_band_5_sce2 ... belief1_false_band_5_sc
+> e9->belief1_false_band_5_sce
+belief1_up_sce1 belief1_up_sce2 ... belief1_up_sce9->belief1_up_sce
+belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9->belief1_down_sce
+-----------------------------------------------------------------------------
+
+. 
+. rename prior_sce prior
+
+. rename belief1_sce belief1
+
+. rename belief2_sce belief2
+
+. rename belief1_false_sce belief1_false
+
+. rename belief1_time_sce belief1_time_sec
+
+. rename belief2_time_sce belief2_time_sec
+
+. rename n_red_urn_sce n_red_urn
+
+. rename n_red_ball_rurn_sce n_red_ball_rurn
+
+. rename urn_sce urn
+
+. rename ball1_sce ball1
+
+. rename belief1_dist_sce belief1_dist
+
+. rename belief1_false_band_5_sce belief1_false_band_5
+
+. rename belief1_up_sce belief1_up
+
+. rename belief1_down_sce belief1_down
+
+. 
+. label var scenario "Scenario number"
+
+. label var prior "Objective prior"
+
+. label var belief1 "Reported prior"
+
+. label var belief2 "Reported update"
+
+. 
+. label var belief1_time_sec "Time in seconds for prior report"
+
+. label var belief2_time_sec "Time in seconds for update report"
+
+. 
+. gen belief1_time_min = belief1_time_sec/60
+
+. label var belief1_time_min "Time in minutes for prior report"
+
+. 
+. gen belief2_time_min = belief2_time_sec/60
+
+. label var belief2_time_min "Time in minutes for update report"
+
+. 
+. label var belief1_false "Misreported prior"
+
+. label var n_false_lower50 "# of misreports for prior < 50%"
+
+. label var n_false_higher50 "# of misreports for prior > 50%"
+
+. 
+. label var belief1_up "Misreporting up prior"
+
+. label var belief1_down "Misreporting down prior"
+
+. 
+. label var urn "Selected urn"
+
+. label var ball1 "1st selected ball"
+
+. 
+. label data "Full sample with analysis variables in long format"
+
+. 
+. 
+. 
+. gen belief1_dist_abs = abs(belief1_dist)
+
+. 
+. 
+. save $datadir/clean/bdm_full_sample_long.dta, replace
+file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
+> full_sample_long.dta saved
+
+. 
+. 
+. 
+. local date2 = c(current_date)
+
+. local time2 = c(current_time)
+
+. 
+. di "Do file clean_qualtrics_data.do start date time: `date1' `time1'"
+Do file clean_qualtrics_data.do start date time: 30 Oct 2022 22:27:15
+
+. di "End date time: `date2' `time2'"
+End date time: 30 Oct 2022 22:27:15
+
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
+> ics_data.smcl
+  log type:  smcl
+ closed on:  30 Oct 2022, 22:27:15
+-------------------------------------------------------------------------------

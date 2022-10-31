@@ -1,0 +1,1260 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+  log type:  smcl
+ opened on:  30 Oct 2022, 22:27:15
+
+. 
+. graph drop _all
+
+. set more off
+
+. set varabbrev off
+
+. set graphics on
+
+. set scheme s1color
+
+. set seed 1984
+
+. 
+. local date1 = c(current_date)
+
+. local time1 = c(current_time)
+
+. 
+. 
+. // load data
+. use $datadir/clean/bdm_full_sample_long, clear
+(Full sample with analysis variables in long format)
+
+. 
+. tempfile full_sample
+
+. save `full_sample'
+file C:\Users\sunch\AppData\Local\Temp\ST_01000001.tmp saved
+
+. 
+. 
+. //------------------------------------------------------------------------
+. //  magnitude of false reports
+. //------------------------------------------------------------------------
+. sum belief1_dist_abs if belief1_false==1 & full_info==1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+belief1_di~s |        159    10.51572    9.784291          1         50
+
+. sum belief1_dist_abs if belief1_false==1 & full_info==0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+belief1_di~s |        117    10.01709    11.14016          1         60
+
+. 
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. //  OLS for false reports by scenario
+. //------------------------------------------------------------------------
+. 
+. // regress false report on treatment, by scenario
+. forvalues i = 1/9 {
+  2. 
+.   di "************"
+  3.   di "false reports on treatment in scenario `i', clustered standard error
+> s at individual level"
+  4.   di "************"
+  5. 
+.   reg belief1_false full_info if scenario==`i', vce(cluster id)
+  6. }
+************
+false reports on treatment in scenario 1, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       1.96
+                                                Prob > F          =     0.1649
+                                                R-squared         =     0.0197
+                                                Root MSE          =     .41584
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .1167347     .08343     1.40   0.165    -.0488295    .2822989
+       _cons |   .1632653   .0533426     3.06   0.003     .0574086     .269122
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 2, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       5.03
+                                                Prob > F          =     0.0271
+                                                R-squared         =     0.0492
+                                                Root MSE          =     .47658
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .2146939   .0956811     2.24   0.027     .0248178      .40457
+       _cons |   .2653061   .0637178     4.16   0.000     .1388603     .391752
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 3, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.62
+                                                Prob > F          =     0.4343
+                                                R-squared         =     0.0063
+                                                Root MSE          =     .47102
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0742857   .0946246     0.79   0.434    -.1134937    .2620652
+       _cons |   .2857143   .0651982     4.38   0.000     .1563306     .415098
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 4, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.65
+                                                Prob > F          =     0.4236
+                                                R-squared         =     0.0066
+                                                Root MSE          =     .46275
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0746939   .0929542     0.80   0.424    -.1097708    .2591585
+       _cons |   .2653061   .0637178     4.16   0.000     .1388603     .391752
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 5, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.29
+                                                Prob > F          =     0.5897
+                                                R-squared         =     0.0030
+                                                Root MSE          =     .48802
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0530612   .0980726     0.54   0.590    -.1415606    .2476831
+       _cons |   .3469388   .0686969     5.05   0.000      .210612    .4832655
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 6, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       1.63
+                                                Prob > F          =     0.2053
+                                                R-squared         =     0.0164
+                                                Root MSE          =     .45124
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .1155102    .090591     1.28   0.205    -.0642647    .2952851
+       _cons |   .2244898   .0602179     3.73   0.000     .1049893    .3439903
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 7, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.62
+                                                Prob > F          =     0.4343
+                                                R-squared         =     0.0063
+                                                Root MSE          =     .47102
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0742857   .0946246     0.79   0.434    -.1134937    .2620652
+       _cons |   .2857143   .0651982     4.38   0.000     .1563306     .415098
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 8, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       1.02
+                                                Prob > F          =     0.3142
+                                                R-squared         =     0.0104
+                                                Root MSE          =     .46608
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0946939   .0936107     1.01   0.314    -.0910735    .2804613
+       _cons |   .2653061   .0637178     4.16   0.000     .1388603     .391752
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 9, clustered standard errors at individu
+> al level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.08
+                                                Prob > F          =     0.7767
+                                                R-squared         =     0.0008
+                                                Root MSE          =     .44974
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |  -.0257143   .0904331    -0.28   0.777    -.2051758    .1537473
+       _cons |   .2857143   .0651982     4.38   0.000     .1563306     .415098
+------------------------------------------------------------------------------
+
+. 
+. 
+. // regress false report with tolerance band of 5 on treatment, by scenario
+. forvalues i = 1/9 {
+  2. 
+.   di "************"
+  3.   di "false reports with tolerance band of 5 on treatment in scenario `i',
+>  clustered standard errors at individual level"
+  4.   di "************"
+  5. 
+.   reg belief1_false_band_5 full_info if scenario==`i', vce(cluster id)
+  6. }
+************
+false reports with tolerance band of 5 on treatment in scenario 1, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       2.57
+                                                Prob > F          =     0.1120
+                                                R-squared         =     0.0257
+                                                Root MSE          =     .36707
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .1179592   .0735615     1.60   0.112    -.0280211    .2639395
+       _cons |   .1020408   .0436867     2.34   0.022      .015346    .1887356
+------------------------------------------------------------------------------
+************
+false reports with tolerance band of 5 on treatment in scenario 2, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       5.84
+                                                Prob > F          =     0.0175
+                                                R-squared         =     0.0564
+                                                Root MSE          =     .40798
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |    .197551   .0817307     2.42   0.017     .0353591     .359743
+       _cons |    .122449   .0473094     2.59   0.011      .028565    .2163329
+------------------------------------------------------------------------------
+************
+false reports with tolerance band of 5 on treatment in scenario 3, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.98
+                                                Prob > F          =     0.3239
+                                                R-squared         =     0.0100
+                                                Root MSE          =      .3877
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0771429   .0778026     0.99   0.324    -.0772539    .2315396
+       _cons |   .1428571   .0505023     2.83   0.006     .0426369    .2430773
+------------------------------------------------------------------------------
+************
+false reports with tolerance band of 5 on treatment in scenario 4, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       1.66
+                                                Prob > F          =     0.2010
+                                                R-squared         =     0.0167
+                                                Root MSE          =      .3778
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |    .097551    .075769     1.29   0.201    -.0528101    .2479121
+       _cons |    .122449   .0473094     2.59   0.011      .028565    .2163329
+------------------------------------------------------------------------------
+************
+false reports with tolerance band of 5 on treatment in scenario 5, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.04
+                                                Prob > F          =     0.8386
+                                                R-squared         =     0.0004
+                                                Root MSE          =     .39776
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0163265   .0799313     0.20   0.839    -.1422946    .1749477
+       _cons |   .1836735   .0558842     3.29   0.001     .0727731    .2945738
+------------------------------------------------------------------------------
+************
+false reports with tolerance band of 5 on treatment in scenario 6, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       1.23
+                                                Prob > F          =     0.2692
+                                                R-squared         =     0.0125
+                                                Root MSE          =     .34981
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0779592   .0701526     1.11   0.269    -.0612564    .2171748
+       _cons |   .1020408   .0436867     2.34   0.022      .015346    .1887356
+------------------------------------------------------------------------------
+************
+false reports with tolerance band of 5 on treatment in scenario 7, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.10
+                                                Prob > F          =     0.7500
+                                                R-squared         =     0.0011
+                                                Root MSE          =     .36204
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |  -.0232653   .0728223    -0.32   0.750    -.1677788    .1212482
+       _cons |   .1632653   .0533426     3.06   0.003     .0574086     .269122
+------------------------------------------------------------------------------
+************
+false reports with tolerance band of 5 on treatment in scenario 8, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.05
+                                                Prob > F          =     0.8274
+                                                R-squared         =     0.0005
+                                                Root MSE          =     .38091
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0167347   .0765396     0.22   0.827    -.1351556     .168625
+       _cons |   .1632653   .0533426     3.06   0.003     .0574086     .269122
+------------------------------------------------------------------------------
+************
+false reports with tolerance band of 5 on treatment in scenario 9, clustered st
+> andard errors at individual level
+************
+
+Linear regression                               Number of obs     =         99
+                                                F(1, 98)          =       0.58
+                                                Prob > F          =     0.4491
+                                                R-squared         =     0.0059
+                                                Root MSE          =     .27452
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |  -.0420408   .0553153    -0.76   0.449    -.1518122    .0677306
+       _cons |   .1020408   .0436867     2.34   0.022      .015346    .1887356
+------------------------------------------------------------------------------
+
+. 
+. /*  there is nothing here */
+. 
+. // regress false report on treatment and passing all bdm understanding checks
+> , by scenario
+. preserve
+
+. 
+. keep if bdm_check_pass_all==0 | bdm_check_pass_all ==.
+(207 observations deleted)
+
+. 
+. forvalues i = 1/9 {
+  2. 
+.   di "************"
+  3.   di "false reports on treatment in scenario `i' restricted to subjects wh
+> o did not pass all bdm understanding checks, clustered standard errors at ind
+> ividual level"
+  4.   di "************"
+  5. 
+.   reg belief1_false full_info if scenario==`i', vce(cluster id)
+  6. }
+************
+false reports on treatment in scenario 1 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       4.95
+                                                Prob > F          =     0.0291
+                                                R-squared         =     0.0728
+                                                Root MSE          =     .42255
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .2441421   .1097575     2.22   0.029      .025494    .4627902
+       _cons |   .1632653   .0535099     3.05   0.003     .0566682    .2698624
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 2 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       4.72
+                                                Prob > F          =     0.0330
+                                                R-squared         =     0.0641
+                                                Root MSE          =     .46921
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .2532124   .1165415     2.17   0.033     .0210499    .4853749
+       _cons |   .2653061   .0639175     4.15   0.000     .1379759    .3926363
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 3 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       2.78
+                                                Prob > F          =     0.0995
+                                                R-squared         =     0.0383
+                                                Root MSE          =     .47563
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .1957672   .1173625     1.67   0.099    -.0380309    .4295653
+       _cons |   .2857143   .0654026     4.37   0.000     .1554257    .4160029
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 4 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       2.38
+                                                Prob > F          =     0.1270
+                                                R-squared         =     0.0333
+                                                Root MSE          =     .46814
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .1791383   .1160929     1.54   0.127    -.0521305    .4104072
+       _cons |   .2653061   .0639175     4.15   0.000     .1379759    .3926363
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 5 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       0.67
+                                                Prob > F          =     0.4148
+                                                R-squared         =     0.0092
+                                                Root MSE          =     .49002
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0975057   .1189159     0.82   0.415     -.139387    .3343984
+       _cons |   .3469388   .0689122     5.03   0.000     .2096586     .484219
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 6 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       3.71
+                                                Prob > F          =     0.0579
+                                                R-squared         =     0.0525
+                                                Root MSE          =     .45318
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .2199546   .1141975     1.93   0.058    -.0075385    .4474478
+       _cons |   .2244898   .0604067     3.72   0.000     .1041535    .3448261
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 7 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       1.84
+                                                Prob > F          =     0.1787
+                                                R-squared         =     0.0256
+                                                Root MSE          =     .47458
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .1587302   .1169171     1.36   0.179    -.0741806    .3916409
+       _cons |   .2857143   .0654026     4.37   0.000     .1554257    .4160029
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 8 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       3.44
+                                                Prob > F          =     0.0675
+                                                R-squared         =     0.0476
+                                                Root MSE          =     .46921
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .2161754   .1165415     1.85   0.068    -.0159871    .4483378
+       _cons |   .2653061   .0639175     4.15   0.000     .1379759    .3926363
+------------------------------------------------------------------------------
+************
+false reports on treatment in scenario 9 restricted to subjects who did not pas
+> s all bdm understanding checks, clustered standard errors at individual level
+************
+
+Linear regression                               Number of obs     =         76
+                                                F(1, 75)          =       0.18
+                                                Prob > F          =     0.6742
+                                                R-squared         =     0.0025
+                                                Root MSE          =     .46499
+
+                                    (Std. Err. adjusted for 76 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |    .047619    .112829     0.42   0.674    -.1771479     .272386
+       _cons |   .2857143   .0654026     4.37   0.000     .1554257    .4160029
+------------------------------------------------------------------------------
+
+. 
+. restore, preserve
+
+. keep if bdm_check_pass_all !=.
+(486 observations deleted)
+
+. 
+. forvalues i = 1/9 {
+  2. 
+.   forvalues j = 1/4 {
+  3. 
+.       di "************"
+  4.       di "false reports by bdm check question `j' in scenario `i' in full 
+> info treatment"
+  5.       di "************"
+  6. 
+.       tab belief1_false bdm_check_`j'_pass if scenario==`i'
+  7.   }
+  8. }
+************
+false reports by bdm check question 1 in scenario 1 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         2         30 |        32 
+         1 |         4          9 |        13 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 1 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        11         21 |        32 
+         1 |         9          4 |        13 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 1 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         4         28 |        32 
+         1 |         4          9 |        13 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 1 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         8         24 |        32 
+         1 |         6          7 |        13 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+************
+false reports by bdm check question 1 in scenario 2 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         2         20 |        22 
+         1 |         4         19 |        23 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 2 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         9         13 |        22 
+         1 |        11         12 |        23 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 2 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         3         19 |        22 
+         1 |         5         18 |        23 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 2 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         5         17 |        22 
+         1 |         9         14 |        23 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+************
+false reports by bdm check question 1 in scenario 3 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         1         27 |        28 
+         1 |         5         12 |        17 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 3 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        10         18 |        28 
+         1 |        10          7 |        17 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 3 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         3         25 |        28 
+         1 |         5         12 |        17 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 3 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         5         23 |        28 
+         1 |         9          8 |        17 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+************
+false reports by bdm check question 1 in scenario 4 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         2         28 |        30 
+         1 |         4         11 |        15 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 4 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        12         18 |        30 
+         1 |         8          7 |        15 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 4 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         3         27 |        30 
+         1 |         5         10 |        15 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 4 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         7         23 |        30 
+         1 |         7          8 |        15 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+************
+false reports by bdm check question 1 in scenario 5 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         1         26 |        27 
+         1 |         5         13 |        18 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 5 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        12         15 |        27 
+         1 |         8         10 |        18 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 5 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         3         24 |        27 
+         1 |         5         13 |        18 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 5 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         6         21 |        27 
+         1 |         8         10 |        18 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+************
+false reports by bdm check question 1 in scenario 6 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         2         27 |        29 
+         1 |         4         12 |        16 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 6 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        11         18 |        29 
+         1 |         9          7 |        16 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 6 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         3         26 |        29 
+         1 |         5         11 |        16 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 6 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         6         23 |        29 
+         1 |         8          8 |        16 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+************
+false reports by bdm check question 1 in scenario 7 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         2         26 |        28 
+         1 |         4         13 |        17 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 7 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        11         17 |        28 
+         1 |         9          8 |        17 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 7 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         4         24 |        28 
+         1 |         4         13 |        17 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 7 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         7         21 |        28 
+         1 |         7         10 |        17 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+************
+false reports by bdm check question 1 in scenario 8 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         1         29 |        30 
+         1 |         5         10 |        15 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 8 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        12         18 |        30 
+         1 |         8          7 |        15 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 8 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         3         27 |        30 
+         1 |         5         10 |        15 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 8 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         6         24 |        30 
+         1 |         8          7 |        15 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+************
+false reports by bdm check question 1 in scenario 9 in full info treatment
+************
+
+Misreporte |   bdm_check_1_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         3         31 |        34 
+         1 |         3          8 |        11 
+-----------+----------------------+----------
+     Total |         6         39 |        45 
+
+************
+false reports by bdm check question 2 in scenario 9 in full info treatment
+************
+
+Misreporte |   bdm_check_2_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        15         19 |        34 
+         1 |         5          6 |        11 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+************
+false reports by bdm check question 3 in scenario 9 in full info treatment
+************
+
+Misreporte |   bdm_check_3_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         4         30 |        34 
+         1 |         4          7 |        11 
+-----------+----------------------+----------
+     Total |         8         37 |        45 
+
+************
+false reports by bdm check question 4 in scenario 9 in full info treatment
+************
+
+Misreporte |   bdm_check_4_pass
+   d prior |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         9         25 |        34 
+         1 |         5          6 |        11 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+
+. 
+. /* NOTE: false reports are not driven by any particular bdm check question */
+. 
+. restore, preserve
+
+. collapse (mean) bdm_check*pass, by(id)
+
+. 
+. 
+.   forvalues j = 1/4 {
+  2. 
+.       di "************"
+  3.       di "tabulation of subjects passing bdm check question `j' in full in
+> fo treatment"
+  4.       di "************"
+  5. 
+.       tab bdm_check_`j'_pass
+  6.   }
+************
+tabulation of subjects passing bdm check question 1 in full info treatment
+************
+
+     (mean) |
+bdm_check_1 |
+      _pass |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |          6       13.33       13.33
+          1 |         39       86.67      100.00
+------------+-----------------------------------
+      Total |         45      100.00
+************
+tabulation of subjects passing bdm check question 2 in full info treatment
+************
+
+     (mean) |
+bdm_check_2 |
+      _pass |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |         20       44.44       44.44
+          1 |         25       55.56      100.00
+------------+-----------------------------------
+      Total |         45      100.00
+************
+tabulation of subjects passing bdm check question 3 in full info treatment
+************
+
+     (mean) |
+bdm_check_3 |
+      _pass |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |          8       17.78       17.78
+          1 |         37       82.22      100.00
+------------+-----------------------------------
+      Total |         45      100.00
+************
+tabulation of subjects passing bdm check question 4 in full info treatment
+************
+
+     (mean) |
+bdm_check_4 |
+      _pass |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |         14       31.11       31.11
+          1 |         31       68.89      100.00
+------------+-----------------------------------
+      Total |         45      100.00
+
+. 
+. 
+. 
+. //relationship between bdm check questions
+. 
+.   di "************"
+************
+
+.   di "tabulation of subjects passing bdm check question 1 and 2 in scenario `
+> i' in full info treatment"
+tabulation of subjects passing bdm check question 1 and 2 in scenario  in full 
+> info treatment
+
+.   di "************"
+************
+
+. 
+.   tab bdm_check_1_pass bdm_check_2_pass
+
+    (mean) |        (mean)
+bdm_check_ |   bdm_check_2_pass
+    1_pass |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         5          1 |         6 
+         1 |        15         24 |        39 
+-----------+----------------------+----------
+     Total |        20         25 |        45 
+
+
+. 
+.   di "************"
+************
+
+.   di "tabulation of subjects passing bdm check question 3 and 4 in scenario `
+> i' in full info treatment"
+tabulation of subjects passing bdm check question 3 and 4 in scenario  in full 
+> info treatment
+
+.   di "************"
+************
+
+. 
+.   tab bdm_check_3_pass bdm_check_4_pass
+
+    (mean) |        (mean)
+bdm_check_ |   bdm_check_4_pass
+    3_pass |         0          1 |     Total
+-----------+----------------------+----------
+         0 |         7          1 |         8 
+         1 |         7         30 |        37 
+-----------+----------------------+----------
+     Total |        14         31 |        45 
+
+
+. 
+. /* Result: almost everyone who passed check 1 passed check 2, and same for
+> check 3 and 4, except 1 subject in both cases */
+. 
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. // 2. Total number of false reports for each subject by scenario and treatmen
+> t
+. //------------------------------------------------------------------------
+. restore, preserve
+
+. 
+. collapse (sum) n_false=belief1_false n_false_band_5=belief1_false_band_5 ///
+>   (mean) bdm_check*pass n_bdm_check_pass full_info ///
+>   (firstnm) instruction_confusion coursework ///
+>   , by(id)
+
+. 
+. 
+. tab n_false
+
+      (sum) |
+belief1_fal |
+         se |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |         41       41.41       41.41
+          1 |         15       15.15       56.57
+          2 |          3        3.03       59.60
+          3 |          7        7.07       66.67
+          4 |          3        3.03       69.70
+          5 |          6        6.06       75.76
+          6 |          3        3.03       78.79
+          7 |          6        6.06       84.85
+          8 |          3        3.03       87.88
+          9 |         12       12.12      100.00
+------------+-----------------------------------
+      Total |         99      100.00
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. local date2 = c(current_date)
+
+. local time2 = c(current_time)
+
+. 
+. di "Do file explore.do start date time: `date1' `time1'"
+Do file explore.do start date time: 30 Oct 2022 22:27:15
+
+. di "End date time: `date2' `time2'"
+End date time: 30 Oct 2022 22:27:16
+
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+  log type:  smcl
+ closed on:  30 Oct 2022, 22:27:16
+-------------------------------------------------------------------------------

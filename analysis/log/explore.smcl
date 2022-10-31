@@ -1,0 +1,1224 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}30 Oct 2022, 22:27:15
+{txt}
+{com}. 
+. graph drop _all
+{txt}
+{com}. set more off
+{txt}
+{com}. set varabbrev off
+{txt}
+{com}. set graphics on
+{txt}
+{com}. set scheme s1color
+{txt}
+{com}. set seed 1984
+{txt}
+{com}. 
+. local date1 = c(current_date)
+{txt}
+{com}. local time1 = c(current_time)
+{txt}
+{com}. 
+. 
+. // load data
+. use $datadir/clean/bdm_full_sample_long, clear
+{txt}(Full sample with analysis variables in long format)
+
+{com}. 
+. tempfile full_sample
+{txt}
+{com}. save `full_sample'
+{txt}file C:\Users\sunch\AppData\Local\Temp\ST_01000001.tmp saved
+
+{com}. 
+. 
+. //------------------------------------------------------------------------
+. //  magnitude of false reports
+. //------------------------------------------------------------------------
+. sum belief1_dist_abs if belief1_false==1 & full_info==1
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+belief1_di~s {c |}{res}        159    10.51572    9.784291          1         50
+{txt}
+{com}. sum belief1_dist_abs if belief1_false==1 & full_info==0
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+belief1_di~s {c |}{res}        117    10.01709    11.14016          1         60
+{txt}
+{com}. 
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. //  OLS for false reports by scenario
+. //------------------------------------------------------------------------
+. 
+. // regress false report on treatment, by scenario
+. forvalues i = 1/9 {c -(}
+{txt}  2{com}. 
+.   di "************"
+{txt}  3{com}.   di "false reports on treatment in scenario `i', clustered standard errors at individual level"
+{txt}  4{com}.   di "************"
+{txt}  5{com}. 
+.   reg belief1_false full_info if scenario==`i', vce(cluster id)
+{txt}  6{com}. {c )-}
+************
+false reports on treatment in scenario 1, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     1.96
+                                                {txt}Prob > F          = {res}    0.1649
+                                                {txt}R-squared         = {res}    0.0197
+                                                {txt}Root MSE          =    {res} .41584
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .1167347{col 26}{space 2}   .08343{col 37}{space 1}    1.40{col 46}{space 3}0.165{col 54}{space 4}-.0488295{col 67}{space 3} .2822989
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1632653{col 26}{space 2} .0533426{col 37}{space 1}    3.06{col 46}{space 3}0.003{col 54}{space 4} .0574086{col 67}{space 3}  .269122
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 2, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     5.03
+                                                {txt}Prob > F          = {res}    0.0271
+                                                {txt}R-squared         = {res}    0.0492
+                                                {txt}Root MSE          =    {res} .47658
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .2146939{col 26}{space 2} .0956811{col 37}{space 1}    2.24{col 46}{space 3}0.027{col 54}{space 4} .0248178{col 67}{space 3}   .40457
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2653061{col 26}{space 2} .0637178{col 37}{space 1}    4.16{col 46}{space 3}0.000{col 54}{space 4} .1388603{col 67}{space 3}  .391752
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 3, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.62
+                                                {txt}Prob > F          = {res}    0.4343
+                                                {txt}R-squared         = {res}    0.0063
+                                                {txt}Root MSE          =    {res} .47102
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0742857{col 26}{space 2} .0946246{col 37}{space 1}    0.79{col 46}{space 3}0.434{col 54}{space 4}-.1134937{col 67}{space 3} .2620652
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2857143{col 26}{space 2} .0651982{col 37}{space 1}    4.38{col 46}{space 3}0.000{col 54}{space 4} .1563306{col 67}{space 3}  .415098
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 4, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.65
+                                                {txt}Prob > F          = {res}    0.4236
+                                                {txt}R-squared         = {res}    0.0066
+                                                {txt}Root MSE          =    {res} .46275
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0746939{col 26}{space 2} .0929542{col 37}{space 1}    0.80{col 46}{space 3}0.424{col 54}{space 4}-.1097708{col 67}{space 3} .2591585
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2653061{col 26}{space 2} .0637178{col 37}{space 1}    4.16{col 46}{space 3}0.000{col 54}{space 4} .1388603{col 67}{space 3}  .391752
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 5, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.29
+                                                {txt}Prob > F          = {res}    0.5897
+                                                {txt}R-squared         = {res}    0.0030
+                                                {txt}Root MSE          =    {res} .48802
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0530612{col 26}{space 2} .0980726{col 37}{space 1}    0.54{col 46}{space 3}0.590{col 54}{space 4}-.1415606{col 67}{space 3} .2476831
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .3469388{col 26}{space 2} .0686969{col 37}{space 1}    5.05{col 46}{space 3}0.000{col 54}{space 4}  .210612{col 67}{space 3} .4832655
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 6, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     1.63
+                                                {txt}Prob > F          = {res}    0.2053
+                                                {txt}R-squared         = {res}    0.0164
+                                                {txt}Root MSE          =    {res} .45124
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .1155102{col 26}{space 2}  .090591{col 37}{space 1}    1.28{col 46}{space 3}0.205{col 54}{space 4}-.0642647{col 67}{space 3} .2952851
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2244898{col 26}{space 2} .0602179{col 37}{space 1}    3.73{col 46}{space 3}0.000{col 54}{space 4} .1049893{col 67}{space 3} .3439903
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 7, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.62
+                                                {txt}Prob > F          = {res}    0.4343
+                                                {txt}R-squared         = {res}    0.0063
+                                                {txt}Root MSE          =    {res} .47102
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0742857{col 26}{space 2} .0946246{col 37}{space 1}    0.79{col 46}{space 3}0.434{col 54}{space 4}-.1134937{col 67}{space 3} .2620652
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2857143{col 26}{space 2} .0651982{col 37}{space 1}    4.38{col 46}{space 3}0.000{col 54}{space 4} .1563306{col 67}{space 3}  .415098
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 8, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     1.02
+                                                {txt}Prob > F          = {res}    0.3142
+                                                {txt}R-squared         = {res}    0.0104
+                                                {txt}Root MSE          =    {res} .46608
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0946939{col 26}{space 2} .0936107{col 37}{space 1}    1.01{col 46}{space 3}0.314{col 54}{space 4}-.0910735{col 67}{space 3} .2804613
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2653061{col 26}{space 2} .0637178{col 37}{space 1}    4.16{col 46}{space 3}0.000{col 54}{space 4} .1388603{col 67}{space 3}  .391752
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 9, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.08
+                                                {txt}Prob > F          = {res}    0.7767
+                                                {txt}R-squared         = {res}    0.0008
+                                                {txt}Root MSE          =    {res} .44974
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2}-.0257143{col 26}{space 2} .0904331{col 37}{space 1}   -0.28{col 46}{space 3}0.777{col 54}{space 4}-.2051758{col 67}{space 3} .1537473
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2857143{col 26}{space 2} .0651982{col 37}{space 1}    4.38{col 46}{space 3}0.000{col 54}{space 4} .1563306{col 67}{space 3}  .415098
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. 
+. // regress false report with tolerance band of 5 on treatment, by scenario
+. forvalues i = 1/9 {c -(}
+{txt}  2{com}. 
+.   di "************"
+{txt}  3{com}.   di "false reports with tolerance band of 5 on treatment in scenario `i', clustered standard errors at individual level"
+{txt}  4{com}.   di "************"
+{txt}  5{com}. 
+.   reg belief1_false_band_5 full_info if scenario==`i', vce(cluster id)
+{txt}  6{com}. {c )-}
+************
+false reports with tolerance band of 5 on treatment in scenario 1, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     2.57
+                                                {txt}Prob > F          = {res}    0.1120
+                                                {txt}R-squared         = {res}    0.0257
+                                                {txt}Root MSE          =    {res} .36707
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .1179592{col 26}{space 2} .0735615{col 37}{space 1}    1.60{col 46}{space 3}0.112{col 54}{space 4}-.0280211{col 67}{space 3} .2639395
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1020408{col 26}{space 2} .0436867{col 37}{space 1}    2.34{col 46}{space 3}0.022{col 54}{space 4}  .015346{col 67}{space 3} .1887356
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports with tolerance band of 5 on treatment in scenario 2, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     5.84
+                                                {txt}Prob > F          = {res}    0.0175
+                                                {txt}R-squared         = {res}    0.0564
+                                                {txt}Root MSE          =    {res} .40798
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2}  .197551{col 26}{space 2} .0817307{col 37}{space 1}    2.42{col 46}{space 3}0.017{col 54}{space 4} .0353591{col 67}{space 3}  .359743
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  .122449{col 26}{space 2} .0473094{col 37}{space 1}    2.59{col 46}{space 3}0.011{col 54}{space 4}  .028565{col 67}{space 3} .2163329
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports with tolerance band of 5 on treatment in scenario 3, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.98
+                                                {txt}Prob > F          = {res}    0.3239
+                                                {txt}R-squared         = {res}    0.0100
+                                                {txt}Root MSE          =    {res}  .3877
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0771429{col 26}{space 2} .0778026{col 37}{space 1}    0.99{col 46}{space 3}0.324{col 54}{space 4}-.0772539{col 67}{space 3} .2315396
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1428571{col 26}{space 2} .0505023{col 37}{space 1}    2.83{col 46}{space 3}0.006{col 54}{space 4} .0426369{col 67}{space 3} .2430773
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports with tolerance band of 5 on treatment in scenario 4, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     1.66
+                                                {txt}Prob > F          = {res}    0.2010
+                                                {txt}R-squared         = {res}    0.0167
+                                                {txt}Root MSE          =    {res}  .3778
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2}  .097551{col 26}{space 2}  .075769{col 37}{space 1}    1.29{col 46}{space 3}0.201{col 54}{space 4}-.0528101{col 67}{space 3} .2479121
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  .122449{col 26}{space 2} .0473094{col 37}{space 1}    2.59{col 46}{space 3}0.011{col 54}{space 4}  .028565{col 67}{space 3} .2163329
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports with tolerance band of 5 on treatment in scenario 5, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.04
+                                                {txt}Prob > F          = {res}    0.8386
+                                                {txt}R-squared         = {res}    0.0004
+                                                {txt}Root MSE          =    {res} .39776
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0163265{col 26}{space 2} .0799313{col 37}{space 1}    0.20{col 46}{space 3}0.839{col 54}{space 4}-.1422946{col 67}{space 3} .1749477
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1836735{col 26}{space 2} .0558842{col 37}{space 1}    3.29{col 46}{space 3}0.001{col 54}{space 4} .0727731{col 67}{space 3} .2945738
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports with tolerance band of 5 on treatment in scenario 6, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     1.23
+                                                {txt}Prob > F          = {res}    0.2692
+                                                {txt}R-squared         = {res}    0.0125
+                                                {txt}Root MSE          =    {res} .34981
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0779592{col 26}{space 2} .0701526{col 37}{space 1}    1.11{col 46}{space 3}0.269{col 54}{space 4}-.0612564{col 67}{space 3} .2171748
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1020408{col 26}{space 2} .0436867{col 37}{space 1}    2.34{col 46}{space 3}0.022{col 54}{space 4}  .015346{col 67}{space 3} .1887356
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports with tolerance band of 5 on treatment in scenario 7, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.10
+                                                {txt}Prob > F          = {res}    0.7500
+                                                {txt}R-squared         = {res}    0.0011
+                                                {txt}Root MSE          =    {res} .36204
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2}-.0232653{col 26}{space 2} .0728223{col 37}{space 1}   -0.32{col 46}{space 3}0.750{col 54}{space 4}-.1677788{col 67}{space 3} .1212482
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1632653{col 26}{space 2} .0533426{col 37}{space 1}    3.06{col 46}{space 3}0.003{col 54}{space 4} .0574086{col 67}{space 3}  .269122
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports with tolerance band of 5 on treatment in scenario 8, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.05
+                                                {txt}Prob > F          = {res}    0.8274
+                                                {txt}R-squared         = {res}    0.0005
+                                                {txt}Root MSE          =    {res} .38091
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0167347{col 26}{space 2} .0765396{col 37}{space 1}    0.22{col 46}{space 3}0.827{col 54}{space 4}-.1351556{col 67}{space 3}  .168625
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1632653{col 26}{space 2} .0533426{col 37}{space 1}    3.06{col 46}{space 3}0.003{col 54}{space 4} .0574086{col 67}{space 3}  .269122
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports with tolerance band of 5 on treatment in scenario 9, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        99
+                                                {txt}F(1, 98)          =  {res}     0.58
+                                                {txt}Prob > F          = {res}    0.4491
+                                                {txt}R-squared         = {res}    0.0059
+                                                {txt}Root MSE          =    {res} .27452
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2}-.0420408{col 26}{space 2} .0553153{col 37}{space 1}   -0.76{col 46}{space 3}0.449{col 54}{space 4}-.1518122{col 67}{space 3} .0677306
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1020408{col 26}{space 2} .0436867{col 37}{space 1}    2.34{col 46}{space 3}0.022{col 54}{space 4}  .015346{col 67}{space 3} .1887356
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. /*  there is nothing here */
+. 
+. // regress false report on treatment and passing all bdm understanding checks, by scenario
+. preserve
+{txt}
+{com}. 
+. keep if bdm_check_pass_all==0 | bdm_check_pass_all ==.
+{txt}(207 observations deleted)
+
+{com}. 
+. forvalues i = 1/9 {c -(}
+{txt}  2{com}. 
+.   di "************"
+{txt}  3{com}.   di "false reports on treatment in scenario `i' restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level"
+{txt}  4{com}.   di "************"
+{txt}  5{com}. 
+.   reg belief1_false full_info if scenario==`i', vce(cluster id)
+{txt}  6{com}. {c )-}
+************
+false reports on treatment in scenario 1 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     4.95
+                                                {txt}Prob > F          = {res}    0.0291
+                                                {txt}R-squared         = {res}    0.0728
+                                                {txt}Root MSE          =    {res} .42255
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .2441421{col 26}{space 2} .1097575{col 37}{space 1}    2.22{col 46}{space 3}0.029{col 54}{space 4}  .025494{col 67}{space 3} .4627902
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1632653{col 26}{space 2} .0535099{col 37}{space 1}    3.05{col 46}{space 3}0.003{col 54}{space 4} .0566682{col 67}{space 3} .2698624
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 2 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     4.72
+                                                {txt}Prob > F          = {res}    0.0330
+                                                {txt}R-squared         = {res}    0.0641
+                                                {txt}Root MSE          =    {res} .46921
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .2532124{col 26}{space 2} .1165415{col 37}{space 1}    2.17{col 46}{space 3}0.033{col 54}{space 4} .0210499{col 67}{space 3} .4853749
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2653061{col 26}{space 2} .0639175{col 37}{space 1}    4.15{col 46}{space 3}0.000{col 54}{space 4} .1379759{col 67}{space 3} .3926363
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 3 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     2.78
+                                                {txt}Prob > F          = {res}    0.0995
+                                                {txt}R-squared         = {res}    0.0383
+                                                {txt}Root MSE          =    {res} .47563
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .1957672{col 26}{space 2} .1173625{col 37}{space 1}    1.67{col 46}{space 3}0.099{col 54}{space 4}-.0380309{col 67}{space 3} .4295653
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2857143{col 26}{space 2} .0654026{col 37}{space 1}    4.37{col 46}{space 3}0.000{col 54}{space 4} .1554257{col 67}{space 3} .4160029
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 4 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     2.38
+                                                {txt}Prob > F          = {res}    0.1270
+                                                {txt}R-squared         = {res}    0.0333
+                                                {txt}Root MSE          =    {res} .46814
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .1791383{col 26}{space 2} .1160929{col 37}{space 1}    1.54{col 46}{space 3}0.127{col 54}{space 4}-.0521305{col 67}{space 3} .4104072
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2653061{col 26}{space 2} .0639175{col 37}{space 1}    4.15{col 46}{space 3}0.000{col 54}{space 4} .1379759{col 67}{space 3} .3926363
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 5 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     0.67
+                                                {txt}Prob > F          = {res}    0.4148
+                                                {txt}R-squared         = {res}    0.0092
+                                                {txt}Root MSE          =    {res} .49002
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0975057{col 26}{space 2} .1189159{col 37}{space 1}    0.82{col 46}{space 3}0.415{col 54}{space 4} -.139387{col 67}{space 3} .3343984
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .3469388{col 26}{space 2} .0689122{col 37}{space 1}    5.03{col 46}{space 3}0.000{col 54}{space 4} .2096586{col 67}{space 3}  .484219
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 6 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     3.71
+                                                {txt}Prob > F          = {res}    0.0579
+                                                {txt}R-squared         = {res}    0.0525
+                                                {txt}Root MSE          =    {res} .45318
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .2199546{col 26}{space 2} .1141975{col 37}{space 1}    1.93{col 46}{space 3}0.058{col 54}{space 4}-.0075385{col 67}{space 3} .4474478
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2244898{col 26}{space 2} .0604067{col 37}{space 1}    3.72{col 46}{space 3}0.000{col 54}{space 4} .1041535{col 67}{space 3} .3448261
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 7 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     1.84
+                                                {txt}Prob > F          = {res}    0.1787
+                                                {txt}R-squared         = {res}    0.0256
+                                                {txt}Root MSE          =    {res} .47458
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .1587302{col 26}{space 2} .1169171{col 37}{space 1}    1.36{col 46}{space 3}0.179{col 54}{space 4}-.0741806{col 67}{space 3} .3916409
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2857143{col 26}{space 2} .0654026{col 37}{space 1}    4.37{col 46}{space 3}0.000{col 54}{space 4} .1554257{col 67}{space 3} .4160029
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 8 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     3.44
+                                                {txt}Prob > F          = {res}    0.0675
+                                                {txt}R-squared         = {res}    0.0476
+                                                {txt}Root MSE          =    {res} .46921
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .2161754{col 26}{space 2} .1165415{col 37}{space 1}    1.85{col 46}{space 3}0.068{col 54}{space 4}-.0159871{col 67}{space 3} .4483378
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2653061{col 26}{space 2} .0639175{col 37}{space 1}    4.15{col 46}{space 3}0.000{col 54}{space 4} .1379759{col 67}{space 3} .3926363
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}************
+false reports on treatment in scenario 9 restricted to subjects who did not pass all bdm understanding checks, clustered standard errors at individual level
+************
+
+{txt}Linear regression                               Number of obs     = {res}        76
+                                                {txt}F(1, 75)          =  {res}     0.18
+                                                {txt}Prob > F          = {res}    0.6742
+                                                {txt}R-squared         = {res}    0.0025
+                                                {txt}Root MSE          =    {res} .46499
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:76} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2}  .047619{col 26}{space 2}  .112829{col 37}{space 1}    0.42{col 46}{space 3}0.674{col 54}{space 4}-.1771479{col 67}{space 3}  .272386
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2857143{col 26}{space 2} .0654026{col 37}{space 1}    4.37{col 46}{space 3}0.000{col 54}{space 4} .1554257{col 67}{space 3} .4160029
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. restore, preserve
+{txt}
+{com}. keep if bdm_check_pass_all !=.
+{txt}(486 observations deleted)
+
+{com}. 
+. forvalues i = 1/9 {c -(}
+{txt}  2{com}. 
+.   forvalues j = 1/4 {c -(}
+{txt}  3{com}. 
+.       di "************"
+{txt}  4{com}.       di "false reports by bdm check question `j' in scenario `i' in full info treatment"
+{txt}  5{com}.       di "************"
+{txt}  6{com}. 
+.       tab belief1_false bdm_check_`j'_pass if scenario==`i'
+{txt}  7{com}.   {c )-}
+{txt}  8{com}. {c )-}
+************
+false reports by bdm check question 1 in scenario 1 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         2         30 {txt}{c |}{res}        32 
+{txt}         1 {c |}{res}         4          9 {txt}{c |}{res}        13 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 1 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        11         21 {txt}{c |}{res}        32 
+{txt}         1 {c |}{res}         9          4 {txt}{c |}{res}        13 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 1 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         4         28 {txt}{c |}{res}        32 
+{txt}         1 {c |}{res}         4          9 {txt}{c |}{res}        13 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 1 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         8         24 {txt}{c |}{res}        32 
+{txt}         1 {c |}{res}         6          7 {txt}{c |}{res}        13 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 1 in scenario 2 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         2         20 {txt}{c |}{res}        22 
+{txt}         1 {c |}{res}         4         19 {txt}{c |}{res}        23 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 2 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         9         13 {txt}{c |}{res}        22 
+{txt}         1 {c |}{res}        11         12 {txt}{c |}{res}        23 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 2 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         3         19 {txt}{c |}{res}        22 
+{txt}         1 {c |}{res}         5         18 {txt}{c |}{res}        23 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 2 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         5         17 {txt}{c |}{res}        22 
+{txt}         1 {c |}{res}         9         14 {txt}{c |}{res}        23 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 1 in scenario 3 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         1         27 {txt}{c |}{res}        28 
+{txt}         1 {c |}{res}         5         12 {txt}{c |}{res}        17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 3 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        10         18 {txt}{c |}{res}        28 
+{txt}         1 {c |}{res}        10          7 {txt}{c |}{res}        17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 3 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         3         25 {txt}{c |}{res}        28 
+{txt}         1 {c |}{res}         5         12 {txt}{c |}{res}        17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 3 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         5         23 {txt}{c |}{res}        28 
+{txt}         1 {c |}{res}         9          8 {txt}{c |}{res}        17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 1 in scenario 4 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         2         28 {txt}{c |}{res}        30 
+{txt}         1 {c |}{res}         4         11 {txt}{c |}{res}        15 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 4 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        12         18 {txt}{c |}{res}        30 
+{txt}         1 {c |}{res}         8          7 {txt}{c |}{res}        15 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 4 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         3         27 {txt}{c |}{res}        30 
+{txt}         1 {c |}{res}         5         10 {txt}{c |}{res}        15 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 4 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         7         23 {txt}{c |}{res}        30 
+{txt}         1 {c |}{res}         7          8 {txt}{c |}{res}        15 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 1 in scenario 5 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         1         26 {txt}{c |}{res}        27 
+{txt}         1 {c |}{res}         5         13 {txt}{c |}{res}        18 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 5 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        12         15 {txt}{c |}{res}        27 
+{txt}         1 {c |}{res}         8         10 {txt}{c |}{res}        18 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 5 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         3         24 {txt}{c |}{res}        27 
+{txt}         1 {c |}{res}         5         13 {txt}{c |}{res}        18 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 5 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         6         21 {txt}{c |}{res}        27 
+{txt}         1 {c |}{res}         8         10 {txt}{c |}{res}        18 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 1 in scenario 6 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         2         27 {txt}{c |}{res}        29 
+{txt}         1 {c |}{res}         4         12 {txt}{c |}{res}        16 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 6 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        11         18 {txt}{c |}{res}        29 
+{txt}         1 {c |}{res}         9          7 {txt}{c |}{res}        16 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 6 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         3         26 {txt}{c |}{res}        29 
+{txt}         1 {c |}{res}         5         11 {txt}{c |}{res}        16 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 6 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         6         23 {txt}{c |}{res}        29 
+{txt}         1 {c |}{res}         8          8 {txt}{c |}{res}        16 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 1 in scenario 7 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         2         26 {txt}{c |}{res}        28 
+{txt}         1 {c |}{res}         4         13 {txt}{c |}{res}        17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 7 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        11         17 {txt}{c |}{res}        28 
+{txt}         1 {c |}{res}         9          8 {txt}{c |}{res}        17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 7 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         4         24 {txt}{c |}{res}        28 
+{txt}         1 {c |}{res}         4         13 {txt}{c |}{res}        17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 7 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         7         21 {txt}{c |}{res}        28 
+{txt}         1 {c |}{res}         7         10 {txt}{c |}{res}        17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 1 in scenario 8 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         1         29 {txt}{c |}{res}        30 
+{txt}         1 {c |}{res}         5         10 {txt}{c |}{res}        15 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 8 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        12         18 {txt}{c |}{res}        30 
+{txt}         1 {c |}{res}         8          7 {txt}{c |}{res}        15 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 8 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         3         27 {txt}{c |}{res}        30 
+{txt}         1 {c |}{res}         5         10 {txt}{c |}{res}        15 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 8 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         6         24 {txt}{c |}{res}        30 
+{txt}         1 {c |}{res}         8          7 {txt}{c |}{res}        15 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 1 in scenario 9 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_1_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         3         31 {txt}{c |}{res}        34 
+{txt}         1 {c |}{res}         3          8 {txt}{c |}{res}        11 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         6         39 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 2 in scenario 9 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_2_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        15         19 {txt}{c |}{res}        34 
+{txt}         1 {c |}{res}         5          6 {txt}{c |}{res}        11 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 3 in scenario 9 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_3_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         4         30 {txt}{c |}{res}        34 
+{txt}         1 {c |}{res}         4          7 {txt}{c |}{res}        11 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}         8         37 {txt}{c |}{res}        45 
+
+************
+false reports by bdm check question 4 in scenario 9 in full info treatment
+************
+
+{txt}Misreporte {c |}   bdm_check_4_pass
+   d prior {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         9         25 {txt}{c |}{res}        34 
+{txt}         1 {c |}{res}         5          6 {txt}{c |}{res}        11 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+{txt}
+{com}. 
+. /* NOTE: false reports are not driven by any particular bdm check question */
+. 
+. restore, preserve
+{txt}
+{com}. collapse (mean) bdm_check*pass, by(id)
+{txt}
+{com}. 
+. 
+.   forvalues j = 1/4 {c -(}
+{txt}  2{com}. 
+.       di "************"
+{txt}  3{com}.       di "tabulation of subjects passing bdm check question `j' in full info treatment"
+{txt}  4{com}.       di "************"
+{txt}  5{com}. 
+.       tab bdm_check_`j'_pass
+{txt}  6{com}.   {c )-}
+************
+tabulation of subjects passing bdm check question 1 in full info treatment
+************
+
+     {txt}(mean) {c |}
+bdm_check_1 {c |}
+      _pass {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}          6       13.33       13.33
+{txt}          1 {c |}{res}         39       86.67      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         45      100.00
+************
+tabulation of subjects passing bdm check question 2 in full info treatment
+************
+
+     {txt}(mean) {c |}
+bdm_check_2 {c |}
+      _pass {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         20       44.44       44.44
+{txt}          1 {c |}{res}         25       55.56      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         45      100.00
+************
+tabulation of subjects passing bdm check question 3 in full info treatment
+************
+
+     {txt}(mean) {c |}
+bdm_check_3 {c |}
+      _pass {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}          8       17.78       17.78
+{txt}          1 {c |}{res}         37       82.22      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         45      100.00
+************
+tabulation of subjects passing bdm check question 4 in full info treatment
+************
+
+     {txt}(mean) {c |}
+bdm_check_4 {c |}
+      _pass {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         14       31.11       31.11
+{txt}          1 {c |}{res}         31       68.89      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         45      100.00
+{txt}
+{com}. 
+. 
+. 
+. //relationship between bdm check questions
+. 
+.   di "************"
+{res}************
+{txt}
+{com}.   di "tabulation of subjects passing bdm check question 1 and 2 in scenario `i' in full info treatment"
+{res}tabulation of subjects passing bdm check question 1 and 2 in scenario  in full info treatment
+{txt}
+{com}.   di "************"
+{res}************
+{txt}
+{com}. 
+.   tab bdm_check_1_pass bdm_check_2_pass
+
+    {txt}(mean) {c |}        (mean)
+bdm_check_ {c |}   bdm_check_2_pass
+    1_pass {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         5          1 {txt}{c |}{res}         6 
+{txt}         1 {c |}{res}        15         24 {txt}{c |}{res}        39 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        20         25 {txt}{c |}{res}        45 
+
+{txt}
+{com}. 
+.   di "************"
+{res}************
+{txt}
+{com}.   di "tabulation of subjects passing bdm check question 3 and 4 in scenario `i' in full info treatment"
+{res}tabulation of subjects passing bdm check question 3 and 4 in scenario  in full info treatment
+{txt}
+{com}.   di "************"
+{res}************
+{txt}
+{com}. 
+.   tab bdm_check_3_pass bdm_check_4_pass
+
+    {txt}(mean) {c |}        (mean)
+bdm_check_ {c |}   bdm_check_4_pass
+    3_pass {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}         7          1 {txt}{c |}{res}         8 
+{txt}         1 {c |}{res}         7         30 {txt}{c |}{res}        37 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        14         31 {txt}{c |}{res}        45 
+
+{txt}
+{com}. 
+. /* Result: almost everyone who passed check 1 passed check 2, and same for
+> check 3 and 4, except 1 subject in both cases */
+. 
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. // 2. Total number of false reports for each subject by scenario and treatment
+. //------------------------------------------------------------------------
+. restore, preserve
+{txt}
+{com}. 
+. collapse (sum) n_false=belief1_false n_false_band_5=belief1_false_band_5 ///
+>   (mean) bdm_check*pass n_bdm_check_pass full_info ///
+>   (firstnm) instruction_confusion coursework ///
+>   , by(id)
+{txt}
+{com}. 
+. 
+. tab n_false
+
+      {txt}(sum) {c |}
+belief1_fal {c |}
+         se {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}         41       41.41       41.41
+{txt}          1 {c |}{res}         15       15.15       56.57
+{txt}          2 {c |}{res}          3        3.03       59.60
+{txt}          3 {c |}{res}          7        7.07       66.67
+{txt}          4 {c |}{res}          3        3.03       69.70
+{txt}          5 {c |}{res}          6        6.06       75.76
+{txt}          6 {c |}{res}          3        3.03       78.79
+{txt}          7 {c |}{res}          6        6.06       84.85
+{txt}          8 {c |}{res}          3        3.03       87.88
+{txt}          9 {c |}{res}         12       12.12      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}         99      100.00
+{txt}
+{com}. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. local date2 = c(current_date)
+{txt}
+{com}. local time2 = c(current_time)
+{txt}
+{com}. 
+. di "Do file explore.do start date time: `date1' `time1'"
+{res}Do file explore.do start date time: 30 Oct 2022 22:27:15
+{txt}
+{com}. di "End date time: `date2' `time2'"
+{res}End date time: 30 Oct 2022 22:27:16
+{txt}
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}30 Oct 2022, 22:27:16
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

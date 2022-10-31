@@ -1,0 +1,472 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/prelim_figures.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}30 Oct 2022, 23:04:35
+{txt}
+{com}. 
+. graph drop _all
+{txt}
+{com}. set more off
+{txt}
+{com}. set varabbrev off
+{txt}
+{com}. set graphics on
+{txt}
+{com}. set scheme s1color
+{txt}
+{com}. set seed 1984
+{txt}
+{com}. 
+. local date1 = c(current_date)
+{txt}
+{com}. local time1 = c(current_time)
+{txt}
+{com}. 
+. 
+. // load data
+. use $datadir/clean/bdm_full_sample_long, clear
+{txt}(Full sample with analysis variables in long format)
+
+{com}. 
+. tempfile full_sample
+{txt}
+{com}. save `full_sample'
+{txt}file C:\Users\sunch\AppData\Local\Temp\ST_01000001.tmp saved
+
+{com}. 
+. 
+. //------------------------------------------------------------------------
+. // scatter plot of percentage of false reports by scenario
+. //------------------------------------------------------------------------
+. 
+. collapse (mean) pct_false1=belief1_false pct_false1_band_5=belief1_false_band_5 ///
+>   bdm_check_pass_all = bdm_check_pass_all ///
+>   (sd) sd_false1 = belief1_false sd_false1_band_5 = belief1_false_band_5 ///
+>   (count) n = belief1_false, by(full_info scenario)
+{txt}
+{com}. 
+. // high and low bounds for 95% confidence interval
+. gen hi_95ci = pct_false1 + invttail(n-1,0.025)*(sd_false1 / sqrt(n))
+{txt}
+{com}. gen lo_95ci = pct_false1 - invttail(n-1,0.025)*(sd_false1 / sqrt(n))
+{txt}
+{com}. 
+. gen hi_95ci_band_5 = pct_false1_band_5 + invttail(n-1,0.025)*(sd_false1_band_5 / sqrt(n))
+{txt}
+{com}. gen lo_95ci_band_5 = pct_false1_band_5 - invttail(n-1,0.025)*(sd_false1_band_5 / sqrt(n))
+{txt}
+{com}. 
+. // strict definition of false report
+. #delimit ;
+{txt}delimiter now ;
+{com}. graph twoway
+>   (scatter pct_false1 scenario if full_info==1, connect(direct) msymbol(T)
+>   msize(small)  lpattern(solid) color(midblue))
+>   (rcap hi_95ci lo_95ci scenario if full_info==1,
+>   lcolor(midblue) msize(small) lwidth(vthin))
+>   (scatter pct_false1 scenario if full_info==0, connect(direct)
+>   msize(small)  lpattern(solid) color(black))
+>   (rcap hi_95ci lo_95ci scenario if full_info==0,
+>   lcolor(black) msize(small) lwidth(vthin))
+>   , aspectratio(1)  ysize(6)  xsize(6)
+>   ytitle("Fraction of false reports", margin(zero) size(medlarge))
+>   xtitle("Scenario", margin(small) size(medlarge))
+>   ymtick(0(.01)1, tlwidth(vthin))
+>   ytick(0(.05)1, tlwidth(vthin))
+>   ylabel(0(0.1)1)
+>   xlabel(1(1)9)
+>   legend(order(1 3) label(1 "Full Info") label(3 "No Info"))
+>   graphregion(color(white) margin(zero))
+>   plotregion(margin(medsmall))
+>   ;
+{res}{txt}
+{com}. #delimit cr
+{txt}delimiter now cr
+{com}. 
+. graph export $projdir/out/fig/false_by_period.pdf, replace as(pdf)
+{txt}(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period.pdf written in PDF format)
+
+{com}. 
+. 
+. // false reports defined with tolerance band of 5
+. #delimit ;
+{txt}delimiter now ;
+{com}. graph twoway
+>   (scatter pct_false1_band_5 scenario if full_info==1, connect(direct) msymbol(T)
+>   msize(small)  lpattern(solid) color(midblue))
+>   (rcap hi_95ci_band_5 lo_95ci_band_5 scenario if full_info==1,
+>   lcolor(midblue) msize(small) lwidth(vthin))
+>   (scatter pct_false1_band_5 scenario if full_info==0, connect(direct)
+>   msize(small)  lpattern(solid) color(black))
+>   (rcap hi_95ci_band_5 lo_95ci_band_5 scenario if full_info==0,
+>   lcolor(black) msize(small) lwidth(vthin))
+>   , aspectratio(1)  ysize(6)  xsize(6)
+>   ytitle("Fraction of false reports, tolerance band of 5", margin(zero) size(small))
+>   xtitle("Scenario", margin(small) size(medlarge))
+>   ymtick(0(.01)1, tlwidth(vthin))
+>   ytick(0(.05)1, tlwidth(vthin))
+>   ylabel(0(0.1)1)
+>   xlabel(1(1)9)
+>   legend(order(1 3) label(1 "Full Info") label(3 "No Info"))
+>   graphregion(color(white) margin(zero))
+>   plotregion(margin(medsmall))
+>   ;
+{res}{txt}
+{com}. #delimit cr
+{txt}delimiter now cr
+{com}. 
+. graph export $projdir/out/fig/false_by_period_tol5.pdf, replace as(pdf)
+{txt}(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period_tol5.pdf written in PDF format)
+
+{com}. 
+. 
+. //------------------------------------------------------------------------
+. // scatter plots by whether subject passed all BDM understanding checks
+. //------------------------------------------------------------------------
+. 
+. use `full_sample', clear
+{txt}(Full sample with analysis variables in long format)
+
+{com}. 
+. collapse (mean) pct_false1=belief1_false pct_false1_band_5=belief1_false_band_5 ///
+>   (sd) sd_false1 = belief1_false sd_false1_band_5 = belief1_false_band_5 ///
+>   (count) n = belief1_false, by(full_info scenario bdm_check_pass_all)
+{txt}
+{com}. 
+. gen hi_95ci = pct_false1 + invttail(n-1,0.025)*(sd_false1 / sqrt(n))
+{txt}
+{com}. gen lo_95ci = pct_false1 - invttail(n-1,0.025)*(sd_false1 / sqrt(n))
+{txt}
+{com}. 
+. gen hi_95ci_band_5 = pct_false1_band_5 + invttail(n-1,0.025)*(sd_false1_band_5 / sqrt(n))
+{txt}
+{com}. gen lo_95ci_band_5 = pct_false1_band_5 - invttail(n-1,0.025)*(sd_false1_band_5 / sqrt(n))
+{txt}
+{com}. 
+. // strict definition of false reports
+. #delimit ;
+{txt}delimiter now ;
+{com}. graph twoway
+>   (scatter pct_false1 scenario if full_info==1 & bdm_check_pass_all==0, connect(direct) msymbol(T)
+>   msize(small)  lpattern(solid) color(midblue))
+>   (rcap hi_95ci lo_95ci scenario if full_info==1 & bdm_check_pass_all==0,
+>   lcolor(midblue) msize(small) lwidth(vthin))
+>   (scatter pct_false1 scenario if full_info==1 & bdm_check_pass_all==1, connect(direct) msymbol(T)
+>   msize(small)  lpattern(solid) color(orange_red))
+>   (rcap hi_95ci lo_95ci scenario if full_info==1 & bdm_check_pass_all==1,
+>   lcolor(orange_red) msize(small) lwidth(vthin))
+>   (scatter pct_false1 scenario if full_info==0, connect(direct)
+>   msize(small)  lpattern(solid) color(black))
+>   (rcap hi_95ci lo_95ci scenario if full_info==0,
+>   lcolor(black) msize(small) lwidth(vthin))
+>   ,   ytitle("Fraction of false reports", margin(zero) size(medlarge))
+>   xtitle("Scenario", margin(small) size(medlarge))
+>   ymtick(0(.01)1, tlwidth(vthin))
+>   ytick(0(.05)1, tlwidth(vthin))
+>   ylabel(0(0.1)1)
+>   xlabel(1(1)9)
+>   legend(order(1 3 5) label(1 "Full Info, Confusion") label(3 "Full Info, Understanding") label(5 "No Info"))
+>   graphregion(color(white) margin(zero))
+>   plotregion(margin(medsmall))
+>   ;
+{res}{txt}
+{com}. #delimit cr
+{txt}delimiter now cr
+{com}. 
+. graph export $projdir/out/fig/false_by_period_udst.pdf, replace as(pdf)
+{txt}(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period_udst.pdf written in PDF format)
+
+{com}. 
+. 
+. // false reports defined with tolernace band of 5
+. #delimit ;
+{txt}delimiter now ;
+{com}. graph twoway
+>   (scatter pct_false1_band_5 scenario if full_info==1 & bdm_check_pass_all==0, connect(direct) msymbol(T)
+>   msize(small)  lpattern(solid) color(midblue))
+>   (rcap hi_95ci_band_5 lo_95ci_band_5 scenario if full_info==1 & bdm_check_pass_all==0,
+>   lcolor(midblue) msize(small) lwidth(vthin))
+>   (scatter pct_false1_band_5 scenario if full_info==1 & bdm_check_pass_all==1, connect(direct) msymbol(T)
+>   msize(small)  lpattern(solid) color(orange_red))
+>   (rcap hi_95ci_band_5 lo_95ci_band_5 scenario if full_info==1 & bdm_check_pass_all==1,
+>   lcolor(orange_red) msize(small) lwidth(vthin))
+>   (scatter pct_false1_band_5 scenario if full_info==0, connect(direct)
+>   msize(small)  lpattern(solid) color(black))
+>   (rcap hi_95ci_band_5 lo_95ci_band_5 scenario if full_info==0,
+>   lcolor(black) msize(small) lwidth(vthin))
+>   ,   ytitle("Fraction of false reports, tolerance band of 5", margin(zero) size(small))
+>   xtitle("Scenario", margin(small) size(medlarge))
+>   ymtick(0(.01)1, tlwidth(vthin))
+>   ytick(0(.05)1, tlwidth(vthin))
+>   ylabel(0(0.1)1)
+>   xlabel(1(1)9)
+>   legend(order(1 3 5) label(1 "Full Info, Confusion") label(3 "Full Info, Understanding") label(5 "No Info"))
+>   graphregion(color(white) margin(zero))
+>   plotregion(margin(medsmall))
+>   ;
+{res}{txt}
+{com}. #delimit cr
+{txt}delimiter now cr
+{com}. 
+. graph export $projdir/out/fig/false_by_period_udst_tol5.pdf, replace as(pdf)
+{txt}(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period_udst_tol5.pdf written in PDF format)
+
+{com}. 
+. 
+. 
+. //------------------------------------------------------------------------
+. // scatter plots percentage of misreports by prior
+. //------------------------------------------------------------------------
+. 
+. use `full_sample', clear
+{txt}(Full sample with analysis variables in long format)
+
+{com}. 
+. // Generate consecutive numbers on x-axis for each prior:
+. generate catvar = .
+{txt}(891 missing values generated)
+
+{com}. 
+. local val = 0
+{txt}
+{com}. levelsof prior, local(levelsofvar)
+{txt}10 20 30 40 50 60 70 80 90
+
+{com}. foreach p of local levelsofvar {c -(}
+{txt}  2{com}.     local val = `val'+1
+{txt}  3{com}.     replace catvar = `val' +  0 if prior == `p'
+{txt}  4{com}. {c )-}
+{txt}(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+
+{com}. 
+. preserve
+{txt}
+{com}. 
+. // pct of misreports per prior and confidence intervals:
+. collapse (mean) catvar pct_false1=belief1_false pct_false1_band_5=belief1_false_band_5 ///
+>   (sd) sd_false1 = belief1_false sd_false1_band_5 = belief1_false_band_5 ///
+>   (count) n = belief1_false, by(full_info prior)
+{txt}
+{com}. 
+. gen hi_95ci = pct_false1 + invttail(n-1,0.025)*(sd_false1 / sqrt(n))
+{txt}
+{com}. gen lo_95ci = pct_false1 - invttail(n-1,0.025)*(sd_false1 / sqrt(n))
+{txt}
+{com}. 
+. // false report defined strictly
+. 
+. #delimit ;
+{txt}delimiter now ;
+{com}. graph twoway
+>   (bar pct_false1 catvar if full_info==1, lwidth(0.1) lcolor(white) fcolor(midblue))
+>   (rcap hi_95ci lo_95ci catvar if full_info==1, lcolor(black) msize(small) lwidth(vthin))
+>   , ytitle("Fraction of false reports", margin(zero) size(medlarge))
+>   xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+>   xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>   ytick(0(.05)1)
+>   ymtick(0(.01)1)
+>   ylabel(0(0.1)1,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) format(%2.1f) labsize(medlarge))
+>   graphregion(color(white) margin(zero))
+>   legend(off)
+>   plotregion(margin(medsmall))
+>   text(0.02 1 "0.1", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   text(0.02 2 "0.2", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   text(0.02 3 "0.3", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   text(0.02 4 "0.4", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   text(0.02 5 "0.5", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   text(0.02 6 "0.6", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   text(0.02 7 "0.7", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   text(0.02 8 "0.8", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   text(0.02 9 "0.9", placement(n) orientation(horizontal) color(white) size(medlarge))
+>   ;
+{res}{txt}
+{com}. #delimit cr
+{txt}delimiter now cr
+{com}. 
+. graph export $projdir/out/fig/false_by_prior.pdf, replace as(pdf)
+{txt}(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_prior.pdf written in PDF format)
+
+{com}. 
+. 
+. //------------------------------------------------------------------------
+. // scatter plots of direction of misreports by prior
+. //------------------------------------------------------------------------
+. restore, preserve
+{txt}
+{com}. 
+. // pct of misreports up and down by prior
+. 
+. collapse (mean) catvar pct_false1=belief1_false pct_false1_band_5=belief1_false_band_5 ///
+>   pct_up = belief1_up pct_down = belief1_down ///
+>   (count) n = belief1_false, by(full_info prior)
+{txt}
+{com}. 
+. sort catvar full_info
+{txt}
+{com}. 
+. // scatter plot
+. #delimit ;
+{txt}delimiter now ;
+{com}. graph twoway
+>   (scatter pct_up catvar if full_info==1, connect(direct) msymbol(T)
+>   msize(small)  lpattern(solid) color(midblue))
+>   (scatter pct_down catvar if full_info==1, connect(direct)
+>   msize(small)  lpattern(solid) color(black))
+>   , ytitle("Fraction of false report direction in Full Info", margin(zero) size(small))
+>   xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+>   xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>   ytick(0(.05)1)
+>   ymtick(0(.01)1)
+>   ylabel(0(0.1)1,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) format(%2.1f) labsize(medlarge))
+>   graphregion(color(white) margin(zero))
+>   legend(label(1 "Up") label(2 "Down"))
+>   plotregion(margin(medsmall))
+>   text(0.02 1 "0.1", placement(n) orientation(horizontal) color(black) size(med))
+>   text(0.02 2 "0.2", placement(n) orientation(horizontal) color(black) size(med))
+>   text(0.02 3 "0.3", placement(n) orientation(horizontal) color(black) size(med))
+>   text(0.02 4 "0.4", placement(n) orientation(horizontal) color(black) size(med))
+>   text(0.02 5 "0.5", placement(n) orientation(horizontal) color(black) size(med))
+>   text(0.02 6 "0.6", placement(n) orientation(horizontal) color(black) size(med))
+>   text(0.02 7 "0.7", placement(n) orientation(horizontal) color(black) size(med))
+>   text(0.02 8 "0.8", placement(n) orientation(horizontal) color(black) size(med))
+>   text(0.02 9 "0.9", placement(n) orientation(horizontal) color(black) size(med))
+>   ;
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{p 0 4 2}
+{txt}(note:  named style
+med not found in class
+gsize,  default attributes used)
+{p_end}
+{res}{txt}
+{com}. #delimit cr
+{txt}delimiter now cr
+{com}. 
+. graph export $projdir/out/fig/false_direction_by_prior.pdf, replace as(pdf)
+{txt}(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direction_by_prior.pdf written in PDF format)
+
+{com}. 
+. 
+. restore, preserve
+{txt}
+{com}. replace belief1_up = 0 if belief1_false_band_5==0
+{txt}(83 real changes made)
+
+{com}. replace belief1_down = 0 if belief1_false_band_5==0
+{txt}(47 real changes made)
+
+{com}. 
+. collapse (mean) catvar  pct_up = belief1_up pct_down = belief1_down ///
+>   (count) n = belief1_false, by(full_info prior)
+{txt}
+{com}. 
+. sort catvar full_info
+{txt}
+{com}. 
+. 
+. // scatter plot, false report defined with tolerance band of 5
+.   #delimit ;
+{txt}delimiter now ;
+{com}.   graph twoway
+>     (scatter pct_up catvar if full_info==1, connect(direct) msymbol(T)
+>     msize(small)  lpattern(solid) color(midblue))
+>     (scatter pct_down catvar if full_info==1, connect(direct)
+>     msize(small)  lpattern(solid) color(black))
+>     , ytitle("Fraction of false report direction in Full Info, tolerance band of 5", margin(zero) size(small))
+>     xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+>     xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>     ytick(0(.05)1)
+>     ymtick(0(.01)1)
+>     ylabel(0(0.1)1,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) format(%2.1f) labsize(medlarge))
+>     graphregion(color(white) margin(zero))
+>     legend(label(1 "Up") label(2 "Down"))
+>     plotregion(margin(medsmall))
+>     text(-0.02 1 "0.1", placement(n) orientation(horizontal) color(black) size(small))
+>     text(-0.02 2 "0.2", placement(n) orientation(horizontal) color(black) size(small))
+>     text(-0.02 3 "0.3", placement(n) orientation(horizontal) color(black) size(small))
+>     text(-0.02 4 "0.4", placement(n) orientation(horizontal) color(black) size(small))
+>     text(-0.02 5 "0.5", placement(n) orientation(horizontal) color(black) size(small))
+>     text(-0.02 6 "0.6", placement(n) orientation(horizontal) color(black) size(small))
+>     text(-0.02 7 "0.7", placement(n) orientation(horizontal) color(black) size(small))
+>     text(-0.02 8 "0.8", placement(n) orientation(horizontal) color(black) size(small))
+>     text(-0.02 9 "0.9", placement(n) orientation(horizontal) color(black) size(small))
+>     ;
+{res}{txt}
+{com}. #delimit cr
+{txt}delimiter now cr
+{com}. 
+. graph export $projdir/out/fig/false_direction_by_prior_tol5.pdf, replace as(pdf)
+{txt}(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direction_by_prior_tol5.pdf written in PDF format)
+
+{com}. 
+. 
+. 
+. 
+. local date2 = c(current_date)
+{txt}
+{com}. local time2 = c(current_time)
+{txt}
+{com}. 
+. di "Do file prelim_figures.do start date time: `date1' `time1'"
+{res}Do file prelim_figures.do start date time: 30 Oct 2022 23:04:35
+{txt}
+{com}. di "End date time: `date2' `time2'"
+{res}End date time: 30 Oct 2022 23:04:39
+{txt}
+{com}. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/prelim_figures.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}30 Oct 2022, 23:04:39
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
