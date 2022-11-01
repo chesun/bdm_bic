@@ -44,6 +44,26 @@ sum belief1_dist_abs if belief1_false==1 & full_info==0
 /* mean distance is around 10 percentage points, no difference between treatments */
 
 
+
+
+
+//------------------------------------------------------------------------
+//  OLS for pooled false reports
+//------------------------------------------------------------------------
+di "************"
+di "pooled false reports on treatment, clustered standard errors at individual level"
+di "************"
+
+reg belief1_false full_info, vce(cluster id)
+
+
+
+di "************"
+di "pooled false reports with tolerance band of 5 on treatment, clustered standard errors at individual level"
+di "************"
+
+reg belief1_false_band_5 full_info, vce(cluster id)
+
 //------------------------------------------------------------------------
 //  OLS for false reports by scenario
 //------------------------------------------------------------------------

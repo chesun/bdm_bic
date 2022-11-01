@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
-> ics_data.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_qua
+> ltrics_data.smcl
   log type:  smcl
- opened on:  30 Oct 2022, 22:27:15
+ opened on:  31 Oct 2022, 19:03:45
 
 . 
 . graph drop _all
@@ -396,8 +396,8 @@
 . 
 . 
 . save $datadir/clean/bdm_full_sample_wide.dta, replace
-file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
-> full_sample_wide.dta saved
+file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/b
+> dm_full_sample_wide.dta saved
 
 . 
 . keep duration_sec belief* ///
@@ -524,8 +524,8 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9->belief1_down_sce
 . 
 . 
 . save $datadir/clean/bdm_full_sample_long.dta, replace
-file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
-> full_sample_long.dta saved
+file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/b
+> dm_full_sample_long.dta saved
 
 . 
 . 
@@ -536,16 +536,16 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
 
 . 
 . di "Do file clean_qualtrics_data.do start date time: `date1' `time1'"
-Do file clean_qualtrics_data.do start date time: 30 Oct 2022 22:27:15
+Do file clean_qualtrics_data.do start date time: 31 Oct 2022 19:03:46
 
 . di "End date time: `date2' `time2'"
-End date time: 30 Oct 2022 22:27:15
+End date time: 31 Oct 2022 19:03:46
 
 . 
 . log close
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
-> ics_data.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_qua
+> ltrics_data.smcl
   log type:  smcl
- closed on:  30 Oct 2022, 22:27:15
+ closed on:  31 Oct 2022, 19:03:46
 -------------------------------------------------------------------------------

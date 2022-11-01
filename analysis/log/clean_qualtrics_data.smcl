@@ -1,9 +1,9 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}30 Oct 2022, 22:27:15
+ {txt}opened on:  {res}31 Oct 2022, 19:03:45
 {txt}
 {com}. 
 . graph drop _all
@@ -382,7 +382,7 @@
 {com}. 
 . 
 . save $datadir/clean/bdm_full_sample_wide.dta, replace
-{txt}file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_full_sample_wide.dta saved
+{txt}file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_full_sample_wide.dta saved
 
 {com}. 
 . keep duration_sec belief* ///
@@ -506,7 +506,7 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9{txt}->{res}belief1_dow
 {com}. 
 . 
 . save $datadir/clean/bdm_full_sample_long.dta, replace
-{txt}file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_full_sample_long.dta saved
+{txt}file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_full_sample_long.dta saved
 
 {com}. 
 . 
@@ -517,17 +517,17 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9{txt}->{res}belief1_dow
 {txt}
 {com}. 
 . di "Do file clean_qualtrics_data.do start date time: `date1' `time1'"
-{res}Do file clean_qualtrics_data.do start date time: 30 Oct 2022 22:27:15
+{res}Do file clean_qualtrics_data.do start date time: 31 Oct 2022 19:03:46
 {txt}
 {com}. di "End date time: `date2' `time2'"
-{res}End date time: 30 Oct 2022 22:27:15
+{res}End date time: 31 Oct 2022 19:03:46
 {txt}
 {com}. 
 . log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}30 Oct 2022, 22:27:15
+ {txt}closed on:  {res}31 Oct 2022, 19:03:46
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

@@ -1,8 +1,9 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/explore.s
+> mcl
   log type:  smcl
- opened on:  30 Oct 2022, 22:27:15
+ opened on:  31 Oct 2022, 19:03:47
 
 . 
 . graph drop _all
@@ -32,7 +33,7 @@
 . tempfile full_sample
 
 . save `full_sample'
-file C:\Users\sunch\AppData\Local\Temp\ST_01000001.tmp saved
+file C:\Users\sunch\AppData\Local\Temp\ST_00000001.tmp saved
 
 . 
 . 
@@ -52,8 +53,77 @@ belief1_di~s |        159    10.51572    9.784291          1         50
 belief1_di~s |        117    10.01709    11.14016          1         60
 
 . 
+. /* mean distance is around 10 percentage points, no difference between treatm
+> ents */
 . 
 . 
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. //  OLS for pooled false reports
+. //------------------------------------------------------------------------
+. di "************"
+************
+
+. di "pooled false reports on treatment, clustered standard errors at individua
+> l level"
+pooled false reports on treatment, clustered standard errors at individual leve
+> l
+
+. di "************"
+************
+
+. 
+. reg belief1_false full_info, vce(cluster id)
+
+Linear regression                               Number of obs     =        891
+                                                F(1, 98)          =       1.43
+                                                Prob > F          =     0.2353
+                                                R-squared         =     0.0091
+                                                Root MSE          =     .46081
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0880272   .0737213     1.19   0.235    -.0582703    .2343247
+       _cons |   .2653061   .0492076     5.39   0.000     .1676553    .3629569
+------------------------------------------------------------------------------
+
+. 
+. 
+. 
+. di "************"
+************
+
+. di "pooled false reports with tolerance band of 5 on treatment, clustered sta
+> ndard errors at individual level"
+pooled false reports with tolerance band of 5 on treatment, clustered standard 
+> errors at individual level
+
+. di "************"
+************
+
+. 
+. reg belief1_false_band_5 full_info, vce(cluster id)
+
+Linear regression                               Number of obs     =        891
+                                                F(1, 98)          =       1.31
+                                                Prob > F          =     0.2548
+                                                R-squared         =     0.0065
+                                                Root MSE          =     .36936
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~5 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0595465   .0519867     1.15   0.255    -.0436195    .1627124
+       _cons |   .1337868   .0347309     3.85   0.000     .0648645    .2027092
+------------------------------------------------------------------------------
+
 . 
 . //------------------------------------------------------------------------
 . //  OLS for false reports by scenario
@@ -1246,15 +1316,16 @@ belief1_fal |
 
 . 
 . di "Do file explore.do start date time: `date1' `time1'"
-Do file explore.do start date time: 30 Oct 2022 22:27:15
+Do file explore.do start date time: 31 Oct 2022 19:03:47
 
 . di "End date time: `date2' `time2'"
-End date time: 30 Oct 2022 22:27:16
+End date time: 31 Oct 2022 19:03:48
 
 . 
 . log close
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/explore.s
+> mcl
   log type:  smcl
- closed on:  30 Oct 2022, 22:27:16
+ closed on:  31 Oct 2022, 19:03:48
 -------------------------------------------------------------------------------

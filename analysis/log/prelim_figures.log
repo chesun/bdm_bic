@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/prelim_figur
-> es.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/prelim_fi
+> gures.smcl
   log type:  smcl
- opened on:  30 Oct 2022, 23:04:35
+ opened on:  31 Oct 2022, 19:03:48
 
 . 
 . graph drop _all
@@ -33,7 +33,7 @@
 . tempfile full_sample
 
 . save `full_sample'
-file C:\Users\sunch\AppData\Local\Temp\ST_01000001.tmp saved
+file C:\Users\sunch\AppData\Local\Temp\ST_00000001.tmp saved
 
 . 
 . 
@@ -89,8 +89,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_period.pdf, replace as(pdf)
-(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period
-> .pdf written in PDF format)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_per
+> iod.pdf written in PDF format)
 
 . 
 . 
@@ -124,8 +124,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_period_tol5.pdf, replace as(pdf)
-(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period
-> _tol5.pdf written in PDF format)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_per
+> iod_tol5.pdf written in PDF format)
 
 . 
 . 
@@ -189,8 +189,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_period_udst.pdf, replace as(pdf)
-(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period
-> _udst.pdf written in PDF format)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_per
+> iod_udst.pdf written in PDF format)
 
 . 
 . 
@@ -231,8 +231,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_period_udst_tol5.pdf, replace as(pdf)
-(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period
-> _udst_tol5.pdf written in PDF format)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_per
+> iod_udst_tol5.pdf written in PDF format)
 
 . 
 . 
@@ -328,8 +328,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_prior.pdf, replace as(pdf)
-(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_prior.
-> pdf written in PDF format)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_pri
+> or.pdf written in PDF format)
 
 . 
 . 
@@ -350,7 +350,7 @@ delimiter now cr
 . sort catvar full_info
 
 . 
-. // scatter plot
+. // scatter plot for full info treatment
 . #delimit ;
 delimiter now ;
 . graph twoway
@@ -401,10 +401,71 @@ delimiter now ;
 . #delimit cr
 delimiter now cr
 . 
-. graph export $projdir/out/fig/false_direction_by_prior.pdf, replace as(pdf)
-(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direction
-> _by_prior.pdf written in PDF format)
+. graph export $projdir/out/fig/false_direction_by_prior_full_info.pdf, replace
+>  as(pdf)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direct
+> ion_by_prior_full_info.pdf written in PDF format)
 
+. 
+. 
+. // scatter plot for No info treatment
+. #delimit ;
+delimiter now ;
+. graph twoway
+>   (scatter pct_up catvar if full_info==0, connect(direct) msymbol(T)
+>   msize(small)  lpattern(solid) color(midblue))
+>   (scatter pct_down catvar if full_info==0, connect(direct)
+>   msize(small)  lpattern(solid) color(black))
+>   , ytitle("Fraction of false report direction in No Info", margin(zero) size
+> (small))
+>   xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+>   xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>   ytick(0(.05)1)
+>   ymtick(0(.01)1)
+>   ylabel(0(0.1)1,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) form
+> at(%2.1f) labsize(medlarge))
+>   graphregion(color(white) margin(zero))
+>   legend(label(1 "Up") label(2 "Down"))
+>   plotregion(margin(medsmall))
+>   text(0.02 1 "0.1", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   text(0.02 2 "0.2", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   text(0.02 3 "0.3", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   text(0.02 4 "0.4", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   text(0.02 5 "0.5", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   text(0.02 6 "0.6", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   text(0.02 7 "0.7", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   text(0.02 8 "0.8", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   text(0.02 9 "0.9", placement(n) orientation(horizontal) color(black) size(m
+> ed))
+>   ;
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style med not found in class gsize, default attributes used)
+
+. #delimit cr
+delimiter now cr
+. 
+. graph export $projdir/out/fig/false_direction_by_prior_no_info.pdf, replace a
+> s(pdf)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direct
+> ion_by_prior_no_info.pdf written in PDF format)
+
+. 
+. 
 . 
 . 
 . restore, preserve
@@ -424,7 +485,7 @@ delimiter now cr
 
 . 
 . 
-. // scatter plot, false report defined with tolerance band of 5
+. // scatter plot, false report defined with tolerance band of 5 for Full Info
 .   #delimit ;
 delimiter now ;
 .   graph twoway
@@ -466,11 +527,61 @@ delimiter now ;
 . #delimit cr
 delimiter now cr
 . 
-. graph export $projdir/out/fig/false_direction_by_prior_tol5.pdf, replace as(p
-> df)
-(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direction
-> _by_prior_tol5.pdf written in PDF format)
+. graph export $projdir/out/fig/false_direction_by_prior_full_info_tol5.pdf, re
+> place as(pdf)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direct
+> ion_by_prior_full_info_tol5.pdf written in PDF format)
 
+. 
+. 
+. // scatter plot, false report defined with tolerance band of 5 for No Info
+.   #delimit ;
+delimiter now ;
+.   graph twoway
+>     (scatter pct_up catvar if full_info==0, connect(direct) msymbol(T)
+>     msize(small)  lpattern(solid) color(midblue))
+>     (scatter pct_down catvar if full_info==0, connect(direct)
+>     msize(small)  lpattern(solid) color(black))
+>     , ytitle("Fraction of false report direction in Full Info, tolerance band
+>  of 5", margin(zero) size(small))
+>     xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+>     xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>     ytick(0(.05)1)
+>     ymtick(0(.01)1)
+>     ylabel(0(0.1)1,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) fo
+> rmat(%2.1f) labsize(medlarge))
+>     graphregion(color(white) margin(zero))
+>     legend(label(1 "Up") label(2 "Down"))
+>     plotregion(margin(medsmall))
+>     text(-0.02 1 "0.1", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 2 "0.2", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 3 "0.3", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 4 "0.4", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 5 "0.5", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 6 "0.6", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 7 "0.7", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 8 "0.8", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 9 "0.9", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     ;
+
+. #delimit cr
+delimiter now cr
+. 
+. graph export $projdir/out/fig/false_direction_by_prior_no_info_tol5.pdf, repl
+> ace as(pdf)
+(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direct
+> ion_by_prior_no_info_tol5.pdf written in PDF format)
+
+. 
 . 
 . 
 . 
@@ -481,16 +592,16 @@ delimiter now cr
 
 . 
 . di "Do file prelim_figures.do start date time: `date1' `time1'"
-Do file prelim_figures.do start date time: 30 Oct 2022 23:04:35
+Do file prelim_figures.do start date time: 31 Oct 2022 19:03:48
 
 . di "End date time: `date2' `time2'"
-End date time: 30 Oct 2022 23:04:39
+End date time: 31 Oct 2022 19:04:02
 
 . 
 . log close
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/prelim_figur
-> es.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/prelim_fi
+> gures.smcl
   log type:  smcl
- closed on:  30 Oct 2022, 23:04:39
+ closed on:  31 Oct 2022, 19:04:02
 -------------------------------------------------------------------------------

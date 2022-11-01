@@ -250,7 +250,7 @@ collapse (mean) catvar pct_false1=belief1_false pct_false1_band_5=belief1_false_
 
 sort catvar full_info
 
-// scatter plot
+// scatter plot for full info treatment
 #delimit ;
 graph twoway
   (scatter pct_up catvar if full_info==1, connect(direct) msymbol(T)
@@ -278,7 +278,40 @@ graph twoway
   ;
 #delimit cr
 
-graph export $projdir/out/fig/false_direction_by_prior.pdf, replace as(pdf)
+graph export $projdir/out/fig/false_direction_by_prior_full_info.pdf, replace as(pdf)
+
+
+// scatter plot for No info treatment
+#delimit ;
+graph twoway
+  (scatter pct_up catvar if full_info==0, connect(direct) msymbol(T)
+  msize(small)  lpattern(solid) color(midblue))
+  (scatter pct_down catvar if full_info==0, connect(direct)
+  msize(small)  lpattern(solid) color(black))
+  , ytitle("Fraction of false report direction in No Info", margin(zero) size(small))
+  xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+  xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+  ytick(0(.05)1)
+  ymtick(0(.01)1)
+  ylabel(0(0.1)1,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) format(%2.1f) labsize(medlarge))
+  graphregion(color(white) margin(zero))
+  legend(label(1 "Up") label(2 "Down"))
+  plotregion(margin(medsmall))
+  text(0.02 1 "0.1", placement(n) orientation(horizontal) color(black) size(med))
+  text(0.02 2 "0.2", placement(n) orientation(horizontal) color(black) size(med))
+  text(0.02 3 "0.3", placement(n) orientation(horizontal) color(black) size(med))
+  text(0.02 4 "0.4", placement(n) orientation(horizontal) color(black) size(med))
+  text(0.02 5 "0.5", placement(n) orientation(horizontal) color(black) size(med))
+  text(0.02 6 "0.6", placement(n) orientation(horizontal) color(black) size(med))
+  text(0.02 7 "0.7", placement(n) orientation(horizontal) color(black) size(med))
+  text(0.02 8 "0.8", placement(n) orientation(horizontal) color(black) size(med))
+  text(0.02 9 "0.9", placement(n) orientation(horizontal) color(black) size(med))
+  ;
+#delimit cr
+
+graph export $projdir/out/fig/false_direction_by_prior_no_info.pdf, replace as(pdf)
+
+
 
 
 restore, preserve
@@ -291,7 +324,7 @@ collapse (mean) catvar  pct_up = belief1_up pct_down = belief1_down ///
 sort catvar full_info
 
 
-// scatter plot, false report defined with tolerance band of 5
+// scatter plot, false report defined with tolerance band of 5 for Full Info
   #delimit ;
   graph twoway
     (scatter pct_up catvar if full_info==1, connect(direct) msymbol(T)
@@ -319,7 +352,39 @@ sort catvar full_info
     ;
 #delimit cr
 
-graph export $projdir/out/fig/false_direction_by_prior_tol5.pdf, replace as(pdf)
+graph export $projdir/out/fig/false_direction_by_prior_full_info_tol5.pdf, replace as(pdf)
+
+
+// scatter plot, false report defined with tolerance band of 5 for No Info
+  #delimit ;
+  graph twoway
+    (scatter pct_up catvar if full_info==0, connect(direct) msymbol(T)
+    msize(small)  lpattern(solid) color(midblue))
+    (scatter pct_down catvar if full_info==0, connect(direct)
+    msize(small)  lpattern(solid) color(black))
+    , ytitle("Fraction of false report direction in Full Info, tolerance band of 5", margin(zero) size(small))
+    xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+    xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+    ytick(0(.05)1)
+    ymtick(0(.01)1)
+    ylabel(0(0.1)1,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) format(%2.1f) labsize(medlarge))
+    graphregion(color(white) margin(zero))
+    legend(label(1 "Up") label(2 "Down"))
+    plotregion(margin(medsmall))
+    text(-0.02 1 "0.1", placement(n) orientation(horizontal) color(black) size(small))
+    text(-0.02 2 "0.2", placement(n) orientation(horizontal) color(black) size(small))
+    text(-0.02 3 "0.3", placement(n) orientation(horizontal) color(black) size(small))
+    text(-0.02 4 "0.4", placement(n) orientation(horizontal) color(black) size(small))
+    text(-0.02 5 "0.5", placement(n) orientation(horizontal) color(black) size(small))
+    text(-0.02 6 "0.6", placement(n) orientation(horizontal) color(black) size(small))
+    text(-0.02 7 "0.7", placement(n) orientation(horizontal) color(black) size(small))
+    text(-0.02 8 "0.8", placement(n) orientation(horizontal) color(black) size(small))
+    text(-0.02 9 "0.9", placement(n) orientation(horizontal) color(black) size(small))
+    ;
+#delimit cr
+
+graph export $projdir/out/fig/false_direction_by_prior_no_info_tol5.pdf, replace as(pdf)
+
 
 
 

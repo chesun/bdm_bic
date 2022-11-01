@@ -1,20 +1,22 @@
 /* This do file runs all project do files in order */
 
 
-/*
+/* To initialize Stata environment,
+desktop
+cd "D:\Programs\Dropbox\github_repos\bdm_bic\analysis"
+do do/settings.do
+
+laptop
+cd "C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis"
+do do/settings.do
+*/
+
+
+/* to run this do file, type:
 do ./do/mainscript.do
  */
 
 
-/* desktop
-cd "D:\Programs\Dropbox\github_repos\bdm_bic\analysis"
-do do/settings.do
-*/
-
-/* laptop
-cd "C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysi"
-do do/settings.do
-*/
 
 
 cap log close _all

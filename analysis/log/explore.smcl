@@ -1,9 +1,9 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}30 Oct 2022, 22:27:15
+ {txt}opened on:  {res}31 Oct 2022, 19:03:47
 {txt}
 {com}. 
 . graph drop _all
@@ -33,7 +33,7 @@
 . tempfile full_sample
 {txt}
 {com}. save `full_sample'
-{txt}file C:\Users\sunch\AppData\Local\Temp\ST_01000001.tmp saved
+{txt}file C:\Users\sunch\AppData\Local\Temp\ST_00000001.tmp saved
 
 {com}. 
 . 
@@ -53,9 +53,73 @@ belief1_di~s {c |}{res}        159    10.51572    9.784291          1         50
 belief1_di~s {c |}{res}        117    10.01709    11.14016          1         60
 {txt}
 {com}. 
+. /* mean distance is around 10 percentage points, no difference between treatments */
 . 
 . 
 . 
+. 
+. 
+. //------------------------------------------------------------------------
+. //  OLS for pooled false reports
+. //------------------------------------------------------------------------
+. di "************"
+{res}************
+{txt}
+{com}. di "pooled false reports on treatment, clustered standard errors at individual level"
+{res}pooled false reports on treatment, clustered standard errors at individual level
+{txt}
+{com}. di "************"
+{res}************
+{txt}
+{com}. 
+. reg belief1_false full_info, vce(cluster id)
+
+{txt}Linear regression                               Number of obs     = {res}       891
+                                                {txt}F(1, 98)          =  {res}     1.43
+                                                {txt}Prob > F          = {res}    0.2353
+                                                {txt}R-squared         = {res}    0.0091
+                                                {txt}Root MSE          =    {res} .46081
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0880272{col 26}{space 2} .0737213{col 37}{space 1}    1.19{col 46}{space 3}0.235{col 54}{space 4}-.0582703{col 67}{space 3} .2343247
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2653061{col 26}{space 2} .0492076{col 37}{space 1}    5.39{col 46}{space 3}0.000{col 54}{space 4} .1676553{col 67}{space 3} .3629569
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. 
+. 
+. di "************"
+{res}************
+{txt}
+{com}. di "pooled false reports with tolerance band of 5 on treatment, clustered standard errors at individual level"
+{res}pooled false reports with tolerance band of 5 on treatment, clustered standard errors at individual level
+{txt}
+{com}. di "************"
+{res}************
+{txt}
+{com}. 
+. reg belief1_false_band_5 full_info, vce(cluster id)
+
+{txt}Linear regression                               Number of obs     = {res}       891
+                                                {txt}F(1, 98)          =  {res}     1.31
+                                                {txt}Prob > F          = {res}    0.2548
+                                                {txt}R-squared         = {res}    0.0065
+                                                {txt}Root MSE          =    {res} .36936
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~5{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0595465{col 26}{space 2} .0519867{col 37}{space 1}    1.15{col 46}{space 3}0.255{col 54}{space 4}-.0436195{col 67}{space 3} .1627124
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1337868{col 26}{space 2} .0347309{col 37}{space 1}    3.85{col 46}{space 3}0.000{col 54}{space 4} .0648645{col 67}{space 3} .2027092
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
 . //------------------------------------------------------------------------
 . //  OLS for false reports by scenario
 . //------------------------------------------------------------------------
@@ -1208,17 +1272,17 @@ belief1_fal {c |}
 {txt}
 {com}. 
 . di "Do file explore.do start date time: `date1' `time1'"
-{res}Do file explore.do start date time: 30 Oct 2022 22:27:15
+{res}Do file explore.do start date time: 31 Oct 2022 19:03:47
 {txt}
 {com}. di "End date time: `date2' `time2'"
-{res}End date time: 30 Oct 2022 22:27:16
+{res}End date time: 31 Oct 2022 19:03:48
 {txt}
 {com}. 
 . log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}30 Oct 2022, 22:27:16
+ {txt}closed on:  {res}31 Oct 2022, 19:03:48
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}
