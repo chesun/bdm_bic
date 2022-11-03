@@ -32,11 +32,20 @@ import delimited using $datadir/raw/bdm_10_26_2022_for_import.csv, clear varname
 // drop observations missing prolific ID, are incomplete, or from survey preview
 drop if prolific_pid == ""
 drop if status == "Survey Preview"
-drop if response_type != "complete"
+
 
 // subject ID
 gen id = _n
 label var id "Subject ID"
+
+
+//merge on prolific demographics
+foreach date in 10_24_2022 10_26_2022 {
+  merge 1:1 prolific_pid using $datadir/clean/prolific_demo_`date', ///
+  nogen update
+}
+
+drop if response_type != "complete"
 
 // delete prolific ID
 drop prolific_pid
@@ -211,6 +220,35 @@ forvalues i = 1/9 {
   replace n_false_50 = n_false_50 + belief1_false_sce`i' if prior_sce`i' == 50
 
 }
+
+
+gen gender_w = 0
+replace gender_w = 1 if gender == "Woman"
+label var gender_w "Gender: Woman"
+
+gen gender_m = 0
+replace gender_m = 1 if gender == "Man"
+label var gender_m "Gender: Man"
+
+gen gender_nb = 0
+replace gender_nb = 0 if gender == "Non-binary"
+label var gender_nb "Gender: Non-binary"
+
+gen gender_question = 0
+replace gender_question = 1 if gender == "Questioning"
+label var gender_question "Gender: Questioning"
+
+gen bachelor_above = 0
+replace bachelor_above = 1 if education == "Bachelor's degree" ///
+  | education == "Master's degree" ///
+  | education == "Professional degree"
+
+label var bachelor_above "Bachelor's degree or above"
+
+gen probability_course = 1
+replace probability_course = 0 if coursework == "None of the above"
+label var probability_course "Taken some probability/statistics course"
+
 
 
 save $datadir/clean/bdm_full_sample_wide.dta, replace

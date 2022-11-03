@@ -1,0 +1,149 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolif
+> ic_demo.smcl
+  log type:  smcl
+ opened on:   3 Nov 2022, 01:26:15
+
+. 
+. graph drop _all
+
+. set more off
+
+. set varabbrev off
+
+. set graphics off
+
+. set scheme s1color
+
+. set seed 1984
+
+. 
+. set trace off
+
+. 
+. 
+. foreach date in 10_24_2022 10_26_2022 {
+  2. 
+.   import delimited using $datadir/raw/prolific_demo_`date', clear
+  3. 
+. 
+.   drop submissionid status startedat completedat reviewedat archivedat ///
+>     completioncode country* language studentstatus
+  4. 
+.   // format string vars data expired as missing
+. 
+.   // list of string vars and numeric vars
+. 
+.   ds, has(type string)
+  5.   local stringvars `r(varlist)'
+  6. 
+.   foreach var of varlist `stringvars' {
+  7.       replace `var' = "" if `var' == "DATA_EXPIRED"
+  8.   }
+  9. 
+. 
+.   destring age, replace
+ 10. 
+. 
+. 
+.   gen sex_f = .
+ 11.   replace sex_f = 1 if sex == "Female"
+ 12.   replace sex_f = 0 if sex == "Male"
+ 13.   //recode missing values for value label
+.   recode sex_f (missing = .a)
+ 14. 
+.   label define sex_f 1 "Female" 0 "Male" .a "Prefer not to say"
+ 15.   label values sex_f sex_f
+ 16.   label var sex_f "Sex is Female from Prolific"
+ 17. 
+. 
+. 
+.   rename participantid prolific_pid
+ 18. 
+.   rename timetaken duration_p
+ 19.   label var duration_p "Time taken on Prolific"
+ 20. 
+.   rename totalapprovals totalapprovals_p
+ 21.   label var totalapprovals_p "Total approvals on Prolific"
+ 22. 
+.   rename fluentlanguages languages_p
+ 23.   label var languages_p "Fluent languages from Prolific"
+ 24. 
+.   rename age age_p
+ 25.   label var age_p "Age from Prolific"
+ 26. 
+.   rename sex sex_p
+ 27.   label var sex_p "Sex from Prolific"
+ 28. 
+.   rename ethnicitysimplified ethnicity_p
+ 29.   label var ethnicity_p "Ethnicity from Prolific"
+ 30. 
+.   rename nationality nationality_p
+ 31.   label var nationality_p "Nationality from Prolific"
+ 32. 
+.   rename employmentstatus employ_p
+ 33.   label var employ_p "Employment status from Prolific"
+ 34. 
+. 
+. 
+. 
+. 
+.   save $datadir/clean/prolific_demo_`date', replace
+ 35. 
+. 
+. }
+(20 vars, 40 obs)
+participan~d  sex           nationality
+fluentlang~s  ethnicitys~d  employment~s
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(13 real changes made)
+age already numeric; no replace
+(40 missing values generated)
+(23 real changes made)
+(17 real changes made)
+(sex_f: 0 changes made)
+file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prol
+> ific_demo_10_24_2022.dta saved
+(20 vars, 59 obs)
+participan~d  age           ethnicitys~d  employment~s
+fluentlang~s  sex           nationality
+(0 real changes made)
+(0 real changes made)
+(2 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(25 real changes made)
+age has all characters numeric; replaced as byte
+(2 missing values generated)
+(59 missing values generated)
+(35 real changes made)
+(23 real changes made)
+(sex_f: 1 changes made)
+file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prol
+> ific_demo_10_26_2022.dta saved
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolif
+> ic_demo.smcl
+  log type:  smcl
+ closed on:   3 Nov 2022, 01:26:15
+-------------------------------------------------------------------------------

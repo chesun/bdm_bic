@@ -19,7 +19,7 @@ log using $projdir/log/prelim_figures.smcl, replace
 graph drop _all
 set more off
 set varabbrev off
-set graphics on
+set graphics off
 set scheme s1color
 set seed 1984
 

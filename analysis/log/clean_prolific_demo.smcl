@@ -1,0 +1,148 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolific_demo.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 3 Nov 2022, 01:26:15
+{txt}
+{com}. 
+. graph drop _all
+{txt}
+{com}. set more off
+{txt}
+{com}. set varabbrev off
+{txt}
+{com}. set graphics off
+{txt}
+{com}. set scheme s1color
+{txt}
+{com}. set seed 1984
+{txt}
+{com}. 
+. set trace off
+{txt}
+{com}. 
+. 
+. foreach date in 10_24_2022 10_26_2022 {c -(}
+{txt}  2{com}. 
+.   import delimited using $datadir/raw/prolific_demo_`date', clear
+{txt}  3{com}. 
+. 
+.   drop submissionid status startedat completedat reviewedat archivedat ///
+>     completioncode country* language studentstatus
+{txt}  4{com}. 
+.   // format string vars data expired as missing
+. 
+.   // list of string vars and numeric vars
+. 
+.   ds, has(type string)
+{txt}  5{com}.   local stringvars `r(varlist)'
+{txt}  6{com}. 
+.   foreach var of varlist `stringvars' {c -(}
+{txt}  7{com}.       replace `var' = "" if `var' == "DATA_EXPIRED"
+{txt}  8{com}.   {c )-}
+{txt}  9{com}. 
+. 
+.   destring age, replace
+{txt} 10{com}. 
+. 
+. 
+.   gen sex_f = .
+{txt} 11{com}.   replace sex_f = 1 if sex == "Female"
+{txt} 12{com}.   replace sex_f = 0 if sex == "Male"
+{txt} 13{com}.   //recode missing values for value label
+.   recode sex_f (missing = .a)
+{txt} 14{com}. 
+.   label define sex_f 1 "Female" 0 "Male" .a "Prefer not to say"
+{txt} 15{com}.   label values sex_f sex_f
+{txt} 16{com}.   label var sex_f "Sex is Female from Prolific"
+{txt} 17{com}. 
+. 
+. 
+.   rename participantid prolific_pid
+{txt} 18{com}. 
+.   rename timetaken duration_p
+{txt} 19{com}.   label var duration_p "Time taken on Prolific"
+{txt} 20{com}. 
+.   rename totalapprovals totalapprovals_p
+{txt} 21{com}.   label var totalapprovals_p "Total approvals on Prolific"
+{txt} 22{com}. 
+.   rename fluentlanguages languages_p
+{txt} 23{com}.   label var languages_p "Fluent languages from Prolific"
+{txt} 24{com}. 
+.   rename age age_p
+{txt} 25{com}.   label var age_p "Age from Prolific"
+{txt} 26{com}. 
+.   rename sex sex_p
+{txt} 27{com}.   label var sex_p "Sex from Prolific"
+{txt} 28{com}. 
+.   rename ethnicitysimplified ethnicity_p
+{txt} 29{com}.   label var ethnicity_p "Ethnicity from Prolific"
+{txt} 30{com}. 
+.   rename nationality nationality_p
+{txt} 31{com}.   label var nationality_p "Nationality from Prolific"
+{txt} 32{com}. 
+.   rename employmentstatus employ_p
+{txt} 33{com}.   label var employ_p "Employment status from Prolific"
+{txt} 34{com}. 
+. 
+. 
+. 
+. 
+.   save $datadir/clean/prolific_demo_`date', replace
+{txt} 35{com}. 
+. 
+. {c )-}
+{res}{text}(20 vars, 40 obs)
+{col 1}participan~d{col 15}sex{col 29}nationality
+{col 1}fluentlang~s{col 15}ethnicitys~d{col 29}employment~s
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(13 real changes made)
+age already numeric; no {res}replace
+{txt}(40 missing values generated)
+(23 real changes made)
+(17 real changes made)
+(sex_f: 0 changes made)
+{res}{txt}file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prolific_demo_10_24_2022.dta saved
+{res}{text}(20 vars, 59 obs)
+{col 1}participan~d{col 15}age{col 29}ethnicitys~d{col 43}employment~s
+{col 1}fluentlang~s{col 15}sex{col 29}nationality
+(0 real changes made)
+(0 real changes made)
+(2 real changes made)
+(0 real changes made)
+(1 real change made)
+(0 real changes made)
+(25 real changes made)
+age has all characters numeric; {res}replaced {txt}as {res}byte
+{txt}(2 missing values generated)
+{res}{txt}(59 missing values generated)
+(35 real changes made)
+(23 real changes made)
+(sex_f: 1 changes made)
+{res}{txt}file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prolific_demo_10_26_2022.dta saved
+
+{com}. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolific_demo.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 3 Nov 2022, 01:26:15
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

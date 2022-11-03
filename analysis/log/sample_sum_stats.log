@@ -1,0 +1,148 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_s
+> tats.smcl
+  log type:  smcl
+ opened on:   3 Nov 2022, 01:26:22
+
+. 
+. graph drop _all
+
+. set more off
+
+. set varabbrev off
+
+. set graphics off
+
+. set scheme s1color
+
+. set seed 1984
+
+. 
+. 
+. 
+. // load data
+. use $datadir/clean/bdm_full_sample_wide, clear
+
+. 
+. 
+. estpost tabstat age_p gender_w gender_m ///
+>   bachelor_above probability_course totalapprovals_p ///
+>   if treatment=="full_info", ///
+>   stats(mean sd) columns(statistics)
+
+Summary statistics: mean sd
+     for variables: age_p gender_w gender_m bachelor_above probability_course t
+> otalapprovals_p
+
+             |   e(mean)      e(sd) 
+-------------+----------------------
+       age_p |  36.72917   11.62488 
+    gender_w |       .46   .5034574 
+    gender_m |       .52    .504672 
+bachelor_a~e |       .44   .5014265 
+probabilit~e |       .44   .5014265 
+totalappro~p |  1278.776   962.2006 
+
+. 
+. est save $projdir/est/sum_stats_full_info.ster, replace
+file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/sum_stats_full_info.
+> ster saved
+
+. 
+. estpost tabstat age_p gender_w gender_m ///
+>   bachelor_above probability_course totalapprovals_p ///
+>   if treatment=="no_info", ///
+>    stats(mean sd) columns(statistics)
+
+Summary statistics: mean sd
+     for variables: age_p gender_w gender_m bachelor_above probability_course t
+> otalapprovals_p
+
+             |   e(mean)      e(sd) 
+-------------+----------------------
+       age_p |   34.6875    11.0032 
+    gender_w |  .6530612   .4809288 
+    gender_m |  .3061224   .4656573 
+bachelor_a~e |  .4693878   .5042338 
+probabilit~e |  .3877551   .4922875 
+totalappro~p |  1107.469    836.114 
+
+. 
+. est save $projdir/est/sum_stats_no_info.ster, replace
+file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/sum_stats_no_info.st
+> er saved
+
+. 
+. 
+. estpost tabstat age_p gender_w gender_m ///
+>   bachelor_above probability_course totalapprovals_p, ///
+>    stats(mean sd) columns(statistics)
+
+Summary statistics: mean sd
+     for variables: age_p gender_w gender_m bachelor_above probability_course t
+> otalapprovals_p
+
+             |   e(mean)      e(sd) 
+-------------+----------------------
+       age_p |  35.70833   11.30525 
+    gender_w |  .5555556   .4994328 
+    gender_m |  .4141414   .4950799 
+bachelor_a~e |  .4545455   .5004636 
+probabilit~e |  .4141414   .4950799 
+totalappro~p |  1193.122   900.8299 
+
+. 
+. est save $projdir/est/sum_stats_all.ster, replace
+file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/sum_stats_all.ster s
+> aved
+
+. 
+. 
+. est use $projdir/est/sum_stats_full_info.ster
+
+. eststo full_info
+
+. 
+. est use $projdir/est/sum_stats_no_info.ster
+
+. eststo no_info
+
+. 
+. est use  $projdir/est/sum_stats_all.ster
+
+. eststo all
+
+. 
+. // need to use doubel quotes for overleaf directory
+. esttab full_info no_info all using "$overleafdir/tables/sample_sum_stats.tex"
+>  ///
+>   , replace nonumbers label wide ///
+>   cells("mean(fmt(2)) sd(fmt(2))") ///
+>   mtitles("Full Info" "No Info" "Overall")
+(output written to D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Te
+> lling/tables/sample_sum_stats.tex)
+
+. 
+. // HAVE TO USE cells() !!!
+. esttab full_info no_info all using $projdir/out/tab/sample_sum_stats.csv ///
+>   , replace nonumbers label  ///
+>   cells("mean(fmt(2)) sd(fmt(2))") ///
+>   mtitles("Full Info" "No Info" "Overall")
+(output written to D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/tab/sa
+> mple_sum_stats.csv)
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_s
+> tats.smcl
+  log type:  smcl
+ closed on:   3 Nov 2022, 01:26:23
+-------------------------------------------------------------------------------

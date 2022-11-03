@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_qua
-> ltrics_data.smcl
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
+> ics_data.smcl
   log type:  smcl
- opened on:  31 Oct 2022, 19:03:45
+ opened on:   3 Nov 2022, 01:26:15
 
 . 
 . graph drop _all
@@ -38,14 +38,54 @@
 . drop if status == "Survey Preview"
 (0 observations deleted)
 
-. drop if response_type != "complete"
-(2 observations deleted)
-
+. 
 . 
 . // subject ID
 . gen id = _n
 
 . label var id "Subject ID"
+
+. 
+. 
+. //merge on prolific demographics
+. foreach date in 10_24_2022 10_26_2022 {
+  2.   merge 1:1 prolific_pid using $datadir/clean/prolific_demo_`date', ///
+>   nogen update
+  3. }
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                            61
+        from master                        61  
+        from using                          0  
+
+    matched                                40
+        not updated                        40  
+        missing updated                     0  
+        nonmissing conflict                 0  
+    -----------------------------------------
+(note: variable languages_p was str16, now str33 to accommodate using data's
+       values)
+(note: variable sex_p was str6, now str17 to accommodate using data's values)
+(note: variable ethnicity_p was str5, now str12 to accommodate using data's
+       values)
+(label sex_f already defined)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                            44
+        from master                        43  
+        from using                          1  
+
+    matched                                58
+        not updated                         0  
+        missing updated                    58  
+        nonmissing conflict                 0  
+    -----------------------------------------
+
+. 
+. drop if response_type != "complete"
+(3 observations deleted)
 
 . 
 . // delete prolific ID
@@ -395,9 +435,62 @@
 
 . 
 . 
+. gen gender_w = 0
+
+. replace gender_w = 1 if gender == "Woman"
+(55 real changes made)
+
+. label var gender_w "Gender: Woman"
+
+. 
+. gen gender_m = 0
+
+. replace gender_m = 1 if gender == "Man"
+(41 real changes made)
+
+. label var gender_m "Gender: Man"
+
+. 
+. gen gender_nb = 0
+
+. replace gender_nb = 0 if gender == "Non-binary"
+(0 real changes made)
+
+. label var gender_nb "Gender: Non-binary"
+
+. 
+. gen gender_question = 0
+
+. replace gender_question = 1 if gender == "Questioning"
+(1 real change made)
+
+. label var gender_question "Gender: Questioning"
+
+. 
+. gen bachelor_above = 0
+
+. replace bachelor_above = 1 if education == "Bachelor's degree" ///
+>   | education == "Master's degree" ///
+>   | education == "Professional degree"
+(45 real changes made)
+
+. 
+. label var bachelor_above "Bachelor's degree or above"
+
+. 
+. gen probability_course = 1
+
+. replace probability_course = 0 if coursework == "None of the above"
+(58 real changes made)
+
+. label var probability_course "Taken some probability/statistics course"
+
+. 
+. 
+. 
 . save $datadir/clean/bdm_full_sample_wide.dta, replace
-file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/b
-> dm_full_sample_wide.dta saved
+file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
+> full_sample_wide.dta saved
 
 . 
 . keep duration_sec belief* ///
@@ -524,8 +617,8 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9->belief1_down_sce
 . 
 . 
 . save $datadir/clean/bdm_full_sample_long.dta, replace
-file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/b
-> dm_full_sample_long.dta saved
+file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
+> full_sample_long.dta saved
 
 . 
 . 
@@ -536,16 +629,16 @@ file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/b
 
 . 
 . di "Do file clean_qualtrics_data.do start date time: `date1' `time1'"
-Do file clean_qualtrics_data.do start date time: 31 Oct 2022 19:03:46
+Do file clean_qualtrics_data.do start date time:  3 Nov 2022 01:26:15
 
 . di "End date time: `date2' `time2'"
-End date time: 31 Oct 2022 19:03:46
+End date time:  3 Nov 2022 01:26:15
 
 . 
 . log close
       name:  <unnamed>
-       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_qua
-> ltrics_data.smcl
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
+> ics_data.smcl
   log type:  smcl
- closed on:  31 Oct 2022, 19:03:46
+ closed on:   3 Nov 2022, 01:26:15
 -------------------------------------------------------------------------------

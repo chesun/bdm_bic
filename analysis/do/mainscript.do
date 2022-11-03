@@ -26,6 +26,14 @@ set more off
 
 do ./do/settings.do
 
+
+
+do ./do/clean/clean_prolific_demo.do
+
 do ./do/clean/clean_qualtrics_data.do
+
 do ./do/learn/explore.do
+
 do ./do/share/prelim_figures.do
+
+do ./do/share/sample_sum_stats.do

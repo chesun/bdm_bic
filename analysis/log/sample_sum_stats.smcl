@@ -1,0 +1,140 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_stats.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 3 Nov 2022, 01:26:22
+{txt}
+{com}. 
+. graph drop _all
+{txt}
+{com}. set more off
+{txt}
+{com}. set varabbrev off
+{txt}
+{com}. set graphics off
+{txt}
+{com}. set scheme s1color
+{txt}
+{com}. set seed 1984
+{txt}
+{com}. 
+. 
+. 
+. // load data
+. use $datadir/clean/bdm_full_sample_wide, clear
+{txt}
+{com}. 
+. 
+. estpost tabstat age_p gender_w gender_m ///
+>   bachelor_above probability_course totalapprovals_p ///
+>   if treatment=="full_info", ///
+>   stats(mean sd) columns(statistics)
+
+{txt}Summary statistics: mean sd
+     for variables: age_p gender_w gender_m bachelor_above probability_course totalapprovals_p
+
+{space 0}{space 0}{ralign 12:}{space 1}{c |}{space 1}{ralign 9:e(mean)}{space 1}{space 1}{ralign 9:e(sd)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:age_p}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 36.72917}}}{space 1}{space 1}{ralign 9:{res:{sf: 11.62488}}}{space 1}
+{space 0}{space 0}{ralign 12:gender_w}{space 1}{c |}{space 1}{ralign 9:{res:{sf:      .46}}}{space 1}{space 1}{ralign 9:{res:{sf: .5034574}}}{space 1}
+{space 0}{space 0}{ralign 12:gender_m}{space 1}{c |}{space 1}{ralign 9:{res:{sf:      .52}}}{space 1}{space 1}{ralign 9:{res:{sf:  .504672}}}{space 1}
+{space 0}{space 0}{ralign 12:bachelor_a~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf:      .44}}}{space 1}{space 1}{ralign 9:{res:{sf: .5014265}}}{space 1}
+{space 0}{space 0}{ralign 12:probabilit~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf:      .44}}}{space 1}{space 1}{ralign 9:{res:{sf: .5014265}}}{space 1}
+{space 0}{space 0}{ralign 12:totalappro~p}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 1278.776}}}{space 1}{space 1}{ralign 9:{res:{sf: 962.2006}}}{space 1}
+
+{com}. 
+. est save $projdir/est/sum_stats_full_info.ster, replace
+{res}{txt}file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/sum_stats_full_info.ster saved
+
+{com}. 
+. estpost tabstat age_p gender_w gender_m ///
+>   bachelor_above probability_course totalapprovals_p ///
+>   if treatment=="no_info", ///
+>    stats(mean sd) columns(statistics)
+
+{txt}Summary statistics: mean sd
+     for variables: age_p gender_w gender_m bachelor_above probability_course totalapprovals_p
+
+{space 0}{space 0}{ralign 12:}{space 1}{c |}{space 1}{ralign 9:e(mean)}{space 1}{space 1}{ralign 9:e(sd)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:age_p}{space 1}{c |}{space 1}{ralign 9:{res:{sf:  34.6875}}}{space 1}{space 1}{ralign 9:{res:{sf:  11.0032}}}{space 1}
+{space 0}{space 0}{ralign 12:gender_w}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .6530612}}}{space 1}{space 1}{ralign 9:{res:{sf: .4809288}}}{space 1}
+{space 0}{space 0}{ralign 12:gender_m}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .3061224}}}{space 1}{space 1}{ralign 9:{res:{sf: .4656573}}}{space 1}
+{space 0}{space 0}{ralign 12:bachelor_a~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .4693878}}}{space 1}{space 1}{ralign 9:{res:{sf: .5042338}}}{space 1}
+{space 0}{space 0}{ralign 12:probabilit~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .3877551}}}{space 1}{space 1}{ralign 9:{res:{sf: .4922875}}}{space 1}
+{space 0}{space 0}{ralign 12:totalappro~p}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 1107.469}}}{space 1}{space 1}{ralign 9:{res:{sf:  836.114}}}{space 1}
+
+{com}. 
+. est save $projdir/est/sum_stats_no_info.ster, replace
+{res}{txt}file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/sum_stats_no_info.ster saved
+
+{com}. 
+. 
+. estpost tabstat age_p gender_w gender_m ///
+>   bachelor_above probability_course totalapprovals_p, ///
+>    stats(mean sd) columns(statistics)
+
+{txt}Summary statistics: mean sd
+     for variables: age_p gender_w gender_m bachelor_above probability_course totalapprovals_p
+
+{space 0}{space 0}{ralign 12:}{space 1}{c |}{space 1}{ralign 9:e(mean)}{space 1}{space 1}{ralign 9:e(sd)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:age_p}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 35.70833}}}{space 1}{space 1}{ralign 9:{res:{sf: 11.30525}}}{space 1}
+{space 0}{space 0}{ralign 12:gender_w}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .5555556}}}{space 1}{space 1}{ralign 9:{res:{sf: .4994328}}}{space 1}
+{space 0}{space 0}{ralign 12:gender_m}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .4141414}}}{space 1}{space 1}{ralign 9:{res:{sf: .4950799}}}{space 1}
+{space 0}{space 0}{ralign 12:bachelor_a~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .4545455}}}{space 1}{space 1}{ralign 9:{res:{sf: .5004636}}}{space 1}
+{space 0}{space 0}{ralign 12:probabilit~e}{space 1}{c |}{space 1}{ralign 9:{res:{sf: .4141414}}}{space 1}{space 1}{ralign 9:{res:{sf: .4950799}}}{space 1}
+{space 0}{space 0}{ralign 12:totalappro~p}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 1193.122}}}{space 1}{space 1}{ralign 9:{res:{sf: 900.8299}}}{space 1}
+
+{com}. 
+. est save $projdir/est/sum_stats_all.ster, replace
+{res}{txt}file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/sum_stats_all.ster saved
+
+{com}. 
+. 
+. est use $projdir/est/sum_stats_full_info.ster
+{res}{txt}
+{com}. eststo full_info
+{txt}
+{com}. 
+. est use $projdir/est/sum_stats_no_info.ster
+{res}{txt}
+{com}. eststo no_info
+{txt}
+{com}. 
+. est use  $projdir/est/sum_stats_all.ster
+{res}{txt}
+{com}. eststo all
+{txt}
+{com}. 
+. // need to use doubel quotes for overleaf directory
+. esttab full_info no_info all using "$overleafdir/tables/sample_sum_stats.tex" ///
+>   , replace nonumbers label wide ///
+>   cells("mean(fmt(2)) sd(fmt(2))") ///
+>   mtitles("Full Info" "No Info" "Overall")
+{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/sample_sum_stats.tex"'})
+
+{com}. 
+. // HAVE TO USE cells() !!!
+. esttab full_info no_info all using $projdir/out/tab/sample_sum_stats.csv ///
+>   , replace nonumbers label  ///
+>   cells("mean(fmt(2)) sd(fmt(2))") ///
+>   mtitles("Full Info" "No Info" "Overall")
+{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/tab/sample_sum_stats.csv"'})
+
+{com}. 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_stats.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 3 Nov 2022, 01:26:23
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

@@ -1,9 +1,9 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}31 Oct 2022, 19:03:45
+ {txt}opened on:  {res} 3 Nov 2022, 01:26:15
 {txt}
 {com}. 
 . graph drop _all
@@ -36,15 +36,65 @@
 {com}. drop if status == "Survey Preview"
 {txt}(0 observations deleted)
 
-{com}. drop if response_type != "complete"
-{txt}(2 observations deleted)
-
 {com}. 
+. 
 . // subject ID
 . gen id = _n
 {txt}
 {com}. label var id "Subject ID"
 {txt}
+{com}. 
+. 
+. //merge on prolific demographics
+. foreach date in 10_24_2022 10_26_2022 {c -(}
+{txt}  2{com}.   merge 1:1 prolific_pid using $datadir/clean/prolific_demo_`date', ///
+>   nogen update
+{txt}  3{com}. {c )-}
+{res}
+{txt}{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}              61
+{txt}{col 9}from master{col 30}{res}              61{txt}  
+{col 9}from using{col 30}{res}               0{txt}  
+
+{col 5}matched{col 30}{res}              40
+{txt}{col 9}not updated{col 30}{res}              40{txt}  
+{col 9}missing updated{col 30}{res}               0{txt}  
+{col 9}nonmissing conflict{col 30}{res}               0{txt}  
+{col 5}{hline 41}
+{res}{txt}{p 0 7 2}
+(note: variable
+languages_p was 
+str16, now str33 to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+sex_p was 
+str6, now str17 to accommodate using data's values)
+{p_end}
+{p 0 7 2}
+(note: variable
+ethnicity_p was 
+str5, now str12 to accommodate using data's values)
+{p_end}
+(label sex_f already defined)
+
+{col 5}Result{col 38}# of obs.
+{col 5}{hline 41}
+{col 5}not matched{col 30}{res}              44
+{txt}{col 9}from master{col 30}{res}              43{txt}  
+{col 9}from using{col 30}{res}               1{txt}  
+
+{col 5}matched{col 30}{res}              58
+{txt}{col 9}not updated{col 30}{res}               0{txt}  
+{col 9}missing updated{col 30}{res}              58{txt}  
+{col 9}nonmissing conflict{col 30}{res}               0{txt}  
+{col 5}{hline 41}
+
+{com}. 
+. drop if response_type != "complete"
+{txt}(3 observations deleted)
+
 {com}. 
 . // delete prolific ID
 . drop prolific_pid
@@ -381,8 +431,61 @@
 
 {com}. 
 . 
+. gen gender_w = 0
+{txt}
+{com}. replace gender_w = 1 if gender == "Woman"
+{txt}(55 real changes made)
+
+{com}. label var gender_w "Gender: Woman"
+{txt}
+{com}. 
+. gen gender_m = 0
+{txt}
+{com}. replace gender_m = 1 if gender == "Man"
+{txt}(41 real changes made)
+
+{com}. label var gender_m "Gender: Man"
+{txt}
+{com}. 
+. gen gender_nb = 0
+{txt}
+{com}. replace gender_nb = 0 if gender == "Non-binary"
+{txt}(0 real changes made)
+
+{com}. label var gender_nb "Gender: Non-binary"
+{txt}
+{com}. 
+. gen gender_question = 0
+{txt}
+{com}. replace gender_question = 1 if gender == "Questioning"
+{txt}(1 real change made)
+
+{com}. label var gender_question "Gender: Questioning"
+{txt}
+{com}. 
+. gen bachelor_above = 0
+{txt}
+{com}. replace bachelor_above = 1 if education == "Bachelor's degree" ///
+>   | education == "Master's degree" ///
+>   | education == "Professional degree"
+{txt}(45 real changes made)
+
+{com}. 
+. label var bachelor_above "Bachelor's degree or above"
+{txt}
+{com}. 
+. gen probability_course = 1
+{txt}
+{com}. replace probability_course = 0 if coursework == "None of the above"
+{txt}(58 real changes made)
+
+{com}. label var probability_course "Taken some probability/statistics course"
+{txt}
+{com}. 
+. 
+. 
 . save $datadir/clean/bdm_full_sample_wide.dta, replace
-{txt}file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_full_sample_wide.dta saved
+{txt}file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_full_sample_wide.dta saved
 
 {com}. 
 . keep duration_sec belief* ///
@@ -506,7 +609,7 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9{txt}->{res}belief1_dow
 {com}. 
 . 
 . save $datadir/clean/bdm_full_sample_long.dta, replace
-{txt}file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_full_sample_long.dta saved
+{txt}file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_full_sample_long.dta saved
 
 {com}. 
 . 
@@ -517,17 +620,17 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9{txt}->{res}belief1_dow
 {txt}
 {com}. 
 . di "Do file clean_qualtrics_data.do start date time: `date1' `time1'"
-{res}Do file clean_qualtrics_data.do start date time: 31 Oct 2022 19:03:46
+{res}Do file clean_qualtrics_data.do start date time:  3 Nov 2022 01:26:15
 {txt}
 {com}. di "End date time: `date2' `time2'"
-{res}End date time: 31 Oct 2022 19:03:46
+{res}End date time:  3 Nov 2022 01:26:15
 {txt}
 {com}. 
 . log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}31 Oct 2022, 19:03:46
+ {txt}closed on:  {res} 3 Nov 2022, 01:26:15
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

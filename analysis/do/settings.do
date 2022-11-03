@@ -8,4 +8,5 @@ else if c(hostname)=="Christina-PC" {
   // dektop settings
   global projdir "D:\Programs\Dropbox\github_repos\bdm_bic\analysis"
   global datadir "D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data"
+  global overleafdir "D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling"
 }

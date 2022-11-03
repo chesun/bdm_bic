@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/prelim_fi
-> gures.smcl
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/prelim_figur
+> es.smcl
   log type:  smcl
- opened on:  31 Oct 2022, 19:03:48
+ opened on:   3 Nov 2022, 01:26:17
 
 . 
 . graph drop _all
@@ -12,7 +12,7 @@
 
 . set varabbrev off
 
-. set graphics on
+. set graphics off
 
 . set scheme s1color
 
@@ -89,8 +89,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_period.pdf, replace as(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_per
-> iod.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period
+> .pdf written in PDF format)
 
 . 
 . 
@@ -124,8 +124,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_period_tol5.pdf, replace as(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_per
-> iod_tol5.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period
+> _tol5.pdf written in PDF format)
 
 . 
 . 
@@ -189,8 +189,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_period_udst.pdf, replace as(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_per
-> iod_udst.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period
+> _udst.pdf written in PDF format)
 
 . 
 . 
@@ -231,8 +231,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_period_udst_tol5.pdf, replace as(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_per
-> iod_udst_tol5.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_period
+> _udst_tol5.pdf written in PDF format)
 
 . 
 . 
@@ -328,8 +328,8 @@ delimiter now ;
 delimiter now cr
 . 
 . graph export $projdir/out/fig/false_by_prior.pdf, replace as(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_pri
-> or.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_by_prior.
+> pdf written in PDF format)
 
 . 
 . 
@@ -403,8 +403,8 @@ delimiter now cr
 . 
 . graph export $projdir/out/fig/false_direction_by_prior_full_info.pdf, replace
 >  as(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direct
-> ion_by_prior_full_info.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direction
+> _by_prior_full_info.pdf written in PDF format)
 
 . 
 . 
@@ -461,8 +461,8 @@ delimiter now cr
 . 
 . graph export $projdir/out/fig/false_direction_by_prior_no_info.pdf, replace a
 > s(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direct
-> ion_by_prior_no_info.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direction
+> _by_prior_no_info.pdf written in PDF format)
 
 . 
 . 
@@ -529,8 +529,8 @@ delimiter now cr
 . 
 . graph export $projdir/out/fig/false_direction_by_prior_full_info_tol5.pdf, re
 > place as(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direct
-> ion_by_prior_full_info_tol5.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direction
+> _by_prior_full_info_tol5.pdf written in PDF format)
 
 . 
 . 
@@ -578,8 +578,8 @@ delimiter now cr
 . 
 . graph export $projdir/out/fig/false_direction_by_prior_no_info_tol5.pdf, repl
 > ace as(pdf)
-(file C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direct
-> ion_by_prior_no_info_tol5.pdf written in PDF format)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/false_direction
+> _by_prior_no_info_tol5.pdf written in PDF format)
 
 . 
 . 
@@ -592,16 +592,16 @@ delimiter now cr
 
 . 
 . di "Do file prelim_figures.do start date time: `date1' `time1'"
-Do file prelim_figures.do start date time: 31 Oct 2022 19:03:48
+Do file prelim_figures.do start date time:  3 Nov 2022 01:26:17
 
 . di "End date time: `date2' `time2'"
-End date time: 31 Oct 2022 19:04:02
+End date time:  3 Nov 2022 01:26:22
 
 . 
 . log close
       name:  <unnamed>
-       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/prelim_fi
-> gures.smcl
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/prelim_figur
+> es.smcl
   log type:  smcl
- closed on:  31 Oct 2022, 19:04:02
+ closed on:   3 Nov 2022, 01:26:22
 -------------------------------------------------------------------------------
