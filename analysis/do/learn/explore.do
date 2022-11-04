@@ -187,4 +187,4 @@ log close
 translate $projdir/log/explore.smcl ///
   $projdir/log/explore.log, replace
 
-view $projdir/log/explore.smcl
+/* view $projdir/log/explore.smcl */

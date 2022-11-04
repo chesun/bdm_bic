@@ -6,6 +6,9 @@
 /* Change Log:
 */
 
+/* Note:
+11/3/2022: replace for ball color vars seem to generate new var
+need to investigate */
 
 
  /* to run this do file:
@@ -194,6 +197,54 @@ forvalues i = 1/9 {
   gen belief1_down_sce`i' = 0
   replace belief1_down_sce`i' = 1 if belief1_sce`i' < prior_sce`i'
 
+
+
+  // bayesian posterior
+  gen belief2_bayes_sce`i' =.
+
+  #delimit ;
+  // if ball is red ;
+  replace belief2_bayes_sce`i' = ((n_red_ball_rurn_sce`i'/10)*(belief1_sce`i'/100)) /
+   ( (n_red_ball_rurn_sce`i'/10)*(belief1_sce`i'/100)
+  + ((10-n_red_ball_rurn_sce`i')/10)*((100-belief1_sce`i')/100) )
+  if ball1_sce`i'=="red"
+  ;
+
+  // if ball is blue ;
+  replace belief2_bayes_sce`i' = ( ((10-n_red_ball_rurn_sce`i')/10)*(belief1_sce`i'/100) )/
+  ( ((10-n_red_ball_rurn_sce`i')/10)*(belief1_sce`i'/100)
+    + (n_red_ball_rurn_sce`i'/10)*((100-belief1_sce`i')/100) )
+  if ball1_sce`i'=="blue"
+  ;
+  #delimit cr
+
+  // convert back to percentage points
+  replace belief2_bayes_sce`i' = belief2_bayes_sce`i' * 100
+
+
+    // false report for update
+    gen belief2_false_sce`i' = 0
+    replace belief2_false_sce`i' = 1 if belief2_sce`i' != belief2_bayes_sce`i'
+
+    // false update, tolerance band 5, inclusive
+    gen belief2_false_band_5_sce`i' = 0
+    replace belief2_false_band_5_sce`i' = 1 if abs(belief2_sce`i' - belief2_bayes_sce`i') > 5
+
+    // distance between update and bayesian posterior
+    gen belief2_dist_sce`i' = belief2_sce`i' - belief2_bayes_sce`i'
+
+    // bayesian revision
+    gen bayes_revision_sce`i' = belief2_bayes_sce`i' - belief1_sce`i'
+
+    // actual belief revision
+    gen actual_revision_sce`i' = belief2_sce`i' - belief1_sce`i'
+
+    // direction of misreporting for updates
+    gen belief2_up_sce`i' = 0
+    replace belief2_up_sce`i' = 1 if belief2_sce`i' > belief2_bayes_sce`i'
+
+    gen belief2_down_sce`i' = 0
+    replace belief2_down_sce`i' = 1 if belief2_sce`i' < belief2_bayes_sce`i'
 }
 
 
@@ -209,8 +260,8 @@ gen n_false_50 = 0
 gen n_false_up = 0
 gen n_false_down = 0
 
-
-
+// fully bayesian if all updates are bayesian
+gen full_bayes = 1
 
 
 forvalues i = 1/9 {
@@ -218,6 +269,13 @@ forvalues i = 1/9 {
   replace n_false_lower50 = n_false_lower50 + belief1_false_sce`i' if prior_sce`i' < 50
   replace n_false_higher50 = n_false_higher50 + belief1_false_sce`i' if prior_sce`i' > 50
   replace n_false_50 = n_false_50 + belief1_false_sce`i' if prior_sce`i' == 50
+
+  gen belief2_true_sce`i' = 1 - belief2_false_sce`i'
+  replace full_bayes = full_bayes * belief2_true_sce`i'
+
+  gen update_dir_correct_sce`i' = 0
+  replace update_dir_correct_sce`i' = 1 if actual_revision_sce`i' * bayes_revision_sce`i' > 0
+
 
 }
 
@@ -253,17 +311,34 @@ label var probability_course "Taken some probability/statistics course"
 
 save $datadir/clean/bdm_full_sample_wide.dta, replace
 
-keep duration_sec belief* ///
-  guess_process feedback age education gender race coursework instruction_confusion ///
-  total_bonus total_payment ///
+
+
+
+//----------------------------------------------------------------
+// reshape into long dataset
+//----------------------------------------------------------------
+
+
+
+keep duration_sec belief* incentive_time ///
+  guess_process feedback age education gender gender* race ///
+  bachelor_above probability_course coursework instruction_confusion ///
+  totalapprovals_p total_bonus total_payment ///
   n_red* urn* ball* treatment request_info id recordeddate ///
-  bdm_check* n_bdm* full_info prior* n_false*
+  bdm_check* n_bdm* full_info prior* n_false* ///
+  bayes_revision_sce* actual_revision_sce* full_bayes belief2_true_sce* ///
+  update_dir_correct_sce*
 
 order id treatment prior* belief?_sce? belief*false_sce* n_false*
 
 // reshape into long format
 reshape long prior_sce belief1_sce belief2_sce belief1_false_sce ///
   belief1_time_sce belief2_time_sce ///
+  belief2_false_sce belief2_false_band_5_sce ///
+  belief2_dist_sce   belief2_bayes_sce belief2_true_sce ///
+  belief2_up_sce belief2_down_sce ///
+  bayes_revision_sce actual_revision_sce ///
+  update_dir_correct_sce ///
   n_red_urn_sce n_red_ball_rurn_sce urn_sce ball1_sce ///
   belief1_dist_sce belief1_false_band_5_sce ///
   belief1_up_sce belief1_down_sce, i(id) j(scenario)
@@ -282,6 +357,19 @@ rename belief1_dist_sce belief1_dist
 rename belief1_false_band_5_sce belief1_false_band_5
 rename belief1_up_sce belief1_up
 rename belief1_down_sce belief1_down
+
+rename belief2_false_sce belief2_false
+rename belief2_false_band_5_sce belief2_false_band_5
+rename belief2_dist_sce  belief2_dist
+rename belief2_bayes_sce belief2_bayes
+rename belief2_up_sce belief2_up
+rename belief2_down_sce belief2_down
+
+rename bayes_revision_sce bayes_revision
+rename actual_revision_sce actual_revision
+
+rename belief2_true_sce belief2_true
+rename update_dir_correct_sce update_dir_correct
 
 label var scenario "Scenario number"
 label var prior "Objective prior"
@@ -312,6 +400,20 @@ label data "Full sample with analysis variables in long format"
 
 
 gen belief1_dist_abs = abs(belief1_dist)
+gen belief2_dist_abs = abs(belief2_dist)
+
+
+
+// Generate consecutive numbers that corresponds to sorted priors:
+generate catvar = .
+
+local val = 0
+levelsof prior, local(levelsofvar)
+foreach p of local levelsofvar {
+    local val = `val'+1
+    replace catvar = `val' +  0 if prior == `p'
+}
+
 
 
 save $datadir/clean/bdm_full_sample_long.dta, replace

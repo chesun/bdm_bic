@@ -29,6 +29,10 @@ set seed 1984
 use $datadir/clean/bdm_full_sample_wide, clear
 
 
+//-------------------------------------------------------------------
+// sample treatment balance table
+//-------------------------------------------------------------------
+
 estpost tabstat age_p gender_w gender_m ///
   bachelor_above probability_course totalapprovals_p ///
   if treatment=="full_info", ///
@@ -73,6 +77,50 @@ esttab full_info no_info all using $projdir/out/tab/sample_sum_stats.csv ///
   mtitles("Full Info" "No Info" "Overall")
 
 
+eststo clear
+
+
+
+
+
+//-------------------------------------------------------------------
+// magnitude of false reports table, strict and tolerance definition
+//-------------------------------------------------------------------
+
+
+use $datadir/clean/bdm_full_sample_long, clear
+
+
+
+estpost tabstat belief1_dist_abs, by(treatment) stats(mean sd) columns(statistics)
+est save $projdir/est/prior_mean_abs_dist_by_treat.ster, replace
+
+estpost tabstat belief1_dist_abs if belief1_dist_abs>5, by(treatment) stats(mean sd) columns(statistics)
+est save $projdir/est/prior_mean_abs_dist_by_treat_tol5.ster, replace
+
+
+est use $projdir/est/prior_mean_abs_dist_by_treat.ster
+eststo strict
+
+est use $projdir/est/prior_mean_abs_dist_by_treat_tol5.ster
+eststo tol5
+
+
+
+
+esttab strict tol5 using "$overleafdir/tables/prior_mean_abs_dist_by_treat_tol5.tex" ///
+  , replace noobs nonumbers label wide ///
+  cells("mean(fmt(2)) sd(fmt(2))") ///
+  mtitles("Strict Definition" "With Tolerance Band of 5") ///
+  title("Mean Absolute Deviation in False Reports")
+
+eststo clear
+
+
+
+//-------------------------------------------------------------------
+// 
+//-------------------------------------------------------------------
 
 
 

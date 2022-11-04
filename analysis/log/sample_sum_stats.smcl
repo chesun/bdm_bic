@@ -3,7 +3,7 @@
       name:  {res}<unnamed>
        {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_stats.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 3 Nov 2022, 01:26:22
+ {txt}opened on:  {res} 4 Nov 2022, 02:38:12
 {txt}
 {com}. 
 . graph drop _all
@@ -25,6 +25,10 @@
 . use $datadir/clean/bdm_full_sample_wide, clear
 {txt}
 {com}. 
+. 
+. //-------------------------------------------------------------------
+. // sample treatment balance table
+. //-------------------------------------------------------------------
 . 
 . estpost tabstat age_p gender_w gender_m ///
 >   bachelor_above probability_course totalapprovals_p ///
@@ -125,6 +129,88 @@
 
 {com}. 
 . 
+. eststo clear
+{txt}
+{com}. 
+. 
+. 
+. 
+. 
+. //-------------------------------------------------------------------
+. // magnitude of false reports table, strict and tolerance definition
+. //-------------------------------------------------------------------
+. 
+. 
+. use $datadir/clean/bdm_full_sample_long, clear
+{txt}(Full sample with analysis variables in long format)
+
+{com}. 
+. 
+. 
+. estpost tabstat belief1_dist_abs, by(treatment) stats(mean sd) columns(statistics)
+
+{txt}Summary statistics: mean sd
+     for variables: belief1_dist_abs
+  by categories of: treatment
+
+{space 0}{space 0}{ralign 12:treatment}{space 1}{c |}{space 1}{ralign 9:e(mean)}{space 1}{space 1}{ralign 9:e(sd)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:full_info}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 3.715556}}}{space 1}{space 1}{ralign 9:{res:{sf: 7.681811}}}{space 1}
+{space 0}{space 0}{ralign 12:no_info}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 2.657596}}}{space 1}{space 1}{ralign 9:{res:{sf: 7.233335}}}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:Total}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 3.191919}}}{space 1}{space 1}{ralign 9:{res:{sf: 7.477771}}}{space 1}
+
+{com}. est save $projdir/est/prior_mean_abs_dist_by_treat.ster, replace
+{res}{txt}file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/prior_mean_abs_dist_by_treat.ster saved
+
+{com}. 
+. estpost tabstat belief1_dist_abs if belief1_dist_abs>5, by(treatment) stats(mean sd) columns(statistics)
+
+{txt}Summary statistics: mean sd
+     for variables: belief1_dist_abs
+  by categories of: treatment
+
+{space 0}{space 0}{ralign 12:treatment}{space 1}{c |}{space 1}{ralign 9:e(mean)}{space 1}{space 1}{ralign 9:e(sd)}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:full_info}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 16.81609}}}{space 1}{space 1}{ralign 9:{res:{sf: 9.220211}}}{space 1}
+{space 0}{space 0}{ralign 12:no_info}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 17.44068}}}{space 1}{space 1}{ralign 9:{res:{sf: 11.50453}}}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}{hline 11}
+{space 0}{space 0}{ralign 12:Total}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 17.06849}}}{space 1}{space 1}{ralign 9:{res:{sf:  10.1714}}}{space 1}
+
+{com}. est save $projdir/est/prior_mean_abs_dist_by_treat_tol5.ster, replace
+{res}{txt}file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/prior_mean_abs_dist_by_treat_tol5.ster saved
+
+{com}. 
+. 
+. est use $projdir/est/prior_mean_abs_dist_by_treat.ster
+{res}{txt}
+{com}. eststo strict
+{txt}
+{com}. 
+. est use $projdir/est/prior_mean_abs_dist_by_treat_tol5.ster
+{res}{txt}
+{com}. eststo tol5
+{txt}
+{com}. 
+. 
+. 
+. 
+. esttab strict tol5 using "$overleafdir/tables/prior_mean_abs_dist_by_treat_tol5.tex" ///
+>   , replace noobs nonumbers label wide ///
+>   cells("mean(fmt(2)) sd(fmt(2))") ///
+>   mtitles("Strict Definition" "With Tolerance Band of 5") ///
+>   title("Mean Absolute Deviation in False Reports")
+{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/prior_mean_abs_dist_by_treat_tol5.tex"'})
+
+{com}. 
+. eststo clear
+{txt}
+{com}. 
+. 
+. 
+. //-------------------------------------------------------------------
+. // 
+. //-------------------------------------------------------------------
 . 
 . 
 . 
@@ -134,7 +220,7 @@
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_stats.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 3 Nov 2022, 01:26:23
+ {txt}closed on:  {res} 4 Nov 2022, 02:38:13
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

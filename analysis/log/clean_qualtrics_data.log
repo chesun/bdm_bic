@@ -3,7 +3,7 @@
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
 > ics_data.smcl
   log type:  smcl
- opened on:   3 Nov 2022, 01:26:15
+ opened on:   4 Nov 2022, 02:37:52
 
 . 
 . graph drop _all
@@ -324,43 +324,169 @@
 .   gen belief1_down_sce`i' = 0
  12.   replace belief1_down_sce`i' = 1 if belief1_sce`i' < prior_sce`i'
  13. 
-. }
+. 
+. 
+.   // bayesian posterior
+.   gen belief2_bayes_sce`i' =.
+ 14. 
+.   #delimit ;
+delimiter now ;
+.   // if ball is red ;
+>   replace belief2_bayes_sce`i' = ((n_red_ball_rurn_sce`i'/10)*(belief1_sce`i'
+> /100)) /
+>    ( (n_red_ball_rurn_sce`i'/10)*(belief1_sce`i'/100)
+>   + ((10-n_red_ball_rurn_sce`i')/10)*((100-belief1_sce`i')/100) )
+>   if ball1_sce`i'=="red"
+>   ;
+ 15.   // if ball is blue ;
+>   replace belief2_bayes_sce`i' = ( ((10-n_red_ball_rurn_sce`i')/10)*(belief1_
+> sce`i'/100) )/
+>   ( ((10-n_red_ball_rurn_sce`i')/10)*(belief1_sce`i'/100)
+>     + (n_red_ball_rurn_sce`i'/10)*((100-belief1_sce`i')/100) )
+>   if ball1_sce`i'=="blue"
+>   ;
+ 16.   #delimit cr
+delimiter now cr
+. 
+.   // convert back to percentage points
+.   replace belief2_bayes_sce`i' = belief2_bayes_sce`i' * 100
+ 17. 
+. 
+.     // false report for update
+.     gen belief2_false_sce`i' = 0
+ 18.     replace belief2_false_sce`i' = 1 if belief2_sce`i' != belief2_bayes_sc
+> e`i'
+ 19. 
+.     // false update, tolerance band 5, inclusive
+.     gen belief2_false_band_5_sce`i' = 0
+ 20.     replace belief2_false_band_5_sce`i' = 1 if abs(belief2_sce`i' - belief
+> 2_bayes_sce`i') > 5
+ 21. 
+.     // distance between update and bayesian posterior
+.     gen belief2_dist_sce`i' = belief2_sce`i' - belief2_bayes_sce`i'
+ 22. 
+.     // bayesian revision
+.     gen bayes_revision_sce`i' = belief2_bayes_sce`i' - belief1_sce`i'
+ 23. 
+.     // actual belief revision
+.     gen actual_revision_sce`i' = belief2_sce`i' - belief1_sce`i'
+ 24. 
+.     // direction of misreporting for updates
+.     gen belief2_up_sce`i' = 0
+ 25.     replace belief2_up_sce`i' = 1 if belief2_sce`i' > belief2_bayes_sce`i'
+ 26. 
+.     gen belief2_down_sce`i' = 0
+ 27.     replace belief2_down_sce`i' = 1 if belief2_sce`i' < belief2_bayes_sce`
+> i'
+ 28. }
 (22 real changes made)
 (16 real changes made)
 (18 real changes made)
 (4 real changes made)
+(99 missing values generated)
+(43 real changes made)
+(56 real changes made)
+(99 real changes made)
+(83 real changes made)
+(54 real changes made)
+(29 real changes made)
+(54 real changes made)
 (37 real changes made)
 (22 real changes made)
 (14 real changes made)
 (23 real changes made)
+(99 missing values generated)
+(60 real changes made)
+(39 real changes made)
+(99 real changes made)
+(96 real changes made)
+(55 real changes made)
+(23 real changes made)
+(73 real changes made)
 (32 real changes made)
 (18 real changes made)
 (18 real changes made)
 (14 real changes made)
+(99 missing values generated)
+(74 real changes made)
+(25 real changes made)
+(99 real changes made)
+(98 real changes made)
+(73 real changes made)
+(21 real changes made)
+(77 real changes made)
 (30 real changes made)
 (17 real changes made)
 (19 real changes made)
 (11 real changes made)
+(99 missing values generated)
+(49 real changes made)
+(50 real changes made)
+(99 real changes made)
+(99 real changes made)
+(81 real changes made)
+(38 real changes made)
+(61 real changes made)
 (37 real changes made)
 (19 real changes made)
 (16 real changes made)
 (21 real changes made)
+(99 missing values generated)
+(59 real changes made)
+(40 real changes made)
+(99 real changes made)
+(98 real changes made)
+(72 real changes made)
+(27 real changes made)
+(71 real changes made)
 (28 real changes made)
 (14 real changes made)
 (14 real changes made)
 (14 real changes made)
+(99 missing values generated)
+(49 real changes made)
+(50 real changes made)
+(99 real changes made)
+(83 real changes made)
+(62 real changes made)
+(43 real changes made)
+(40 real changes made)
 (32 real changes made)
 (15 real changes made)
 (15 real changes made)
 (17 real changes made)
+(99 missing values generated)
+(46 real changes made)
+(53 real changes made)
+(98 real changes made)
+(99 real changes made)
+(63 real changes made)
+(59 real changes made)
+(40 real changes made)
 (31 real changes made)
 (17 real changes made)
 (22 real changes made)
 (9 real changes made)
+(99 missing values generated)
+(42 real changes made)
+(57 real changes made)
+(99 real changes made)
+(95 real changes made)
+(71 real changes made)
+(44 real changes made)
+(51 real changes made)
 (27 real changes made)
 (8 real changes made)
 (14 real changes made)
 (13 real changes made)
+(99 missing values generated)
+(20 real changes made)
+(79 real changes made)
+(98 real changes made)
+(98 real changes made)
+(53 real changes made)
+(72 real changes made)
+(26 real changes made)
 
 . 
 . 
@@ -382,8 +508,9 @@
 . gen n_false_down = 0
 
 . 
-. 
-. 
+. // fully bayesian if all updates are bayesian
+. gen full_bayes = 1
+
 . 
 . 
 . forvalues i = 1/9 {
@@ -395,43 +522,69 @@
   5.   replace n_false_50 = n_false_50 + belief1_false_sce`i' if prior_sce`i' =
 > = 50
   6. 
+.   gen belief2_true_sce`i' = 1 - belief2_false_sce`i'
+  7.   replace full_bayes = full_bayes * belief2_true_sce`i'
+  8. 
+.   gen update_dir_correct_sce`i' = 0
+  9.   replace update_dir_correct_sce`i' = 1 if actual_revision_sce`i' * bayes_
+> revision_sce`i' > 0
+ 10. 
+. 
 . }
 (22 real changes made)
 (0 real changes made)
 (0 real changes made)
 (22 real changes made)
+(83 real changes made)
+(75 real changes made)
 (37 real changes made)
 (0 real changes made)
 (37 real changes made)
 (0 real changes made)
+(15 real changes made)
+(68 real changes made)
 (32 real changes made)
 (0 real changes made)
 (32 real changes made)
 (0 real changes made)
+(0 real changes made)
+(76 real changes made)
 (30 real changes made)
 (0 real changes made)
 (30 real changes made)
 (0 real changes made)
+(1 real change made)
+(78 real changes made)
 (37 real changes made)
 (0 real changes made)
 (37 real changes made)
 (0 real changes made)
+(0 real changes made)
+(72 real changes made)
 (28 real changes made)
 (28 real changes made)
 (0 real changes made)
 (0 real changes made)
+(0 real changes made)
+(70 real changes made)
 (32 real changes made)
 (32 real changes made)
 (0 real changes made)
 (0 real changes made)
+(0 real changes made)
+(64 real changes made)
 (31 real changes made)
 (31 real changes made)
 (0 real changes made)
 (0 real changes made)
+(0 real changes made)
+(70 real changes made)
 (27 real changes made)
 (27 real changes made)
 (0 real changes made)
 (0 real changes made)
+(0 real changes made)
+(62 real changes made)
 
 . 
 . 
@@ -493,12 +646,23 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
 > full_sample_wide.dta saved
 
 . 
-. keep duration_sec belief* ///
->   guess_process feedback age education gender race coursework instruction_con
-> fusion ///
->   total_bonus total_payment ///
+. 
+. 
+. 
+. //----------------------------------------------------------------
+. // reshape into long dataset
+. //----------------------------------------------------------------
+. 
+. 
+. 
+. keep duration_sec belief* incentive_time ///
+>   guess_process feedback age education gender gender* race ///
+>   bachelor_above probability_course coursework instruction_confusion ///
+>   totalapprovals_p total_bonus total_payment ///
 >   n_red* urn* ball* treatment request_info id recordeddate ///
->   bdm_check* n_bdm* full_info prior* n_false*
+>   bdm_check* n_bdm* full_info prior* n_false* ///
+>   bayes_revision_sce* actual_revision_sce* full_bayes belief2_true_sce* ///
+>   update_dir_correct_sce*
 
 . 
 . order id treatment prior* belief?_sce? belief*false_sce* n_false*
@@ -507,6 +671,11 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
 . // reshape into long format
 . reshape long prior_sce belief1_sce belief2_sce belief1_false_sce ///
 >   belief1_time_sce belief2_time_sce ///
+>   belief2_false_sce belief2_false_band_5_sce ///
+>   belief2_dist_sce   belief2_bayes_sce belief2_true_sce ///
+>   belief2_up_sce belief2_down_sce ///
+>   bayes_revision_sce actual_revision_sce ///
+>   update_dir_correct_sce ///
 >   n_red_urn_sce n_red_ball_rurn_sce urn_sce ball1_sce ///
 >   belief1_dist_sce belief1_false_band_5_sce ///
 >   belief1_up_sce belief1_down_sce, i(id) j(scenario)
@@ -515,7 +684,7 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
 Data                               wide   ->   long
 -----------------------------------------------------------------------------
 Number of obs.                       99   ->     891
-Number of variables                 158   ->      47
+Number of variables                 257   ->      66
 j variable (9 values)                     ->   scenario
 xij variables:
    prior_sce1 prior_sce2 ... prior_sce9   ->   prior_sce
@@ -524,6 +693,20 @@ belief2_sce1 belief2_sce2 ... belief2_sce9->   belief2_sce
 belief1_false_sce1 belief1_false_sce2 ... belief1_false_sce9->belief1_false_sce
 belief1_time_sce1 belief1_time_sce2 ... belief1_time_sce9->belief1_time_sce
 belief2_time_sce1 belief2_time_sce2 ... belief2_time_sce9->belief2_time_sce
+belief2_false_sce1 belief2_false_sce2 ... belief2_false_sce9->belief2_false_sce
+belief2_false_band_5_sce1 belief2_false_band_5_sce2 ... belief2_false_band_5_sc
+> e9->belief2_false_band_5_sce
+belief2_dist_sce1 belief2_dist_sce2 ... belief2_dist_sce9->belief2_dist_sce
+belief2_bayes_sce1 belief2_bayes_sce2 ... belief2_bayes_sce9->belief2_bayes_sce
+belief2_true_sce1 belief2_true_sce2 ... belief2_true_sce9->belief2_true_sce
+belief2_up_sce1 belief2_up_sce2 ... belief2_up_sce9->belief2_up_sce
+belief2_down_sce1 belief2_down_sce2 ... belief2_down_sce9->belief2_down_sce
+bayes_revision_sce1 bayes_revision_sce2 ... bayes_revision_sce9->bayes_revision
+> _sce
+actual_revision_sce1 actual_revision_sce2 ... actual_revision_sce9->actual_revi
+> sion_sce
+update_dir_correct_sce1 update_dir_correct_sce2 ... update_dir_correct_sce9->up
+> date_dir_correct_sce
 n_red_urn_sce1 n_red_urn_sce2 ... n_red_urn_sce9->n_red_urn_sce
 n_red_ball_rurn_sce1 n_red_ball_rurn_sce2 ... n_red_ball_rurn_sce9->n_red_ball_
 > rurn_sce
@@ -564,6 +747,29 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9->belief1_down_sce
 . rename belief1_up_sce belief1_up
 
 . rename belief1_down_sce belief1_down
+
+. 
+. rename belief2_false_sce belief2_false
+
+. rename belief2_false_band_5_sce belief2_false_band_5
+
+. rename belief2_dist_sce  belief2_dist
+
+. rename belief2_bayes_sce belief2_bayes
+
+. rename belief2_up_sce belief2_up
+
+. rename belief2_down_sce belief2_down
+
+. 
+. rename bayes_revision_sce bayes_revision
+
+. rename actual_revision_sce actual_revision
+
+. 
+. rename belief2_true_sce belief2_true
+
+. rename update_dir_correct_sce update_dir_correct
 
 . 
 . label var scenario "Scenario number"
@@ -614,6 +820,36 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9->belief1_down_sce
 . 
 . gen belief1_dist_abs = abs(belief1_dist)
 
+. gen belief2_dist_abs = abs(belief2_dist)
+
+. 
+. 
+. 
+. // Generate consecutive numbers that corresponds to sorted priors:
+. generate catvar = .
+(891 missing values generated)
+
+. 
+. local val = 0
+
+. levelsof prior, local(levelsofvar)
+10 20 30 40 50 60 70 80 90
+
+. foreach p of local levelsofvar {
+  2.     local val = `val'+1
+  3.     replace catvar = `val' +  0 if prior == `p'
+  4. }
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+(99 real changes made)
+
+. 
 . 
 . 
 . save $datadir/clean/bdm_full_sample_long.dta, replace
@@ -629,10 +865,10 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
 
 . 
 . di "Do file clean_qualtrics_data.do start date time: `date1' `time1'"
-Do file clean_qualtrics_data.do start date time:  3 Nov 2022 01:26:15
+Do file clean_qualtrics_data.do start date time:  4 Nov 2022 02:37:52
 
 . di "End date time: `date2' `time2'"
-End date time:  3 Nov 2022 01:26:15
+End date time:  4 Nov 2022 02:37:53
 
 . 
 . log close
@@ -640,5 +876,5 @@ End date time:  3 Nov 2022 01:26:15
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
 > ics_data.smcl
   log type:  smcl
- closed on:   3 Nov 2022, 01:26:15
+ closed on:   4 Nov 2022, 02:37:53
 -------------------------------------------------------------------------------

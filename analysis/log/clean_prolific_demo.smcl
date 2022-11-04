@@ -3,7 +3,7 @@
       name:  {res}<unnamed>
        {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolific_demo.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 3 Nov 2022, 01:26:15
+ {txt}opened on:  {res} 4 Nov 2022, 02:37:52
 {txt}
 {com}. 
 . graph drop _all
@@ -142,7 +142,7 @@ age has all characters numeric; {res}replaced {txt}as {res}byte
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolific_demo.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 3 Nov 2022, 01:26:15
+ {txt}closed on:  {res} 4 Nov 2022, 02:37:52
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

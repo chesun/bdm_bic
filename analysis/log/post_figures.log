@@ -1,0 +1,596 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/post_figures
+> .smcl
+  log type:  smcl
+ opened on:   4 Nov 2022, 02:38:07
+
+. 
+. graph drop _all
+
+. set more off
+
+. set varabbrev off
+
+. set graphics off
+
+. set scheme s1color
+
+. set seed 1984
+
+. 
+. 
+. 
+. // load data
+. use $datadir/clean/bdm_full_sample_long, clear
+(Full sample with analysis variables in long format)
+
+. 
+. preserve
+
+. 
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. // time taken for updates by treatment and scenario
+. //------------------------------------------------------------------------
+. 
+. 
+. collapse (mean) mean_belief2_time_sec =belief2_time_sec ///
+>   (count) n = belief2_time_sec, by(scenario full_info)
+
+. 
+. sort scenario full_info
+
+. 
+. 
+. #delimit ;
+delimiter now ;
+. graph twoway
+>   (scatter mean_belief2_time_sec scenario if full_info==1, connect(direct) ms
+> ymbol(T)
+>   msize(small)  lpattern(solid) color(midblue))
+>   (scatter mean_belief2_time_sec scenario if full_info==0, connect(direct)
+>   msize(small)  lpattern(solid) color(black))
+>   ,
+>   ytitle("Time Taken in Seconds", margin(zero) size(small))
+>   xtitle("Scenario", margin(small) size(medlarge) )
+>   title("Average Time Taken for Updates, in Seconds", size(med))
+>   xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>   ytick(0(10)50)
+>   ymtick(0(5)50)
+>   ylabel(0(10)50,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) form
+> at(%2.0f) labsize(medlarge))
+>   xlabel(1(1)9)
+>   legend(order(1 2) label(1 "Full Info") label(2 "No Info"))
+>   graphregion(color(white) margin(zero))
+>   plotregion(margin(medsmall))
+>   ;
+(note:  named style med not found in class gsize, default attributes used)
+
+. #delimit cr
+delimiter now cr
+. 
+. graph export $projdir/out/fig/update/mean_time_sec_by_scenario.pdf, replace a
+> s(pdf)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/update/mean_tim
+> e_sec_by_scenario.pdf written in PDF format)
+
+. graph export "$overleafdir/figures/update/mean_time_sec_by_scenario.pdf", rep
+> lace as(pdf)
+(file D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/figures
+> /update/mean_time_sec_by_scenario.pdf written in PDF format)
+
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. // time for update by treatment, probability coursework, and scenario
+. //------------------------------------------------------------------------
+. 
+. restore, preserve
+
+. 
+. collapse (mean) mean_belief2_time_sec =belief2_time_sec ///
+>   (count) n = belief2_time_sec, by(scenario probability_course)
+
+. 
+. sort scenario probability_course
+
+. 
+. 
+. #delimit ;
+delimiter now ;
+. graph twoway
+>   (scatter mean_belief2_time_sec scenario if probability_course==1, connect(d
+> irect) msymbol(T)
+>   msize(small)  lpattern(solid) color(midblue))
+>   (scatter mean_belief2_time_sec scenario if probability_course==0, connect(d
+> irect)
+>   msize(small)  lpattern(solid) color(black))
+>   ,
+>   ytitle("Time Taken in Seconds", margin(zero) size(small))
+>   xtitle("Scenario", margin(small) size(medlarge) )
+>   title("Average Time Taken for Updates, in Seconds", size(med))
+>   xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>   ytick(0(10)50)
+>   ymtick(0(5)50)
+>   ylabel(0(10)50,  glwidth(0.2) glcolor("230 230 230") angle(horizontal) form
+> at(%2.0f) labsize(medlarge))
+>   xlabel(1(1)9)
+>   legend(stack order(1 2) label(1 "Took Probaility Course") label(2 "Didn't T
+> ake Probability Course"))
+>   graphregion(color(white) margin(zero))
+>   plotregion(margin(medsmall))
+>   ;
+(note:  named style med not found in class gsize, default attributes used)
+
+. #delimit cr
+delimiter now cr
+. 
+. graph export $projdir/out/fig/update/mean_time_sec_by_scenario_prob_course.pd
+> f, replace as(pdf)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/update/mean_tim
+> e_sec_by_scenario_prob_course.pdf written in PDF format)
+
+. graph export "$overleafdir/figures/update/mean_time_sec_by_scenario_prob_cour
+> se.pdf", replace as(pdf)
+(file D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/figures
+> /update/mean_time_sec_by_scenario_prob_course.pdf written in PDF format)
+
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. // correct direction of updates by prior and treatment
+. //------------------------------------------------------------------------
+. restore, preserve
+
+. 
+. 
+. collapse (mean) catvar pct_update_dir_correct = update_dir_correct ///
+>   mean_bayes_revision = bayes_revision ///
+>   mean_actual_revision = actual_revision ///
+>   (count) n = bayes_revision, by(prior full_info)
+
+. 
+. 
+.   #delimit ;
+delimiter now ;
+.   graph twoway
+>     (scatter pct_update_dir_correct catvar if full_info==1, connect(direct) m
+> symbol(T)
+>     msize(small)  lpattern(solid) color(midblue))
+>     (scatter pct_update_dir_correct catvar if full_info==0, connect(direct)
+>     msize(small)  lpattern(solid) color(black))
+>     ,
+>     ytitle("Fraction of false reports", margin(zero) size(medlarge))
+>     xtitle("Scenario", margin(small) size(medlarge))
+>     title("Fraction of Correct Direction Updates", size(med))
+>     ymtick(0(.01)1, tlwidth(vthin))
+>     ytick(0(.05)1, tlwidth(vthin))
+>     ylabel(0(0.1)1)
+>     xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>     legend(order(1 2) label(1 "Full Info") label(2 "No Info"))
+>     graphregion(color(white) margin(zero))
+>     plotregion(margin(medsmall))
+>     text(-0.02 1 "0.1", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 2 "0.2", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 3 "0.3", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 4 "0.4", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 5 "0.5", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 6 "0.6", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 7 "0.7", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 8 "0.8", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     text(-0.02 9 "0.9", placement(n) orientation(horizontal) color(black) siz
+> e(small))
+>     ;
+(note:  named style med not found in class gsize, default attributes used)
+
+.   #delimit cr
+delimiter now cr
+. 
+.   graph export $projdir/out/fig/update/update_dir_correct_by_prior_treat.pdf,
+>  replace as(pdf)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/update/update_d
+> ir_correct_by_prior_treat.pdf written in PDF format)
+
+.   graph export "$overleafdir/figures/update/update_dir_correct_by_prior_treat
+> .pdf", replace as(pdf)
+(file D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/figures
+> /update/update_dir_correct_by_prior_treat.pdf written in PDF format)
+
+. 
+. 
+. 
+. 
+.   //------------------------------------------------------------------------
+.   // mean absolute deviation of updates by prior and probability course
+.   //------------------------------------------------------------------------
+.   restore, preserve
+
+. 
+. 
+.   collapse (mean) catvar mean_belief2_dist = belief2_dist_abs ///
+>     (count) n = belief1_dist, by(prior probability_course)
+
+. 
+. local prior_pos -0.02
+
+. 
+.     #delimit ;
+delimiter now ;
+.     graph twoway
+>       (scatter mean_belief2_dist catvar if probability_course==1, connect(dir
+> ect) msymbol(T)
+>       msize(small)  lpattern(solid) color(midblue))
+>       (scatter mean_belief2_dist catvar if probability_course==0, connect(dir
+> ect)
+>       msize(small)  lpattern(solid) color(black))
+>       ,
+>       ytitle("Fraction of false reports", margin(zero) size(medlarge))
+>       xtitle("Scenario", margin(small) size(medlarge))
+>       title("Mean Absolute Deviation from Bayesian Posterior by Probability C
+> oursework", size(med))
+>       ymtick(0(1)25, tlwidth(vvthin))
+>       ytick(0(5)25, tlwidth(vthin))
+>       ylabel(0(5)25)
+>       xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>       legend(stack order(1 2) label(1 "Took Probaility Course") label(2 "Didn
+> 't Take Probability Course"))
+>       graphregion(color(white) margin(zero))
+>       plotregion(margin(medsmall))
+>       text(`prior_pos' 1 "0.1", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 2 "0.2", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 3 "0.3", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 4 "0.4", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 5 "0.5", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 6 "0.6", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 7 "0.7", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 8 "0.8", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 9 "0.9", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       ;
+(note:  named style med not found in class gsize, default attributes used)
+
+.     #delimit cr
+delimiter now cr
+. 
+.     graph export $projdir/out/fig/update/mean_abs_dist_by_prior_prob_course.p
+> df, replace as(pdf)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/update/mean_abs
+> _dist_by_prior_prob_course.pdf written in PDF format)
+
+.     graph export "$overleafdir/figures/update/mean_abs_dist_by_prior_prob_cou
+> rse.pdf", replace as(pdf)
+(file D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/figures
+> /update/mean_abs_dist_by_prior_prob_course.pdf written in PDF format)
+
+. 
+. 
+. 
+.     //-----------------------------------------------------------------------
+> -
+.     // mean absolute deviation of updates by prior and treatment
+.     //-----------------------------------------------------------------------
+> -
+.     restore, preserve
+
+. 
+. 
+.     collapse (mean) catvar mean_belief2_dist = belief2_dist_abs ///
+>       (count) n = belief1_dist, by(prior full_info)
+
+. 
+.   local prior_pos -0.02
+
+. 
+.       #delimit ;
+delimiter now ;
+.       graph twoway
+>         (scatter mean_belief2_dist catvar if full_info==1, connect(direct) ms
+> ymbol(T)
+>         msize(small)  lpattern(solid) color(midblue))
+>         (scatter mean_belief2_dist catvar if full_info==0, connect(direct)
+>         msize(small)  lpattern(solid) color(black))
+>         ,
+>         ytitle("Fraction of false reports", margin(zero) size(medlarge))
+>         xtitle("Scenario", margin(small) size(medlarge))
+>         title("Mean Absolute Deviation from Bayesian Posterior by Probability
+>  Coursework", size(med))
+>         ymtick(0(1)25, tlwidth(vvthin))
+>         ytick(0(5)25, tlwidth(vthin))
+>         ylabel(0(5)25)
+>         xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>         legend(order(1 2) label(1 "Full Info") label(2 "No Info"))
+>         graphregion(color(white) margin(zero))
+>         plotregion(margin(medsmall))
+>         text(`prior_pos' 1 "0.1", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         text(`prior_pos' 2 "0.2", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         text(`prior_pos' 3 "0.3", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         text(`prior_pos' 4 "0.4", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         text(`prior_pos' 5 "0.5", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         text(`prior_pos' 6 "0.6", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         text(`prior_pos' 7 "0.7", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         text(`prior_pos' 8 "0.8", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         text(`prior_pos' 9 "0.9", placement(n) orientation(horizontal) color(
+> black) size(small))
+>         ;
+(note:  named style med not found in class gsize, default attributes used)
+
+.       #delimit cr
+delimiter now cr
+. 
+.       graph export $projdir/out/fig/update/mean_abs_dist_by_prior_treat.pdf, 
+> replace as(pdf)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/update/mean_abs
+> _dist_by_prior_treat.pdf written in PDF format)
+
+.       graph export "$overleafdir/figures/update/mean_abs_dist_by_prior_treat.
+> pdf", replace as(pdf)
+(file D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/figures
+> /update/mean_abs_dist_by_prior_treat.pdf written in PDF format)
+
+. 
+. 
+.   //------------------------------------------------------------------------
+.   // correct direction of updates by prior and probability course
+.   //------------------------------------------------------------------------
+. 
+.   restore, preserve
+
+. 
+. 
+.   collapse (mean) catvar pct_update_dir_correct = update_dir_correct ///
+>     mean_bayes_revision = bayes_revision ///
+>     mean_actual_revision = actual_revision ///
+>     (count) n = bayes_revision, by(prior probability_course)
+
+. 
+. 
+.     #delimit ;
+delimiter now ;
+.     graph twoway
+>       (scatter pct_update_dir_correct catvar if probability_course==1, connec
+> t(direct) msymbol(T)
+>       msize(small)  lpattern(solid) color(midblue))
+>       (scatter pct_update_dir_correct catvar if probability_course==0, connec
+> t(direct)
+>       msize(small)  lpattern(solid) color(black))
+>       ,
+>       ytitle("Fraction of false reports", margin(zero) size(medlarge))
+>       xtitle("Scenario", margin(small) size(medlarge))
+>       title("Fraction of Correct Direction Updates by Probability Coursework"
+> , size(med))
+>       ymtick(0(.01)1, tlwidth(vthin))
+>       ytick(0(.05)1, tlwidth(vthin))
+>       ylabel(0(0.1)1)
+>       xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>       legend(stack order(1 2) label(1 "Took Probaility Course") label(2 "Didn
+> 't Take Probability Course"))
+>       graphregion(color(white) margin(zero))
+>       plotregion(margin(medsmall))
+>       text(-0.02 1 "0.1", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       text(-0.02 2 "0.2", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       text(-0.02 3 "0.3", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       text(-0.02 4 "0.4", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       text(-0.02 5 "0.5", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       text(-0.02 6 "0.6", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       text(-0.02 7 "0.7", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       text(-0.02 8 "0.8", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       text(-0.02 9 "0.9", placement(n) orientation(horizontal) color(black) s
+> ize(small))
+>       ;
+(note:  named style med not found in class gsize, default attributes used)
+
+.     #delimit cr
+delimiter now cr
+. 
+.     graph export $projdir/out/fig/update/update_dir_correct_by_prior_prob_cou
+> rse.pdf, replace as(pdf)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/update/update_d
+> ir_correct_by_prior_prob_course.pdf written in PDF format)
+
+.     graph export "$overleafdir/figures/update/update_dir_correct_by_prior_pro
+> b_course.pdf", replace as(pdf)
+(file D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/figures
+> /update/update_dir_correct_by_prior_prob_course.pdf written in PDF format)
+
+. 
+. 
+. 
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. // mean distance bewteen update and bayesian by prior and ball color
+. //------------------------------------------------------------------------
+. 
+. restore, preserve
+
+. 
+. 
+. collapse (mean) catvar mean_belief2_dist = belief2_dist ///
+>   mean_bayes_revision = bayes_revision ///
+>   mean_actual_revision = actual_revision ///
+>   (count) n = bayes_revision, by(prior ball1 full_info)
+
+. 
+. local prior_pos -25
+
+. 
+. // scatter plot for full info by ball color
+.   #delimit ;
+delimiter now ;
+.   graph twoway
+>     (scatter mean_belief2_dist catvar if ball1=="red" & full_info==1, connect
+> (direct) msymbol(T)
+>     msize(small)  lpattern(solid) color(orange_red))
+>     (scatter mean_belief2_dist catvar if ball1=="blue" & full_info==1, connec
+> t(direct)
+>     msize(small)  lpattern(solid) color(midblue))
+>     , aspectratio(1)  ysize(6)  xsize(6)
+>     yline(0, lcolor(grey) lpattern(dash) lwidth(vthin))
+>     ytitle("Distance from Bayesian Posterior", margin(zero) size(med))
+>     xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+>     title("Mean Distance to Bayesian Posterior by Prior, Full Info", size(sma
+> ll))
+>     xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>     ymtick(-25(1)25, tlwidth(vvthin))
+>     ytick(-25(5)25, tlwidth(vthin))
+>     ylabel(-25(5)25)
+>     graphregion(color(white) margin(zero))
+>     legend(order(1 2) label(1 "Red Ball") label(2 "Blue Ball"))
+>     plotregion(margin(medsmall))
+>     text(`prior_pos' 1 "0.1", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     text(`prior_pos' 2 "0.2", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     text(`prior_pos' 3 "0.3", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     text(`prior_pos' 4 "0.4", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     text(`prior_pos' 5 "0.5", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     text(`prior_pos' 6 "0.6", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     text(`prior_pos' 7 "0.7", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     text(`prior_pos' 8 "0.8", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     text(`prior_pos' 9 "0.9", placement(n) orientation(horizontal) color(blac
+> k) size(small))
+>     ;
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style grey not found in class color, default attributes used)
+
+.   #delimit cr
+delimiter now cr
+. 
+.   graph export $projdir/out/fig/update/belief2_dist_by_ball_full_info.pdf, re
+> place as(pdf)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/update/belief2_
+> dist_by_ball_full_info.pdf written in PDF format)
+
+.   graph export "$overleafdir/figures//update/belief2_dist_by_ball_full_info.p
+> df", replace as(pdf)
+(file D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/figures
+> //update/belief2_dist_by_ball_full_info.pdf written in PDF format)
+
+. 
+. 
+. 
+.   // scatter plot for no info by ball color
+. 
+. 
+.     #delimit ;
+delimiter now ;
+.     graph twoway
+>       (scatter mean_belief2_dist catvar if ball1=="red" & full_info==0, conne
+> ct(direct) msymbol(T)
+>       msize(small)  lpattern(solid) color(orange_red))
+>       (scatter mean_belief2_dist catvar if ball1=="blue" & full_info==0, conn
+> ect(direct)
+>       msize(small)  lpattern(solid) color(midblue))
+>       , aspectratio(1)  ysize(6)  xsize(6)
+>       yline(0, lcolor(grey) lpattern(dash) lwidth(vthin))
+>       ytitle("Distance from Bayesian Posterior", margin(zero) size(med))
+>       xtitle("Known prior of Red Urn", margin(small) size(medlarge) )
+>       title("Mean Distance to Bayesian Posterior by Prior, No Info", size(sma
+> ll))
+>       xlabel(2.5 " " , noticks labsize(medlarge) nogrid )
+>       ymtick(-25(1)25, tlwidth(vvthin))
+>       ytick(-25(5)25, tlwidth(vthin))
+>       ylabel(-25(5)25)
+>       graphregion(color(white) margin(zero))
+>       legend(order(1 2) label(1 "Red Ball") label(2 "Blue Ball"))
+>       plotregion(margin(medsmall))
+>       text(`prior_pos' 1 "0.1", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 2 "0.2", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 3 "0.3", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 4 "0.4", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 5 "0.5", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 6 "0.6", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 7 "0.7", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 8 "0.8", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       text(`prior_pos' 9 "0.9", placement(n) orientation(horizontal) color(bl
+> ack) size(small))
+>       ;
+(note:  named style med not found in class gsize, default attributes used)
+(note:  named style grey not found in class color, default attributes used)
+
+.     #delimit cr
+delimiter now cr
+. 
+.     graph export $projdir/out/fig/update/belief2_dist_by_ball_no_info.pdf, re
+> place as(pdf)
+(file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/fig/update/belief2_
+> dist_by_ball_no_info.pdf written in PDF format)
+
+.     graph export "$overleafdir/figures//update/belief2_dist_by_ball_no_info.p
+> df", replace as(pdf)
+(file D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/figures
+> //update/belief2_dist_by_ball_no_info.pdf written in PDF format)
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/post_figures
+> .smcl
+  log type:  smcl
+ closed on:   4 Nov 2022, 02:38:11
+-------------------------------------------------------------------------------

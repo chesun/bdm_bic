@@ -1,0 +1,145 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 4 Nov 2022, 02:38:13
+{txt}
+{com}. 
+. graph drop _all
+{txt}
+{com}. set more off
+{txt}
+{com}. set varabbrev off
+{txt}
+{com}. set graphics off
+{txt}
+{com}. set scheme s1color
+{txt}
+{com}. set seed 1984
+{txt}
+{com}. 
+. local date1 = c(current_date)
+{txt}
+{com}. local time1 = c(current_time)
+{txt}
+{com}. 
+. 
+. // load data
+. use $datadir/clean/bdm_full_sample_long, clear
+{txt}(Full sample with analysis variables in long format)
+
+{com}. 
+. tempfile full_sample
+{txt}
+{com}. save `full_sample'
+{txt}file C:\Users\sunch\AppData\Local\Temp\ST_00000003.tmp saved
+
+{com}. 
+. 
+. 
+. //------------------------------------------------------------------------
+. //  OLS for pooled false reports
+. //------------------------------------------------------------------------
+. 
+. reg belief1_false full_info, vce(cluster id)
+
+{txt}Linear regression                               Number of obs     = {res}       891
+                                                {txt}F(1, 98)          =  {res}     1.43
+                                                {txt}Prob > F          = {res}    0.2353
+                                                {txt}R-squared         = {res}    0.0091
+                                                {txt}Root MSE          =    {res} .46081
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0880272{col 26}{space 2} .0737213{col 37}{space 1}    1.19{col 46}{space 3}0.235{col 54}{space 4}-.0582703{col 67}{space 3} .2343247
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2653061{col 26}{space 2} .0492076{col 37}{space 1}    5.39{col 46}{space 3}0.000{col 54}{space 4} .1676553{col 67}{space 3} .3629569
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. esttab using "$projdir/out/tab/false_by_treat_ols.tex", se replace nonumbers ///
+>   mtitles("False Report for Prior")
+{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/tab/false_by_treat_ols.tex"'})
+
+{com}. 
+. esttab using "$overleafdir/tables/false_by_treat_ols.tex", se replace nonumbers ///
+>   mtitles("False Report for Prior")
+{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/false_by_treat_ols.tex"'})
+
+{com}. 
+. 
+. //------------------------------------------------------------------------
+. // probit for pooled false reports
+. //------------------------------------------------------------------------
+. 
+. probit belief1_false full_info, cluster(id)
+
+{res}{txt}Iteration 0:{space 3}log pseudolikelihood = {res:-551.45055}  
+Iteration 1:{space 3}log pseudolikelihood = {res:-547.40306}  
+Iteration 2:{space 3}log pseudolikelihood = {res:-547.40211}  
+Iteration 3:{space 3}log pseudolikelihood = {res:-547.40211}  
+{res}
+{txt}Probit regression{col 49}Number of obs{col 67}= {res}       891
+{txt}{col 49}Wald chi2({res}1{txt}){col 67}= {res}      1.42
+{txt}{col 49}Prob > chi2{col 67}= {res}    0.2336
+{txt}Log pseudolikelihood = {res}-547.40211{txt}{col 49}Pseudo R2{col 67}= {res}    0.0073
+
+{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .2507351{col 26}{space 2} .2104952{col 37}{space 1}    1.19{col 46}{space 3}0.234{col 54}{space 4}-.1618279{col 67}{space 3} .6632981
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.6270717{col 26}{space 2} .1500597{col 37}{space 1}   -4.18{col 46}{space 3}0.000{col 54}{space 4}-.9211833{col 67}{space 3}-.3329601
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. margins, dydx(*)
+{res}
+{txt}Average marginal effects{col 49}Number of obs{col 67}= {res}       891
+{txt}Model VCE{col 14}: {res}Robust
+
+{txt}{p2colset 1 14 16 2}{...}
+{p2col:Expression}:{space 1}{res:Pr(belief1_false), predict()}{p_end}
+{p2colreset}{...}
+{txt}{p2colset 1 14 16 2}{...}
+{p2col:dy/dx w.r.t.}:{space 1}{res:full_info}{p_end}
+{p2colreset}{...}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}      dy/dx{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}full_info {c |}{col 14}{res}{space 2} .0877382{col 26}{space 2} .0729045{col 37}{space 1}    1.20{col 46}{space 3}0.229{col 54}{space 4} -.055152{col 67}{space 3} .2306284
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. // it gives the same marginal effects
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 4 Nov 2022, 02:38:13
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

@@ -13,6 +13,8 @@ do do/settings.do
 
 
 /* to run this do file, type:
+
+cd "D:\Programs\Dropbox\github_repos\bdm_bic\analysis"
 do ./do/mainscript.do
  */
 
@@ -36,4 +38,9 @@ do ./do/learn/explore.do
 
 do ./do/share/prelim_figures.do
 
+do ./do/share/post_figures.do
+
+
 do ./do/share/sample_sum_stats.do
+
+do ./do/share/reg_tables.do

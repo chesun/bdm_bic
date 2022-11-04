@@ -1,0 +1,144 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.s
+> mcl
+  log type:  smcl
+ opened on:   4 Nov 2022, 02:38:13
+
+. 
+. graph drop _all
+
+. set more off
+
+. set varabbrev off
+
+. set graphics off
+
+. set scheme s1color
+
+. set seed 1984
+
+. 
+. local date1 = c(current_date)
+
+. local time1 = c(current_time)
+
+. 
+. 
+. // load data
+. use $datadir/clean/bdm_full_sample_long, clear
+(Full sample with analysis variables in long format)
+
+. 
+. tempfile full_sample
+
+. save `full_sample'
+file C:\Users\sunch\AppData\Local\Temp\ST_00000003.tmp saved
+
+. 
+. 
+. 
+. //------------------------------------------------------------------------
+. //  OLS for pooled false reports
+. //------------------------------------------------------------------------
+. 
+. reg belief1_false full_info, vce(cluster id)
+
+Linear regression                               Number of obs     =        891
+                                                F(1, 98)          =       1.43
+                                                Prob > F          =     0.2353
+                                                R-squared         =     0.0091
+                                                Root MSE          =     .46081
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0880272   .0737213     1.19   0.235    -.0582703    .2343247
+       _cons |   .2653061   .0492076     5.39   0.000     .1676553    .3629569
+------------------------------------------------------------------------------
+
+. 
+. esttab using "$projdir/out/tab/false_by_treat_ols.tex", se replace nonumbers 
+> ///
+>   mtitles("False Report for Prior")
+(output written to D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/tab/fa
+> lse_by_treat_ols.tex)
+
+. 
+. esttab using "$overleafdir/tables/false_by_treat_ols.tex", se replace nonumbe
+> rs ///
+>   mtitles("False Report for Prior")
+(output written to D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Te
+> lling/tables/false_by_treat_ols.tex)
+
+. 
+. 
+. //------------------------------------------------------------------------
+. // probit for pooled false reports
+. //------------------------------------------------------------------------
+. 
+. probit belief1_false full_info, cluster(id)
+
+Iteration 0:   log pseudolikelihood = -551.45055  
+Iteration 1:   log pseudolikelihood = -547.40306  
+Iteration 2:   log pseudolikelihood = -547.40211  
+Iteration 3:   log pseudolikelihood = -547.40211  
+
+Probit regression                               Number of obs     =        891
+                                                Wald chi2(1)      =       1.42
+                                                Prob > chi2       =     0.2336
+Log pseudolikelihood = -547.40211               Pseudo R2         =     0.0073
+
+                                    (Std. Err. adjusted for 99 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+belief1_fa~e |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .2507351   .2104952     1.19   0.234    -.1618279    .6632981
+       _cons |  -.6270717   .1500597    -4.18   0.000    -.9211833   -.3329601
+------------------------------------------------------------------------------
+
+. margins, dydx(*)
+
+Average marginal effects                        Number of obs     =        891
+Model VCE    : Robust
+
+Expression   : Pr(belief1_false), predict()
+dy/dx w.r.t. : full_info
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   full_info |   .0877382   .0729045     1.20   0.229     -.055152    .2306284
+------------------------------------------------------------------------------
+
+. // it gives the same marginal effects
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.s
+> mcl
+  log type:  smcl
+ closed on:   4 Nov 2022, 02:38:13
+-------------------------------------------------------------------------------

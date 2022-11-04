@@ -3,7 +3,7 @@
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_s
 > tats.smcl
   log type:  smcl
- opened on:   3 Nov 2022, 01:26:22
+ opened on:   4 Nov 2022, 02:38:12
 
 . 
 . graph drop _all
@@ -25,6 +25,10 @@
 . use $datadir/clean/bdm_full_sample_wide, clear
 
 . 
+. 
+. //-------------------------------------------------------------------
+. // sample treatment balance table
+. //-------------------------------------------------------------------
 . 
 . estpost tabstat age_p gender_w gender_m ///
 >   bachelor_above probability_course totalapprovals_p ///
@@ -134,6 +138,94 @@ file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/sum_stats_all.ster s
 
 . 
 . 
+. eststo clear
+
+. 
+. 
+. 
+. 
+. 
+. //-------------------------------------------------------------------
+. // magnitude of false reports table, strict and tolerance definition
+. //-------------------------------------------------------------------
+. 
+. 
+. use $datadir/clean/bdm_full_sample_long, clear
+(Full sample with analysis variables in long format)
+
+. 
+. 
+. 
+. estpost tabstat belief1_dist_abs, by(treatment) stats(mean sd) columns(statis
+> tics)
+
+Summary statistics: mean sd
+     for variables: belief1_dist_abs
+  by categories of: treatment
+
+   treatment |   e(mean)      e(sd) 
+-------------+----------------------
+   full_info |  3.715556   7.681811 
+     no_info |  2.657596   7.233335 
+-------------+----------------------
+       Total |  3.191919   7.477771 
+
+. est save $projdir/est/prior_mean_abs_dist_by_treat.ster, replace
+file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/prior_mean_abs_dist_
+> by_treat.ster saved
+
+. 
+. estpost tabstat belief1_dist_abs if belief1_dist_abs>5, by(treatment) stats(m
+> ean sd) columns(statistics)
+
+Summary statistics: mean sd
+     for variables: belief1_dist_abs
+  by categories of: treatment
+
+   treatment |   e(mean)      e(sd) 
+-------------+----------------------
+   full_info |  16.81609   9.220211 
+     no_info |  17.44068   11.50453 
+-------------+----------------------
+       Total |  17.06849    10.1714 
+
+. est save $projdir/est/prior_mean_abs_dist_by_treat_tol5.ster, replace
+file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/prior_mean_abs_dist_
+> by_treat_tol5.ster saved
+
+. 
+. 
+. est use $projdir/est/prior_mean_abs_dist_by_treat.ster
+
+. eststo strict
+
+. 
+. est use $projdir/est/prior_mean_abs_dist_by_treat_tol5.ster
+
+. eststo tol5
+
+. 
+. 
+. 
+. 
+. esttab strict tol5 using "$overleafdir/tables/prior_mean_abs_dist_by_treat_to
+> l5.tex" ///
+>   , replace noobs nonumbers label wide ///
+>   cells("mean(fmt(2)) sd(fmt(2))") ///
+>   mtitles("Strict Definition" "With Tolerance Band of 5") ///
+>   title("Mean Absolute Deviation in False Reports")
+(output written to D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Te
+> lling/tables/prior_mean_abs_dist_by_treat_tol5.tex)
+
+. 
+. eststo clear
+
+. 
+. 
+. 
+. //-------------------------------------------------------------------
+. // 
+. //-------------------------------------------------------------------
 . 
 . 
 . 
@@ -144,5 +236,5 @@ file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/sum_stats_all.ster s
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_s
 > tats.smcl
   log type:  smcl
- closed on:   3 Nov 2022, 01:26:23
+ closed on:   4 Nov 2022, 02:38:13
 -------------------------------------------------------------------------------
