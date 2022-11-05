@@ -48,6 +48,10 @@ esttab using "$overleafdir/tables/false_by_treat_ols.tex", se replace nonumbers 
   mtitles("False Report for Prior")
 
 
+reg belief1_false full_info gender_w bachelor_above probability_course, vce(cluster id)
+
+
+
 //------------------------------------------------------------------------
 // probit for pooled false reports
 //------------------------------------------------------------------------
@@ -57,6 +61,8 @@ margins, dydx(*)
 // it gives the same marginal effects
 
 
+
+reg belief1_false_band_5 full_info i.full_info#i.bdm_check_pass_all gender_w bachelor_above probability_course, vce(cluster id)
 
 
 
