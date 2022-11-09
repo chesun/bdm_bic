@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
   log type:  smcl
- opened on:   4 Nov 2022, 02:37:53
+ opened on:   8 Nov 2022, 21:42:20
 
 . 
 . graph drop _all
@@ -32,7 +32,7 @@
 . tempfile full_sample
 
 . save `full_sample'
-file C:\Users\sunch\AppData\Local\Temp\ST_00000003.tmp saved
+file C:\Users\sunch\AppData\Local\Temp\ST_00000001.tmp saved
 
 . 
 . 
@@ -1315,15 +1315,15 @@ belief1_fal |
 
 . 
 . di "Do file explore.do start date time: `date1' `time1'"
-Do file explore.do start date time:  4 Nov 2022 02:37:53
+Do file explore.do start date time:  8 Nov 2022 21:42:20
 
 . di "End date time: `date2' `time2'"
-End date time:  4 Nov 2022 02:37:54
+End date time:  8 Nov 2022 21:42:20
 
 . 
 . log close
       name:  <unnamed>
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
   log type:  smcl
- closed on:   4 Nov 2022, 02:37:54
+ closed on:   8 Nov 2022, 21:42:20
 -------------------------------------------------------------------------------

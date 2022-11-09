@@ -3,7 +3,7 @@
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/post_figures
 > .smcl
   log type:  smcl
- opened on:   4 Nov 2022, 02:38:07
+ opened on:   8 Nov 2022, 21:42:33
 
 . 
 . graph drop _all
@@ -592,5 +592,5 @@ delimiter now cr
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/post_figures
 > .smcl
   log type:  smcl
- closed on:   4 Nov 2022, 02:38:11
+ closed on:   8 Nov 2022, 21:42:38
 -------------------------------------------------------------------------------

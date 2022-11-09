@@ -3,7 +3,7 @@
       name:  {res}<unnamed>
        {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 4 Nov 2022, 02:37:52
+ {txt}opened on:  {res} 8 Nov 2022, 21:42:19
 {txt}
 {com}. 
 . graph drop _all
@@ -279,6 +279,28 @@ str5, now str12 to accommodate using data's values)
 {com}. replace bdm_check_pass_all = 0 if n_bdm_check_pass < 4 & n_bdm_check_pass != .
 {txt}(22 real changes made)
 
+{com}. 
+. 
+. 
+. gen confused = .
+{txt}(99 missing values generated)
+
+{com}. replace confused = 0 if treatment=="no_info"
+{txt}(49 real changes made)
+
+{com}. replace confused = 1 if bdm_check_pass_all==1
+{txt}(23 real changes made)
+
+{com}. replace confused = 2 if bdm_check_pass_all==0
+{txt}(22 real changes made)
+
+{com}. 
+. label define confused 0 "No Info" 1 "Understanding" 2 "Confused"
+{txt}
+{com}. label values confused confused
+{txt}
+{com}. label var confused "Categorical variable for confusion status"
+{txt}
 {com}. 
 . 
 . rename q157 bdm_check_1
@@ -626,7 +648,7 @@ str5, now str12 to accommodate using data's values)
 {com}. replace probability_course = 0 if coursework == "None of the above"
 {txt}(58 real changes made)
 
-{com}. label var probability_course "Taken some probability/statistics course"
+{com}. label var probability_course "Taken probability/statistics course"
 {txt}
 {com}. 
 . 
@@ -651,7 +673,7 @@ str5, now str12 to accommodate using data's values)
 >   n_red* urn* ball* treatment request_info id recordeddate ///
 >   bdm_check* n_bdm* full_info prior* n_false* ///
 >   bayes_revision_sce* actual_revision_sce* full_bayes belief2_true_sce* ///
->   update_dir_correct_sce*
+>   update_dir_correct_sce* confused
 {txt}
 {com}. 
 . order id treatment prior* belief?_sce? belief*false_sce* n_false*
@@ -673,7 +695,7 @@ str5, now str12 to accommodate using data's values)
 Data{col 36}wide{col 43}->{col 48}long
 {hline 77}
 Number of obs.                 {res}      99   {txt}->{res}     891
-{txt}Number of variables            {res}     257   {txt}->{res}      66
+{txt}Number of variables            {res}     258   {txt}->{res}      67
 {txt}j variable (9 values)                     ->   {res}scenario
 {txt}xij variables:
    {res}prior_sce1 prior_sce2 ... prior_sce9   {txt}->   {res}prior_sce
@@ -847,17 +869,17 @@ belief1_down_sce1 belief1_down_sce2 ... belief1_down_sce9{txt}->{res}belief1_dow
 {txt}
 {com}. 
 . di "Do file clean_qualtrics_data.do start date time: `date1' `time1'"
-{res}Do file clean_qualtrics_data.do start date time:  4 Nov 2022 02:37:52
+{res}Do file clean_qualtrics_data.do start date time:  8 Nov 2022 21:42:19
 {txt}
 {com}. di "End date time: `date2' `time2'"
-{res}End date time:  4 Nov 2022 02:37:53
+{res}End date time:  8 Nov 2022 21:42:20
 {txt}
 {com}. 
 . log close
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtrics_data.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 4 Nov 2022, 02:37:53
+ {txt}closed on:  {res} 8 Nov 2022, 21:42:20
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

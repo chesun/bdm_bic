@@ -3,7 +3,7 @@
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/prelim_figur
 > es.smcl
   log type:  smcl
- opened on:   4 Nov 2022, 02:37:55
+ opened on:   8 Nov 2022, 21:42:21
 
 . 
 . graph drop _all
@@ -33,7 +33,7 @@
 . tempfile full_sample
 
 . save `full_sample'
-file C:\Users\sunch\AppData\Local\Temp\ST_00000003.tmp saved
+file C:\Users\sunch\AppData\Local\Temp\ST_00000001.tmp saved
 
 . 
 . 
@@ -1386,10 +1386,10 @@ delimiter now cr
 
 . 
 . di "Do file prelim_figures.do start date time: `date1' `time1'"
-Do file prelim_figures.do start date time:  4 Nov 2022 02:37:55
+Do file prelim_figures.do start date time:  8 Nov 2022 21:42:21
 
 . di "End date time: `date2' `time2'"
-End date time:  4 Nov 2022 02:38:07
+End date time:  8 Nov 2022 21:42:33
 
 . 
 . log close
@@ -1397,5 +1397,5 @@ End date time:  4 Nov 2022 02:38:07
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/prelim_figur
 > es.smcl
   log type:  smcl
- closed on:   4 Nov 2022, 02:38:07
+ closed on:   8 Nov 2022, 21:42:33
 -------------------------------------------------------------------------------

@@ -162,6 +162,17 @@ replace bdm_check_pass_all = 1 if n_bdm_check_pass == 4
 replace bdm_check_pass_all = 0 if n_bdm_check_pass < 4 & n_bdm_check_pass != .
 
 
+
+gen confused = .
+replace confused = 0 if treatment=="no_info"
+replace confused = 1 if bdm_check_pass_all==1
+replace confused = 2 if bdm_check_pass_all==0
+
+label define confused 0 "No Info" 1 "Understanding" 2 "Confused"
+label values confused confused
+label var confused "Categorical variable for confusion status"
+
+
 rename q157 bdm_check_1
 rename q158 bdm_check_2
 rename q160 bdm_check_3
@@ -305,7 +316,7 @@ label var bachelor_above "Bachelor's degree or above"
 
 gen probability_course = 1
 replace probability_course = 0 if coursework == "None of the above"
-label var probability_course "Taken some probability/statistics course"
+label var probability_course "Taken probability/statistics course"
 
 
 
@@ -327,7 +338,7 @@ keep duration_sec belief* incentive_time ///
   n_red* urn* ball* treatment request_info id recordeddate ///
   bdm_check* n_bdm* full_info prior* n_false* ///
   bayes_revision_sce* actual_revision_sce* full_bayes belief2_true_sce* ///
-  update_dir_correct_sce*
+  update_dir_correct_sce* confused
 
 order id treatment prior* belief?_sce? belief*false_sce* n_false*
 

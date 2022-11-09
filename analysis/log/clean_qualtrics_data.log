@@ -3,7 +3,7 @@
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
 > ics_data.smcl
   log type:  smcl
- opened on:   4 Nov 2022, 02:37:52
+ opened on:   8 Nov 2022, 21:42:19
 
 . 
 . graph drop _all
@@ -277,6 +277,28 @@
 . replace bdm_check_pass_all = 0 if n_bdm_check_pass < 4 & n_bdm_check_pass != 
 > .
 (22 real changes made)
+
+. 
+. 
+. 
+. gen confused = .
+(99 missing values generated)
+
+. replace confused = 0 if treatment=="no_info"
+(49 real changes made)
+
+. replace confused = 1 if bdm_check_pass_all==1
+(23 real changes made)
+
+. replace confused = 2 if bdm_check_pass_all==0
+(22 real changes made)
+
+. 
+. label define confused 0 "No Info" 1 "Understanding" 2 "Confused"
+
+. label values confused confused
+
+. label var confused "Categorical variable for confusion status"
 
 . 
 . 
@@ -636,7 +658,7 @@ delimiter now cr
 . replace probability_course = 0 if coursework == "None of the above"
 (58 real changes made)
 
-. label var probability_course "Taken some probability/statistics course"
+. label var probability_course "Taken probability/statistics course"
 
 . 
 . 
@@ -662,7 +684,7 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
 >   n_red* urn* ball* treatment request_info id recordeddate ///
 >   bdm_check* n_bdm* full_info prior* n_false* ///
 >   bayes_revision_sce* actual_revision_sce* full_bayes belief2_true_sce* ///
->   update_dir_correct_sce*
+>   update_dir_correct_sce* confused
 
 . 
 . order id treatment prior* belief?_sce? belief*false_sce* n_false*
@@ -684,7 +706,7 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
 Data                               wide   ->   long
 -----------------------------------------------------------------------------
 Number of obs.                       99   ->     891
-Number of variables                 257   ->      66
+Number of variables                 258   ->      67
 j variable (9 values)                     ->   scenario
 xij variables:
    prior_sce1 prior_sce2 ... prior_sce9   ->   prior_sce
@@ -865,10 +887,10 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/bdm_
 
 . 
 . di "Do file clean_qualtrics_data.do start date time: `date1' `time1'"
-Do file clean_qualtrics_data.do start date time:  4 Nov 2022 02:37:52
+Do file clean_qualtrics_data.do start date time:  8 Nov 2022 21:42:19
 
 . di "End date time: `date2' `time2'"
-End date time:  4 Nov 2022 02:37:53
+End date time:  8 Nov 2022 21:42:20
 
 . 
 . log close
@@ -876,5 +898,5 @@ End date time:  4 Nov 2022 02:37:53
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_qualtr
 > ics_data.smcl
   log type:  smcl
- closed on:   4 Nov 2022, 02:37:53
+ closed on:   8 Nov 2022, 21:42:20
 -------------------------------------------------------------------------------

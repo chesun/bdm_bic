@@ -62,11 +62,26 @@ margins, dydx(*)
 
 
 
-reg belief1_false_band_5 full_info i.full_info#i.bdm_check_pass_all gender_w bachelor_above probability_course, vce(cluster id)
+//------------------------------------------------------------------------
+// OLS for confusion
+//------------------------------------------------------------------------
+
+reg belief1_false i.confused gender_w bachelor_above probability_course, vce(cluster id)
+
+esttab using "$overleafdir/tables/false_by_confused_ols.tex", se replace nonumbers ///
+  label noomitted noconstant drop(0.confused _cons) mtitles("False Report for Prior") ///
+  addnotes("OLS model, SE clustered at individual level")
 
 
+//------------------------------------------------------------------------
+// probit for confusion
+//------------------------------------------------------------------------
 
+probit belief1_false i.confused gender_w bachelor_above probability_course, cluster(id)
 
+esttab using "$overleafdir/tables/false_by_confused_probit.tex", se replace nonumbers ///
+  label noomitted noconstant drop(0.confused _cons) mtitles("False Report for Prior") ///
+  addnotes("Probit model, SE clustered at individual level")
 
 
 

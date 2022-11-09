@@ -3,7 +3,7 @@
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_s
 > tats.smcl
   log type:  smcl
- opened on:   4 Nov 2022, 02:38:12
+ opened on:   8 Nov 2022, 21:42:38
 
 . 
 . graph drop _all
@@ -236,5 +236,5 @@ file D:\Programs\Dropbox\github_repos\bdm_bic\analysis/est/prior_mean_abs_dist_
        log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_s
 > tats.smcl
   log type:  smcl
- closed on:   4 Nov 2022, 02:38:13
+ closed on:   8 Nov 2022, 21:42:39
 -------------------------------------------------------------------------------

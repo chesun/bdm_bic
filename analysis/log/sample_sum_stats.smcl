@@ -3,7 +3,7 @@
       name:  {res}<unnamed>
        {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_stats.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 4 Nov 2022, 02:38:12
+ {txt}opened on:  {res} 8 Nov 2022, 21:42:38
 {txt}
 {com}. 
 . graph drop _all
@@ -220,7 +220,7 @@
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/sample_sum_stats.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 4 Nov 2022, 02:38:13
+ {txt}closed on:  {res} 8 Nov 2022, 21:42:39
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}
