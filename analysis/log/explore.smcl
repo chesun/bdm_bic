@@ -1,9 +1,9 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 8 Nov 2022, 21:42:20
+ {txt}opened on:  {res}11 Nov 2022, 12:58:58
 {txt}
 {com}. 
 . graph drop _all
@@ -1272,17 +1272,17 @@ belief1_fal {c |}
 {txt}
 {com}. 
 . di "Do file explore.do start date time: `date1' `time1'"
-{res}Do file explore.do start date time:  8 Nov 2022 21:42:20
+{res}Do file explore.do start date time: 11 Nov 2022 12:58:58
 {txt}
 {com}. di "End date time: `date2' `time2'"
-{res}End date time:  8 Nov 2022 21:42:20
+{res}End date time: 11 Nov 2022 12:59:00
 {txt}
 {com}. 
 . log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 8 Nov 2022, 21:42:20
+ {txt}closed on:  {res}11 Nov 2022, 12:59:00
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

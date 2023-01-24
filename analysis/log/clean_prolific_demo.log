@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolif
-> ic_demo.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_pro
+> lific_demo.smcl
   log type:  smcl
- opened on:   8 Nov 2022, 21:42:19
+ opened on:  11 Nov 2022, 12:58:56
 
 . 
 . graph drop _all
@@ -94,8 +94,8 @@
 . 
 . }
 (20 vars, 40 obs)
-participan~d  sex           nationality
-fluentlang~s  ethnicitys~d  employment~s
+participan~d  fluentlang~s  sex           ethnicitys~d  nationality   employmen
+> t~s
 (0 real changes made)
 (0 real changes made)
 (0 real changes made)
@@ -107,11 +107,12 @@ age already numeric; no replace
 (23 real changes made)
 (17 real changes made)
 (sex_f: 0 changes made)
-file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prol
-> ific_demo_10_24_2022.dta saved
+file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/p
+> rolific_demo_10_24_2022.dta saved
 (20 vars, 59 obs)
-participan~d  age           ethnicitys~d  employment~s
-fluentlang~s  sex           nationality
+participan~d  fluentlang~s  age           sex           ethnicitys~d  nationali
+> ty                                                                           
+>      employment~s
 (0 real changes made)
 (0 real changes made)
 (2 real changes made)
@@ -125,8 +126,8 @@ age has all characters numeric; replaced as byte
 (35 real changes made)
 (23 real changes made)
 (sex_f: 1 changes made)
-file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prol
-> ific_demo_10_26_2022.dta saved
+file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/p
+> rolific_demo_10_26_2022.dta saved
 
 . 
 . 
@@ -142,8 +143,8 @@ file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prol
 . 
 . log close
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolif
-> ic_demo.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_pro
+> lific_demo.smcl
   log type:  smcl
- closed on:   8 Nov 2022, 21:42:19
+ closed on:  11 Nov 2022, 12:58:57
 -------------------------------------------------------------------------------

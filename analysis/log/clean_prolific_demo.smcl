@@ -1,9 +1,9 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolific_demo.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolific_demo.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 8 Nov 2022, 21:42:19
+ {txt}opened on:  {res}11 Nov 2022, 12:58:56
 {txt}
 {com}. 
 . graph drop _all
@@ -94,8 +94,7 @@
 . 
 . {c )-}
 {res}{text}(20 vars, 40 obs)
-{col 1}participan~d{col 15}sex{col 29}nationality
-{col 1}fluentlang~s{col 15}ethnicitys~d{col 29}employment~s
+{col 1}participan~d{col 15}fluentlang~s{col 29}sex{col 43}ethnicitys~d{col 57}nationality{col 71}employment~s
 (0 real changes made)
 (0 real changes made)
 (0 real changes made)
@@ -107,10 +106,9 @@ age already numeric; no {res}replace
 (23 real changes made)
 (17 real changes made)
 (sex_f: 0 changes made)
-{res}{txt}file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prolific_demo_10_24_2022.dta saved
+{res}{txt}file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prolific_demo_10_24_2022.dta saved
 {res}{text}(20 vars, 59 obs)
-{col 1}participan~d{col 15}age{col 29}ethnicitys~d{col 43}employment~s
-{col 1}fluentlang~s{col 15}sex{col 29}nationality
+{col 1}participan~d{col 15}fluentlang~s{col 29}age{col 43}sex{col 57}ethnicitys~d{col 71}nationality{col 85}employment~s
 (0 real changes made)
 (0 real changes made)
 (2 real changes made)
@@ -124,7 +122,7 @@ age has all characters numeric; {res}replaced {txt}as {res}byte
 (35 real changes made)
 (23 real changes made)
 (sex_f: 1 changes made)
-{res}{txt}file D:\Programs\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prolific_demo_10_26_2022.dta saved
+{res}{txt}file C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data/clean/prolific_demo_10_26_2022.dta saved
 
 {com}. 
 . 
@@ -140,9 +138,9 @@ age has all characters numeric; {res}replaced {txt}as {res}byte
 . 
 . log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolific_demo.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/clean_prolific_demo.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 8 Nov 2022, 21:42:19
+ {txt}closed on:  {res}11 Nov 2022, 12:58:57
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

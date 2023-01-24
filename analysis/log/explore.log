@@ -1,8 +1,9 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/explore.s
+> mcl
   log type:  smcl
- opened on:   8 Nov 2022, 21:42:20
+ opened on:  11 Nov 2022, 12:58:58
 
 . 
 . graph drop _all
@@ -1315,15 +1316,16 @@ belief1_fal |
 
 . 
 . di "Do file explore.do start date time: `date1' `time1'"
-Do file explore.do start date time:  8 Nov 2022 21:42:20
+Do file explore.do start date time: 11 Nov 2022 12:58:58
 
 . di "End date time: `date2' `time2'"
-End date time:  8 Nov 2022 21:42:20
+End date time: 11 Nov 2022 12:59:00
 
 . 
 . log close
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/explore.smcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/explore.s
+> mcl
   log type:  smcl
- closed on:   8 Nov 2022, 21:42:20
+ closed on:  11 Nov 2022, 12:59:00
 -------------------------------------------------------------------------------

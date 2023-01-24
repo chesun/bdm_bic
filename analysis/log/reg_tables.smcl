@@ -1,9 +1,9 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 8 Nov 2022, 22:05:36
+ {txt}opened on:  {res}11 Nov 2022, 22:43:39
 {txt}
 {com}. 
 . graph drop _all
@@ -62,12 +62,12 @@
 {com}. 
 . esttab using "$projdir/out/tab/false_by_treat_ols.tex", se replace nonumbers ///
 >   mtitles("False Report for Prior")
-{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/tab/false_by_treat_ols.tex"'})
+{res}{txt}(output written to {browse  `"C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/tab/false_by_treat_ols.tex"'})
 
 {com}. 
 . esttab using "$overleafdir/tables/false_by_treat_ols.tex", se replace nonumbers ///
 >   mtitles("False Report for Prior")
-{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/false_by_treat_ols.tex"'})
+{res}{txt}(output written to {browse  `"C:\Users\sunch\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/false_by_treat_ols.tex"'})
 
 {com}. 
 . 
@@ -79,17 +79,17 @@
                                                 {txt}R-squared         = {res}    0.0488
                                                 {txt}Root MSE          =    {res} .45225
 
-{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
-{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
-{col 14}{c |}{col 26}    Robust
-{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
-{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
-{space 3}full_info {c |}{col 14}{res}{space 2} .1070661{col 26}{space 2} .0721404{col 37}{space 1}    1.48{col 46}{space 3}0.141{col 54}{space 4}-.0360942{col 67}{space 3} .2502264
-{txt}{space 4}gender_w {c |}{col 14}{res}{space 2} .0986155{col 26}{space 2} .0734384{col 37}{space 1}    1.34{col 46}{space 3}0.182{col 54}{space 4}-.0471205{col 67}{space 3} .2443515
-{txt}bachelor_a~e {c |}{col 14}{res}{space 2} -.112006{col 26}{space 2}  .085605{col 37}{space 1}   -1.31{col 46}{space 3}0.194{col 54}{space 4}-.2818864{col 67}{space 3} .0578744
-{txt}probabilit~e {c |}{col 14}{res}{space 2}-.0630039{col 26}{space 2} .0855381{col 37}{space 1}   -0.74{col 46}{space 3}0.463{col 54}{space 4}-.2327514{col 67}{space 3} .1067436
-{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2779085{col 26}{space 2} .0821914{col 37}{space 1}    3.38{col 46}{space 3}0.001{col 54}{space 4} .1148023{col 67}{space 3} .4410146
-{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{txt}{ralign 84:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 20}{c |}{col 32}    Robust
+{col 1}     belief1_false{col 20}{c |}      Coef.{col 32}   Std. Err.{col 44}      t{col 52}   P>|t|{col 60}     [95% Con{col 73}f. Interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}full_info {c |}{col 20}{res}{space 2} .1070661{col 32}{space 2} .0721404{col 43}{space 1}    1.48{col 52}{space 3}0.141{col 60}{space 4}-.0360942{col 73}{space 3} .2502264
+{txt}{space 10}gender_w {c |}{col 20}{res}{space 2} .0986155{col 32}{space 2} .0734384{col 43}{space 1}    1.34{col 52}{space 3}0.182{col 60}{space 4}-.0471205{col 73}{space 3} .2443515
+{txt}{space 4}bachelor_above {c |}{col 20}{res}{space 2} -.112006{col 32}{space 2}  .085605{col 43}{space 1}   -1.31{col 52}{space 3}0.194{col 60}{space 4}-.2818864{col 73}{space 3} .0578744
+{txt}probability_course {c |}{col 20}{res}{space 2}-.0630039{col 32}{space 2} .0855381{col 43}{space 1}   -0.74{col 52}{space 3}0.463{col 60}{space 4}-.2327514{col 73}{space 3} .1067436
+{txt}{space 13}_cons {c |}{col 20}{res}{space 2} .2779085{col 32}{space 2} .0821914{col 43}{space 1}    3.38{col 52}{space 3}0.001{col 60}{space 4} .1148023{col 73}{space 3} .4410146
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 {res}{txt}
 {com}. 
 . 
@@ -110,14 +110,14 @@ Iteration 3:{space 3}log pseudolikelihood = {res:-547.40211}
 {txt}{col 49}Prob > chi2{col 67}= {res}    0.2336
 {txt}Log pseudolikelihood = {res}-547.40211{txt}{col 49}Pseudo R2{col 67}= {res}    0.0073
 
-{txt}{ralign 78:(Std. Err. adjusted for {res:99} clusters in id)}
-{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
-{col 14}{c |}{col 26}    Robust
-{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
-{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
-{space 3}full_info {c |}{col 14}{res}{space 2} .2507351{col 26}{space 2} .2104952{col 37}{space 1}    1.19{col 46}{space 3}0.234{col 54}{space 4}-.1618279{col 67}{space 3} .6632981
-{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.6270717{col 26}{space 2} .1500597{col 37}{space 1}   -4.18{col 46}{space 3}0.000{col 54}{space 4}-.9211833{col 67}{space 3}-.3329601
-{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{txt}{ralign 79:(Std. Err. adjusted for {res:99} clusters in id)}
+{hline 14}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 15}{c |}{col 27}    Robust
+{col 1}belief1_false{col 15}{c |}      Coef.{col 27}   Std. Err.{col 39}      z{col 47}   P>|z|{col 55}     [95% Con{col 68}f. Interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 4}full_info {c |}{col 15}{res}{space 2} .2507351{col 27}{space 2} .2104952{col 38}{space 1}    1.19{col 47}{space 3}0.234{col 55}{space 4}-.1618279{col 68}{space 3} .6632981
+{txt}{space 8}_cons {c |}{col 15}{res}{space 2}-.6270717{col 27}{space 2} .1500597{col 38}{space 1}   -4.18{col 47}{space 3}0.000{col 55}{space 4}-.9211833{col 68}{space 3}-.3329601
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
 {com}. margins, dydx(*)
 {res}
@@ -154,26 +154,26 @@ Iteration 3:{space 3}log pseudolikelihood = {res:-547.40211}
                                                 {txt}R-squared         = {res}    0.0787
                                                 {txt}Root MSE          =    {res} .44538
 
-{txt}{ralign 78:(Std. Err. adjusted for {res:94} clusters in id)}
-{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
-{col 14}{c |}{col 26}    Robust
-{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
-{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
-{space 4}confused {c |}
-Understan~g  {c |}{col 14}{res}{space 2} .0126835{col 26}{space 2} .0826299{col 37}{space 1}    0.15{col 46}{space 3}0.878{col 54}{space 4}-.1514031{col 67}{space 3} .1767701
-{txt}{space 3}Confused  {c |}{col 14}{res}{space 2} .2261062{col 26}{space 2} .1003295{col 37}{space 1}    2.25{col 46}{space 3}0.027{col 54}{space 4} .0268717{col 67}{space 3} .4253408
-{txt}{space 12} {c |}
-{space 4}gender_w {c |}{col 14}{res}{space 2} .1057395{col 26}{space 2} .0762761{col 37}{space 1}    1.39{col 46}{space 3}0.169{col 54}{space 4}-.0457298{col 67}{space 3} .2572088
-{txt}bachelor_a~e {c |}{col 14}{res}{space 2}-.1421556{col 26}{space 2} .0816514{col 37}{space 1}   -1.74{col 46}{space 3}0.085{col 54}{space 4}-.3042991{col 67}{space 3}  .019988
-{txt}probabilit~e {c |}{col 14}{res}{space 2}-.0192662{col 26}{space 2} .0806445{col 37}{space 1}   -0.24{col 46}{space 3}0.812{col 54}{space 4}-.1794103{col 67}{space 3} .1408778
-{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2704484{col 26}{space 2} .0824524{col 37}{space 1}    3.28{col 46}{space 3}0.001{col 54}{space 4} .1067143{col 67}{space 3} .4341825
-{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{txt}{ralign 84:(Std. Err. adjusted for {res:94} clusters in id)}
+{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 20}{c |}{col 32}    Robust
+{col 1}     belief1_false{col 20}{c |}      Coef.{col 32}   Std. Err.{col 44}      t{col 52}   P>|t|{col 60}     [95% Con{col 73}f. Interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 10}confused {c |}
+{space 4}Understanding  {c |}{col 20}{res}{space 2} .0126835{col 32}{space 2} .0826299{col 43}{space 1}    0.15{col 52}{space 3}0.878{col 60}{space 4}-.1514031{col 73}{space 3} .1767701
+{txt}{space 9}Confused  {c |}{col 20}{res}{space 2} .2261062{col 32}{space 2} .1003295{col 43}{space 1}    2.25{col 52}{space 3}0.027{col 60}{space 4} .0268717{col 73}{space 3} .4253408
+{txt}{space 18} {c |}
+{space 10}gender_w {c |}{col 20}{res}{space 2} .1057395{col 32}{space 2} .0762761{col 43}{space 1}    1.39{col 52}{space 3}0.169{col 60}{space 4}-.0457298{col 73}{space 3} .2572088
+{txt}{space 4}bachelor_above {c |}{col 20}{res}{space 2}-.1421556{col 32}{space 2} .0816514{col 43}{space 1}   -1.74{col 52}{space 3}0.085{col 60}{space 4}-.3042991{col 73}{space 3}  .019988
+{txt}probability_course {c |}{col 20}{res}{space 2}-.0192662{col 32}{space 2} .0806445{col 43}{space 1}   -0.24{col 52}{space 3}0.812{col 60}{space 4}-.1794103{col 73}{space 3} .1408778
+{txt}{space 13}_cons {c |}{col 20}{res}{space 2} .2704484{col 32}{space 2} .0824524{col 43}{space 1}    3.28{col 52}{space 3}0.001{col 60}{space 4} .1067143{col 73}{space 3} .4341825
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 {res}{txt}
 {com}. 
 . esttab using "$overleafdir/tables/false_by_confused_ols.tex", se replace nonumbers ///
 >   label noomitted noconstant drop(0.confused _cons) mtitles("False Report for Prior") ///
 >   addnotes("OLS model, SE clustered at individual level")
-{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/false_by_confused_ols.tex"'})
+{res}{txt}(output written to {browse  `"C:\Users\sunch\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/false_by_confused_ols.tex"'})
 
 {com}. 
 . 
@@ -193,26 +193,28 @@ Iteration 3:{space 3}log pseudolikelihood = {res:-489.73778}
 {txt}{col 49}Prob > chi2{col 67}= {res}    0.0067
 {txt}Log pseudolikelihood = {res}-489.73778{txt}{col 49}Pseudo R2{col 67}= {res}    0.0646
 
-{txt}{ralign 78:(Std. Err. adjusted for {res:94} clusters in id)}
-{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
-{col 14}{c |}{col 26}    Robust
-{col 1}belief1_fa~e{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
-{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
-{space 4}confused {c |}
-Understan~g  {c |}{col 14}{res}{space 2} .0165637{col 26}{space 2} .2634304{col 37}{space 1}    0.06{col 46}{space 3}0.950{col 54}{space 4}-.4997505{col 67}{space 3} .5328778
-{txt}{space 3}Confused  {c |}{col 14}{res}{space 2} .6365082{col 26}{space 2} .2727819{col 37}{space 1}    2.33{col 46}{space 3}0.020{col 54}{space 4} .1018654{col 67}{space 3} 1.171151
-{txt}{space 12} {c |}
-{space 4}gender_w {c |}{col 14}{res}{space 2} .3301221{col 26}{space 2} .2286405{col 37}{space 1}    1.44{col 46}{space 3}0.149{col 54}{space 4} -.118005{col 67}{space 3} .7782492
-{txt}bachelor_a~e {c |}{col 14}{res}{space 2} -.434678{col 26}{space 2} .2465163{col 37}{space 1}   -1.76{col 46}{space 3}0.078{col 54}{space 4}-.9178412{col 67}{space 3} .0484851
-{txt}probabilit~e {c |}{col 14}{res}{space 2}-.0419628{col 26}{space 2} .2525091{col 37}{space 1}   -0.17{col 46}{space 3}0.868{col 54}{space 4}-.5368717{col 67}{space 3}  .452946
-{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.6439808{col 26}{space 2} .2516695{col 37}{space 1}   -2.56{col 46}{space 3}0.011{col 54}{space 4}-1.137244{col 67}{space 3}-.1507177
-{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{txt}{ralign 84:(Std. Err. adjusted for {res:94} clusters in id)}
+{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 20}{c |}{col 32}    Robust
+{col 1}     belief1_false{col 20}{c |}      Coef.{col 32}   Std. Err.{col 44}      z{col 52}   P>|z|{col 60}     [95% Con{col 73}f. Interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 10}confused {c |}
+{space 4}Understanding  {c |}{col 20}{res}{space 2} .0165637{col 32}{space 2} .2634304{col 43}{space 1}    0.06{col 52}{space 3}0.950{col 60}{space 4}-.4997505{col 73}{space 3} .5328778
+{txt}{space 9}Confused  {c |}{col 20}{res}{space 2} .6365082{col 32}{space 2} .2727819{col 43}{space 1}    2.33{col 52}{space 3}0.020{col 60}{space 4} .1018654{col 73}{space 3} 1.171151
+{txt}{space 18} {c |}
+{space 10}gender_w {c |}{col 20}{res}{space 2} .3301221{col 32}{space 2} .2286405{col 43}{space 1}    1.44{col 52}{space 3}0.149{col 60}{space 4} -.118005{col 73}{space 3} .7782492
+{txt}{space 4}bachelor_above {c |}{col 20}{res}{space 2} -.434678{col 32}{space 2} .2465163{col 43}{space 1}   -1.76{col 52}{space 3}0.078{col 60}{space 4}-.9178412{col 73}{space 3} .0484851
+{txt}probability_course {c |}{col 20}{res}{space 2}-.0419628{col 32}{space 2} .2525091{col 43}{space 1}   -0.17{col 52}{space 3}0.868{col 60}{space 4}-.5368717{col 73}{space 3}  .452946
+{txt}{space 13}_cons {c |}{col 20}{res}{space 2}-.6439808{col 32}{space 2} .2516695{col 43}{space 1}   -2.56{col 52}{space 3}0.011{col 60}{space 4}-1.137244{col 73}{space 3}-.1507177
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
 
 {com}. 
-. esttab using "$overleafdir/tables/false_by_confused_probit.tex", se replace nonumbers ///
+. esttab using "$overleafdir/tables/false_by_confused_probit.tex", ///
+>   star(* 0.10 ** 0.05 *** 0.01) se replace nonumbers ///
 >   label noomitted noconstant drop(0.confused _cons) mtitles("False Report for Prior") ///
->   addnotes("Probit model, SE clustered at individual level")
-{res}{txt}(output written to {browse  `"D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/false_by_confused_probit.tex"'})
+>   addnotes("Probit model, SE clustered at individual level") ///
+> 
+{res}{txt}(output written to {browse  `"C:\Users\sunch\Dropbox\Apps\Overleaf\BDM Incentive and Truth Telling/tables/false_by_confused_probit.tex"'})
 
 {com}. 
 . 
@@ -229,9 +231,9 @@ Understan~g  {c |}{col 14}{res}{space 2} .0165637{col 26}{space 2} .2634304{col 
 . 
 . log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.smcl
+       {txt}log:  {res}C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 8 Nov 2022, 22:05:37
+ {txt}closed on:  {res}11 Nov 2022, 22:43:41
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

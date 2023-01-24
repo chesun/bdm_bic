@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.s
-> mcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/reg_table
+> s.smcl
   log type:  smcl
- opened on:   8 Nov 2022, 22:05:36
+ opened on:  11 Nov 2022, 22:43:39
 
 . 
 . graph drop _all
@@ -63,15 +63,15 @@ belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
 . esttab using "$projdir/out/tab/false_by_treat_ols.tex", se replace nonumbers 
 > ///
 >   mtitles("False Report for Prior")
-(output written to D:\Programs\Dropbox\github_repos\bdm_bic\analysis/out/tab/fa
-> lse_by_treat_ols.tex)
+(output written to C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/out/tab
+> /false_by_treat_ols.tex)
 
 . 
 . esttab using "$overleafdir/tables/false_by_treat_ols.tex", se replace nonumbe
 > rs ///
 >   mtitles("False Report for Prior")
-(output written to D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Te
-> lling/tables/false_by_treat_ols.tex)
+(output written to C:\Users\sunch\Dropbox\Apps\Overleaf\BDM Incentive and Truth
+>  Telling/tables/false_by_treat_ols.tex)
 
 . 
 . 
@@ -84,17 +84,27 @@ Linear regression                               Number of obs     =        891
                                                 R-squared         =     0.0488
                                                 Root MSE          =     .45225
 
-                                    (Std. Err. adjusted for 99 clusters in id)
-------------------------------------------------------------------------------
-             |               Robust
-belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-   full_info |   .1070661   .0721404     1.48   0.141    -.0360942    .2502264
-    gender_w |   .0986155   .0734384     1.34   0.182    -.0471205    .2443515
-bachelor_a~e |   -.112006    .085605    -1.31   0.194    -.2818864    .0578744
-probabilit~e |  -.0630039   .0855381    -0.74   0.463    -.2327514    .1067436
-       _cons |   .2779085   .0821914     3.38   0.001     .1148023    .4410146
-------------------------------------------------------------------------------
+                                          (Std. Err. adjusted for 99 clusters i
+> n id)
+-------------------------------------------------------------------------------
+-----
+                   |               Robust
+     belief1_false |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Inte
+> rval]
+-------------------+-----------------------------------------------------------
+-----
+         full_info |   .1070661   .0721404     1.48   0.141    -.0360942    .25
+> 02264
+          gender_w |   .0986155   .0734384     1.34   0.182    -.0471205    .24
+> 43515
+    bachelor_above |   -.112006    .085605    -1.31   0.194    -.2818864    .05
+> 78744
+probability_course |  -.0630039   .0855381    -0.74   0.463    -.2327514    .10
+> 67436
+             _cons |   .2779085   .0821914     3.38   0.001     .1148023    .44
+> 10146
+-------------------------------------------------------------------------------
+-----
 
 . 
 . 
@@ -115,14 +125,14 @@ Probit regression                               Number of obs     =        891
                                                 Prob > chi2       =     0.2336
 Log pseudolikelihood = -547.40211               Pseudo R2         =     0.0073
 
-                                    (Std. Err. adjusted for 99 clusters in id)
-------------------------------------------------------------------------------
-             |               Robust
-belief1_fa~e |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-   full_info |   .2507351   .2104952     1.19   0.234    -.1618279    .6632981
-       _cons |  -.6270717   .1500597    -4.18   0.000    -.9211833   -.3329601
-------------------------------------------------------------------------------
+                                     (Std. Err. adjusted for 99 clusters in id)
+-------------------------------------------------------------------------------
+              |               Robust
+belief1_false |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+    full_info |   .2507351   .2104952     1.19   0.234    -.1618279    .6632981
+        _cons |  -.6270717   .1500597    -4.18   0.000    -.9211833   -.3329601
+-------------------------------------------------------------------------------
 
 . margins, dydx(*)
 
@@ -156,20 +166,31 @@ Linear regression                               Number of obs     =        846
                                                 R-squared         =     0.0787
                                                 Root MSE          =     .44538
 
-                                    (Std. Err. adjusted for 94 clusters in id)
-------------------------------------------------------------------------------
-             |               Robust
-belief1_fa~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-    confused |
-Understan~g  |   .0126835   .0826299     0.15   0.878    -.1514031    .1767701
-   Confused  |   .2261062   .1003295     2.25   0.027     .0268717    .4253408
-             |
-    gender_w |   .1057395   .0762761     1.39   0.169    -.0457298    .2572088
-bachelor_a~e |  -.1421556   .0816514    -1.74   0.085    -.3042991     .019988
-probabilit~e |  -.0192662   .0806445    -0.24   0.812    -.1794103    .1408778
-       _cons |   .2704484   .0824524     3.28   0.001     .1067143    .4341825
-------------------------------------------------------------------------------
+                                          (Std. Err. adjusted for 94 clusters i
+> n id)
+-------------------------------------------------------------------------------
+-----
+                   |               Robust
+     belief1_false |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Inte
+> rval]
+-------------------+-----------------------------------------------------------
+-----
+          confused |
+    Understanding  |   .0126835   .0826299     0.15   0.878    -.1514031    .17
+> 67701
+         Confused  |   .2261062   .1003295     2.25   0.027     .0268717    .42
+> 53408
+                   |
+          gender_w |   .1057395   .0762761     1.39   0.169    -.0457298    .25
+> 72088
+    bachelor_above |  -.1421556   .0816514    -1.74   0.085    -.3042991     .0
+> 19988
+probability_course |  -.0192662   .0806445    -0.24   0.812    -.1794103    .14
+> 08778
+             _cons |   .2704484   .0824524     3.28   0.001     .1067143    .43
+> 41825
+-------------------------------------------------------------------------------
+-----
 
 . 
 . esttab using "$overleafdir/tables/false_by_confused_ols.tex", se replace nonu
@@ -177,8 +198,8 @@ probabilit~e |  -.0192662   .0806445    -0.24   0.812    -.1794103    .1408778
 >   label noomitted noconstant drop(0.confused _cons) mtitles("False Report for
 >  Prior") ///
 >   addnotes("OLS model, SE clustered at individual level")
-(output written to D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Te
-> lling/tables/false_by_confused_ols.tex)
+(output written to C:\Users\sunch\Dropbox\Apps\Overleaf\BDM Incentive and Truth
+>  Telling/tables/false_by_confused_ols.tex)
 
 . 
 . 
@@ -199,29 +220,41 @@ Probit regression                               Number of obs     =        846
                                                 Prob > chi2       =     0.0067
 Log pseudolikelihood = -489.73778               Pseudo R2         =     0.0646
 
-                                    (Std. Err. adjusted for 94 clusters in id)
-------------------------------------------------------------------------------
-             |               Robust
-belief1_fa~e |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
--------------+----------------------------------------------------------------
-    confused |
-Understan~g  |   .0165637   .2634304     0.06   0.950    -.4997505    .5328778
-   Confused  |   .6365082   .2727819     2.33   0.020     .1018654    1.171151
-             |
-    gender_w |   .3301221   .2286405     1.44   0.149     -.118005    .7782492
-bachelor_a~e |   -.434678   .2465163    -1.76   0.078    -.9178412    .0484851
-probabilit~e |  -.0419628   .2525091    -0.17   0.868    -.5368717     .452946
-       _cons |  -.6439808   .2516695    -2.56   0.011    -1.137244   -.1507177
-------------------------------------------------------------------------------
+                                          (Std. Err. adjusted for 94 clusters i
+> n id)
+-------------------------------------------------------------------------------
+-----
+                   |               Robust
+     belief1_false |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Inte
+> rval]
+-------------------+-----------------------------------------------------------
+-----
+          confused |
+    Understanding  |   .0165637   .2634304     0.06   0.950    -.4997505    .53
+> 28778
+         Confused  |   .6365082   .2727819     2.33   0.020     .1018654    1.1
+> 71151
+                   |
+          gender_w |   .3301221   .2286405     1.44   0.149     -.118005    .77
+> 82492
+    bachelor_above |   -.434678   .2465163    -1.76   0.078    -.9178412    .04
+> 84851
+probability_course |  -.0419628   .2525091    -0.17   0.868    -.5368717     .4
+> 52946
+             _cons |  -.6439808   .2516695    -2.56   0.011    -1.137244   -.15
+> 07177
+-------------------------------------------------------------------------------
+-----
 
 . 
-. esttab using "$overleafdir/tables/false_by_confused_probit.tex", se replace n
-> onumbers ///
+. esttab using "$overleafdir/tables/false_by_confused_probit.tex", ///
+>   star(* 0.10 ** 0.05 *** 0.01) se replace nonumbers ///
 >   label noomitted noconstant drop(0.confused _cons) mtitles("False Report for
 >  Prior") ///
->   addnotes("Probit model, SE clustered at individual level")
-(output written to D:\Programs\Dropbox\Apps\Overleaf\BDM Incentive and Truth Te
-> lling/tables/false_by_confused_probit.tex)
+>   addnotes("Probit model, SE clustered at individual level") ///
+> 
+(output written to C:\Users\sunch\Dropbox\Apps\Overleaf\BDM Incentive and Truth
+>  Telling/tables/false_by_confused_probit.tex)
 
 . 
 . 
@@ -238,8 +271,8 @@ probabilit~e |  -.0419628   .2525091    -0.17   0.868    -.5368717     .452946
 . 
 . log close
       name:  <unnamed>
-       log:  D:\Programs\Dropbox\github_repos\bdm_bic\analysis/log/reg_tables.s
-> mcl
+       log:  C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis/log/reg_table
+> s.smcl
   log type:  smcl
- closed on:   8 Nov 2022, 22:05:37
+ closed on:  11 Nov 2022, 22:43:41
 -------------------------------------------------------------------------------

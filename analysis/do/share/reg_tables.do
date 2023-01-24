@@ -79,9 +79,11 @@ esttab using "$overleafdir/tables/false_by_confused_ols.tex", se replace nonumbe
 
 probit belief1_false i.confused gender_w bachelor_above probability_course, cluster(id)
 
-esttab using "$overleafdir/tables/false_by_confused_probit.tex", se replace nonumbers ///
+esttab using "$overleafdir/tables/false_by_confused_probit.tex", ///
+  star(* 0.10 ** 0.05 *** 0.01) se replace nonumbers ///
   label noomitted noconstant drop(0.confused _cons) mtitles("False Report for Prior") ///
-  addnotes("Probit model, SE clustered at individual level")
+  addnotes("Probit model, SE clustered at individual level") ///
+
 
 
 
