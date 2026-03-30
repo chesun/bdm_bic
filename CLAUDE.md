@@ -1,0 +1,164 @@
+# CLAUDE.MD -- Behavioral & Experimental Economics Research with Claude Code
+
+<!-- HOW TO USE: Replace [BRACKETED PLACEHOLDERS] with your project info.
+     Customize Beamer environments for your talk preamble.
+     Keep this file under ~150 lines — Claude loads it every session.
+     Based on clo-author (Hugo Sant'Anna) + infrastructure from Pedro Sant'Anna
+     + behavioral/experimental econ extensions. -->
+
+**Project:** [YOUR PROJECT NAME]
+**Institution:** [YOUR INSTITUTION]
+**Field:** Behavioral & Experimental Economics
+**Branch:** main
+**Stata version:** 17
+**LaTeX engine:** pdflatex
+**Overleaf path:** [YOUR OVERLEAF PATH — e.g., ~/Library/CloudStorage/Dropbox/Apps/Overleaf/project-name]
+
+---
+
+## Core Principles
+
+- **Plan first** -- enter plan mode before non-trivial tasks; save plans to `quality_reports/plans/`
+- **Verify after** -- compile and confirm output at the end of every task
+- **Single source of truth** -- Paper `main.tex` is authoritative; talks and supplements derive from it
+- **Quality gates** -- weighted aggregate score; nothing ships below 80/100; see `quality.md`
+- **Worker-critic pairs** -- every creator has a paired critic; critics never edit files
+- **Inference first** -- design experiments with inference in mind from the start; tests and treatments co-evolve (see inference-first checklist)
+- **Auto-memory** -- corrections and preferences are saved automatically via Claude Code's built-in memory system
+
+---
+
+## Getting Started
+
+1. Fill in the `[BRACKETED PLACEHOLDERS]` in this file
+2. Run `/discover interview [topic]` to build your research specification
+3. Or run `/new-project [topic]` for the full orchestrated pipeline
+
+---
+
+## Folder Structure
+
+The project spans two locations: a **git repo** (code, data, experiments, workflow) and an **Overleaf project** (paper, talks, LaTeX). Overleaf syncs via Dropbox.
+
+```
+[YOUR-PROJECT]/                  # Git repo
+├── CLAUDE.md                    # This file
+├── .claude/                     # Rules, skills, agents, hooks
+├── theory/                      # Formal models
+│   ├── model.tex
+│   └── proofs/
+├── experiments/                 # Experiment materials
+│   ├── designs/                 # Design docs, checklists
+│   ├── protocols/               # IRB, consent forms
+│   ├── instructions/            # Subject instructions (LaTeX)
+│   ├── oTree/                   # oTree project code
+│   ├── qualtrics/               # QSF exports, custom JS/CSS
+│   ├── comprehension/           # Understanding/attention checks
+│   └── pilots/                  # Pilot data, timing, budgets
+├── data/
+│   ├── raw/                     # Untouched data
+│   ├── cleaned/                 # Processed data
+│   └── simulated/               # Power analysis simulations
+├── scripts/
+│   ├── stata/                   # PRIMARY (main.do, settings.do, numbered .do files)
+│   └── python/                  # SECONDARY
+├── replication/                  # AEA replication package (code + data + README)
+├── explorations/                # Research sandbox
+├── quality_reports/             # Plans, specs, reviews, session logs
+├── templates/                   # Session log, quality report, experiment checklist
+└── master_supporting_docs/      # Reference papers and data docs
+
+[OVERLEAF_PATH]/                 # Overleaf project (via Dropbox)
+├── Paper/                       # Main manuscript (SOURCE OF TRUTH)
+│   └── main.tex
+├── Slides/                      # Each talk is its own folder
+│   ├── job_market/
+│   ├── seminar/
+│   └── short/
+├── Figures/
+├── Tables/
+├── Supplementary/               # Online appendix
+├── Preambles/                   # Shared LaTeX headers
+└── bibliography_base.bib
+```
+
+---
+
+## Commands
+
+```bash
+# Paper compilation (3-pass, pdflatex) — run from Overleaf dir
+cd [OVERLEAF_PATH]/Paper && pdflatex -interaction=nonstopmode main.tex
+BIBINPUTS=..:$BIBINPUTS bibtex main
+pdflatex -interaction=nonstopmode main.tex
+pdflatex -interaction=nonstopmode main.tex
+
+# Talk compilation (pdflatex with preambles) — each talk has its own folder
+cd [OVERLEAF_PATH]/Slides/job_market && TEXINPUTS=../../Preambles:$TEXINPUTS pdflatex -interaction=nonstopmode talk.tex
+BIBINPUTS=../..:$BIBINPUTS bibtex talk
+TEXINPUTS=../../Preambles:$TEXINPUTS pdflatex -interaction=nonstopmode talk.tex
+TEXINPUTS=../../Preambles:$TEXINPUTS pdflatex -interaction=nonstopmode talk.tex
+```
+
+---
+
+## Quality Thresholds
+
+| Score | Gate | Applies To |
+|-------|------|------------|
+| 80 | Commit | Weighted aggregate (blocking) |
+| 90 | PR | Weighted aggregate (blocking) |
+| 95 | Submission | Aggregate + all components >= 80 |
+| -- | Advisory | Talks (reported, non-blocking) |
+
+See `quality.md` for behavioral scoring weights (design 25%, paper 20%, theory 15%).
+
+---
+
+## Skills Quick Reference
+
+| Command | What It Does |
+|---------|-------------|
+| `/new-project [topic]` | Full pipeline: idea → paper (orchestrated) |
+| `/discover [mode] [topic]` | Discovery: interview, literature, data, ideation |
+| `/design experiment [topic]` | Inference-first experiment design (14-step checklist) |
+| `/theory [develop/review]` | Formal model development or proof review |
+| `/analyze [dataset]` | End-to-end data analysis (Stata 17 primary) |
+| `/write [section]` | Draft paper sections + humanizer pass |
+| `/review [file/--flag]` | Quality reviews (routes by target: paper, code, peer) |
+| `/challenge [--mode] [file]` | Devil's advocate: `--design`, `--theory`, `--paper`, `--fresh` |
+| `/preregister [study]` | Generate pre-registration (AsPredicted, OSF) |
+| `/qualtrics [mode]` | Create/validate/improve Qualtrics surveys |
+| `/otree [mode]` | Generate/review oTree experiment code |
+| `/revise [report]` | R&R cycle: classify + route referee comments |
+| `/talk [mode] [format]` | Create, audit, or compile Beamer presentations |
+| `/submit [mode]` | Journal targeting → package → audit → final gate |
+| `/tools [subcommand]` | Utilities: commit, compile, validate-bib, context-status, etc. |
+
+---
+
+## Beamer Custom Environments (Talks)
+
+| Environment       | Effect        | Use Case       |
+|-------------------|---------------|----------------|
+| `[your-env]`      | [Description] | [When to use]  |
+
+---
+
+## Output Organization
+
+Output organization: by-script
+
+---
+
+## Current Project State
+
+| Component | File | Status | Description |
+|-----------|------|--------|-------------|
+| Paper | `[OVERLEAF]/Paper/main.tex` | [draft/submitted/R&R] | [Brief description] |
+| Theory | `theory/model.tex` | [not started/draft/complete] | [Model description] |
+| Experiment | `experiments/designs/` | [design/piloting/running/complete] | [Design description] |
+| Data | `scripts/stata/` | [complete/in-progress] | [Analysis description] |
+| Replication | `replication/` | [not started/ready] | [Deposit status] |
+| Pre-registration | -- | [not started/filed] | [Registry and ID] |
+| Job Market Talk | `[OVERLEAF]/Slides/job_market/` | -- | [Status] |
