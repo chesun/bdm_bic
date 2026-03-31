@@ -59,3 +59,20 @@
 - Done: Project setup, literature review (90/100), gap analysis, task list created
 - Next: CS reads priority papers → `/discover interview` to pressure-test directions → finalize research specification
 - Open: Is Direction 1 (BIC diagnostics on BDM) substantive enough? Need the "so what" beyond documenting failure
+
+## 2026-03-30 Afternoon
+
+**Operations:**
+- Librarian agent fixed 4 remaining critic issues (Karni 2009 annotation, Schlag et al., J. Econ Psych search, Badio et al. BibTeX)
+- Incorporated 4 papers CS found: Ersoy (2025), Grapow (2026), Leo & Stelnicki (2025), Dustan et al. (2023 WP)
+- Fixed Dustan et al. JEBO vs WP confusion in review annotations
+- Critic round 4: scored 90/100 — passes commit and PR thresholds
+- Created standalone gap analysis & research ideas doc (`quality_reports/research_ideas_bdm_bic.md`)
+- CS pushed back on "horse race" framing → revised Direction 1 to focus on BIC diagnostics, not accuracy comparison
+- Created project TODO.md following `.claude/rules/todo-tracking.md` format
+- Created reading notes file (`master_supporting_docs/literature/reading_notes/bdm_bic_2026-03.md`)
+- Added 2 final BibTeX entries (Canen & Chakraborty 2022, Snowberg & Yariv 2025)
+
+**Decisions:**
+- Reading notes kept in markdown, single running file (not Notion, not one-per-paper)
+- TODO.md lives at project root per rule, not in quality_reports/
