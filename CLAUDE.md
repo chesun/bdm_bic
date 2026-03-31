@@ -6,13 +6,14 @@
      Based on clo-author (Hugo Sant'Anna) + infrastructure from Pedro Sant'Anna
      + behavioral/experimental econ extensions. -->
 
-**Project:** [YOUR PROJECT NAME]
-**Institution:** [YOUR INSTITUTION]
+**Project:** BDM Belief Elicitation and Behavioral Incentive Compatibility.
+**Institution:** UC Davis
+**PI:** Christina Sun
 **Field:** Behavioral & Experimental Economics
 **Branch:** main
 **Stata version:** 17
 **LaTeX engine:** pdflatex
-**Overleaf path:** [YOUR OVERLEAF PATH — e.g., ~/Library/CloudStorage/Dropbox/Apps/Overleaf/project-name]
+**Overleaf path:** ~/github_repos/bdm_bic_paper
 
 ---
 
@@ -38,48 +39,54 @@
 
 ## Folder Structure
 
-The project spans two locations: a **git repo** (code, data, experiments, workflow) and an **Overleaf project** (paper, talks, LaTeX). Overleaf syncs via Dropbox.
+The project spans three locations: a **git repo** (code, experiments, workflow), a **data folder** (outside git, confidential), and an **Overleaf project** (paper, figures, tables). Overleaf syncs via GitHub integration.
 
 ```
-[YOUR-PROJECT]/                  # Git repo
+bdm_bic/                         # Git repo (this project)
 ├── CLAUDE.md                    # This file
 ├── .claude/                     # Rules, skills, agents, hooks
-├── theory/                      # Formal models
-│   ├── model.tex
-│   └── proofs/
+├── theory/                      # Empty — IC conditions from Karni (2009) are in the paper draft
 ├── experiments/                 # Experiment materials
 │   ├── designs/                 # Design docs, checklists
 │   ├── protocols/               # IRB, consent forms
-│   ├── instructions/            # Subject instructions (LaTeX)
-│   ├── oTree/                   # oTree project code
-│   ├── qualtrics/               # QSF exports, custom JS/CSS
+│   ├── instructions/            # Subject instructions
+│   ├── qualtrics/               # QSF exports
 │   ├── comprehension/           # Understanding/attention checks
 │   └── pilots/                  # Pilot data, timing, budgets
 ├── data/
 │   ├── raw/                     # Untouched data
 │   ├── cleaned/                 # Processed data
 │   └── simulated/               # Power analysis simulations
-├── scripts/
-│   ├── stata/                   # PRIMARY (main.do, settings.do, numbered .do files)
-│   └── python/                  # SECONDARY
-├── replication/                  # AEA replication package (code + data + README)
+├── analysis/                    # Stata analysis (PRIMARY)
+│   ├── do/                      # Do files (mainscript.do, settings.do, clean/, learn/, share/)
+│   ├── est/                     # Stored estimates (.ster)
+│   └── log/                     # Log files
+├── prolific/                    # Prolific recruitment (invoices, qualtrics_data, bonus scripts)
+├── survey/                      # Survey materials
+├── survey_design/               # Visual assets (scenario pics, BDM diagrams)
+├── IRB/                         # IRB documentation
+├── funding/                     # Funding proposals
+├── presentations/               # Past talks (brown bag, ESA, UC Davis, BABEEW)
 ├── explorations/                # Research sandbox
 ├── quality_reports/             # Plans, specs, reviews, session logs
 ├── templates/                   # Session log, quality report, experiment checklist
 └── master_supporting_docs/      # Reference papers and data docs
 
-[OVERLEAF_PATH]/                 # Overleaf project (via Dropbox)
-├── Paper/                       # Main manuscript (SOURCE OF TRUTH)
-│   └── main.tex
-├── Slides/                      # Each talk is its own folder
-│   ├── job_market/
-│   ├── seminar/
-│   └── short/
-├── Figures/
-├── Tables/
-├── Supplementary/               # Online appendix
-├── Preambles/                   # Shared LaTeX headers
-└── bibliography_base.bib
+Dropbox/.../bdm_incentives/       # Data folder (OUTSIDE GIT — confidential)
+├── data/raw/                    # Raw data
+└── data/clean/                  # Cleaned data
+    # Mac: ~/Library/CloudStorage/Dropbox/Davis/Research_Projects/bdm_incentives/data
+    # Windows: Dropbox/Davis/Research_Projects/bdm_incentives/data
+    # Set in settings.do as $datadir
+
+bdm_bic_paper/                   # Overleaf project (GitHub-synced)
+├── paper/                       # Main manuscript (SOURCE OF TRUTH)
+│   ├── main.tex
+│   ├── references.bib
+│   └── bdm_incentive_truth.bib
+├── figures/                     # Output figures (.pdf)
+├── tables/                      # Output tables (.tex)
+└── presentations/               # Slides (BABEEW 2023, ESA 2022, UC Davis)
 ```
 
 ---
@@ -87,17 +94,14 @@ The project spans two locations: a **git repo** (code, data, experiments, workfl
 ## Commands
 
 ```bash
-# Paper compilation (3-pass, pdflatex) — run from Overleaf dir
-cd [OVERLEAF_PATH]/Paper && pdflatex -interaction=nonstopmode main.tex
-BIBINPUTS=..:$BIBINPUTS bibtex main
+# Paper compilation (natbib + bibtex) — run from paper dir
+cd ~/github_repos/bdm_bic_paper/paper && pdflatex -interaction=nonstopmode main.tex
+bibtex main
 pdflatex -interaction=nonstopmode main.tex
 pdflatex -interaction=nonstopmode main.tex
 
-# Talk compilation (pdflatex with preambles) — each talk has its own folder
-cd [OVERLEAF_PATH]/Slides/job_market && TEXINPUTS=../../Preambles:$TEXINPUTS pdflatex -interaction=nonstopmode talk.tex
-BIBINPUTS=../..:$BIBINPUTS bibtex talk
-TEXINPUTS=../../Preambles:$TEXINPUTS pdflatex -interaction=nonstopmode talk.tex
-TEXINPUTS=../../Preambles:$TEXINPUTS pdflatex -interaction=nonstopmode talk.tex
+# Stata analysis — run from analysis dir
+cd ~/github_repos/bdm_bic/analysis && stata-mp -b do do/mainscript.do
 ```
 
 ---
@@ -137,17 +141,9 @@ See `quality.md` for behavioral scoring weights (design 25%, paper 20%, theory 1
 
 ---
 
-## Beamer Custom Environments (Talks)
-
-| Environment       | Effect        | Use Case       |
-|-------------------|---------------|----------------|
-| `[your-env]`      | [Description] | [When to use]  |
-
----
-
 ## Output Organization
 
-Output organization: by-script
+Output organization: by-script (figures → `bdm_bic_paper/figures/`, tables → `bdm_bic_paper/tables/`)
 
 ---
 
@@ -155,10 +151,11 @@ Output organization: by-script
 
 | Component | File | Status | Description |
 |-----------|------|--------|-------------|
-| Paper | `[OVERLEAF]/Paper/main.tex` | [draft/submitted/R&R] | [Brief description] |
-| Theory | `theory/model.tex` | [not started/draft/complete] | [Model description] |
-| Experiment | `experiments/designs/` | [design/piloting/running/complete] | [Design description] |
-| Data | `scripts/stata/` | [complete/in-progress] | [Analysis description] |
-| Replication | `replication/` | [not started/ready] | [Deposit status] |
-| Pre-registration | -- | [not started/filed] | [Registry and ID] |
-| Job Market Talk | `[OVERLEAF]/Slides/job_market/` | -- | [Status] |
+| Paper | `bdm_bic_paper/paper/main.tex` | draft (halfway) | BDM incentive compatibility and belief elicitation |
+| Theory | in `main.tex` | needs verification | IC conditions from Karni (2009), no original theory developed |
+| Experiment | `experiments/` | piloted (2022) | Qualtrics survey on Prolific, BDM belief elicitation with urn scenarios |
+| Pilot Data | `prolific/qualtrics_data/` | complete | Small pilot Oct 2022 via Prolific |
+| Analysis | `analysis/do/` | in-progress | Stata 17: cleaning, exploration, figures, regressions |
+| Replication | `replication/` | not started | -- |
+| Pre-registration | -- | not started | -- |
+| Presentations | `presentations/`, `bdm_bic_paper/presentations/` | multiple given | Brown bag 2022, ESA 2022, UC Davis 2022, BABEEW 2023 |

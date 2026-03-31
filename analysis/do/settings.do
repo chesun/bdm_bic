@@ -1,5 +1,11 @@
 
-if c(hostname)=="Christina-XPS" {
+if c(hostname)=="Christinas-MacBook-Air-3.local" {
+  // Mac settings
+  global projdir "/Users/christinasun/github_repos/bdm_bic/analysis"
+  global datadir "/Users/christinasun/Library/CloudStorage/Dropbox/Davis/Research_Projects/bdm_incentives/data"
+  global overleafdir "/Users/christinasun/github_repos/bdm_bic_paper"
+}
+else if c(hostname)=="Christina-XPS" {
   // laptop settings (remember to update machine name)
  global projdir "C:\Users\sunch\Dropbox\github_repos\bdm_bic\analysis"
  global datadir "C:\Users\sunch\Dropbox\Davis\Research_Projects\bdm_incentives\data"
