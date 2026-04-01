@@ -121,6 +121,22 @@ The four papers from the existing review remain the core evidence. No new paper 
 
 **Search documentation:** This conclusion is based on: (1) forward citation searches of Karni (2009), Burfurd & Wilkening (2018), and Holt & Smith (2016) conducted via Google Scholar and Consensus (Semantic Scholar); (2) keyword searches on Consensus and SSRN for "BDM belief elicitation," "stochastic BDM belief," and "probability matching mechanism belief"; (3) review of author pages for Danz, Healy, Leo, Wilkening, Brown, Drichoutis, and Martin. These searches returned papers on BDM value elicitation, BSR belief elicitation, and belief elicitation interfaces, but no new paper that directly tests BDM (or SBDM) for belief elicitation in the Karni (2009) framework with empirical data since 2022.
 
+### (c-ii) Behavioral Mechanisms in Belief Elicitation
+
+**Benoit, Dubra & Romagnoli (2022)**, "Belief Elicitation When More Than Money Matters: Controlling for 'Control'," *American Economic Journal: Microeconomics*, 14(3), 837-888.
+- **Proximity:** 1
+- **Method:** Lab experiment with probabilistic BDM (matching probabilities / Karni mechanism) for self-beliefs about task performance
+- **Key finding:** Subjects inflate beliefs by 18 percentage points due to "preference for control" — they prefer betting on their own performance over equivalent random devices, even when the probabilities are identical. At least 68% of what is normally measured as "overconfidence" is actually preference for control, not genuine belief distortion. The control motive is asymmetric: subjects want to bet on doing WELL (not just bet on themselves); betting on doing badly triggers an "anti-control" motive that works in the opposite direction. The authors propose a novel mechanism that mitigates control by having subjects bet on themselves in BOTH arms of the BDM comparison (one task vs. another task), eliminating the control confound. They also show that control concerns affect the binarized scoring rule (BSR).
+- **Relevance:** CRITICAL for this project. This is the strongest evidence for Hypothesis B (preference for control as a driver of BDM belief misreporting). The 18pp effect size is enormous — larger than most comprehension-driven biases documented in the literature. Their finding that 68%+ of measured "overconfidence" is actually control preference fundamentally reframes BIC failure: the mechanism may be understood but subjects have a non-monetary reason to misreport. Their proposed fix (bet on self in both arms) suggests a design path for our Arm 5 (neutral event). The asymmetry finding (control for doing well, anti-control for doing badly) predicts that BDM misreporting should be directional, not symmetric — which is testable. However, their context is confidence elicitation (self-beliefs about own performance), which is different from our induced-probability setting. Whether preference for control operates when the event is an urn draw rather than own performance is an open question.
+- **Status:** Published in AEJ:Micro (top field journal). Cited by Danz et al. (2024 JEP) as key evidence on non-comprehension channels in BDM belief misreporting.
+
+**Burfurd & Wilkening (2022)**, "Cognitive Heterogeneity and Complex Belief Elicitation," *Experimental Economics*, 25, 557-592.
+- **Proximity:** 1
+- **Method:** Lab experiment with two-part design: (1) "Bucket Game" to classify participants as consistent/inconsistent with probabilistic reasoning, (2) belief elicitation under SBDM vs. Introspection for easy and hard problems
+- **Key finding:** SBDM encourages more careful thinking but is MORE sensitive to heterogeneity in probabilistic reasoning ability. Less variation in belief errors between easy and hard problems for SBDM vs. Introspection, but greater difference in errors between consistent and inconsistent participants under SBDM. Critically, NO significant interaction between elicitation mechanism and cognitive ability/effort (as measured by Raven's Progressive Matrices and CRT).
+- **Relevance:** DIRECTLY relevant to Hypothesis D (cognitive competition). Their null finding on the mechanism x ability interaction complicates the simple "cognitive resource competition" story. If more able subjects do not differentially benefit from SBDM, the mechanism's cognitive demands may not be the binding constraint. However, their design tests ability (a stable trait) not task complexity (a situational state), and they compare SBDM vs. Introspection rather than BDM with vs. without incentive information. The finding that SBDM amplifies heterogeneity in probabilistic reasoning (but not general cognitive ability) suggests that the relevant dimension is specifically probabilistic sophistication, not general intelligence.
+- **Status:** Published in *Experimental Economics* (top field journal). NOTE: This is a DIFFERENT paper from Burfurd & Wilkening (2018, *JESA*), which tested implementation formats of SBDM. The 2018 paper compares direct vs. MPL-style SBDM interfaces; this 2022 paper tests the interaction between SBDM, task complexity, and cognitive heterogeneity. Same authors, different research question, different experiment.
+
 ### (d) New Theoretical Foundations
 
 **Peski & Stewart (2025)**, arXiv:2506.12167.
@@ -165,6 +181,18 @@ The following papers were present in the 2022-vintage review (`master_supporting
 
 ### (e) Comprehension and Simplicity in Mechanisms
 
+**Li (2017)**, "Obviously Strategy-Proof Mechanisms," *American Economic Review*, 107(11), 3257-3287.
+- **Proximity:** 3 (theoretical foundation for the simplicity literature)
+- **Method:** Theory
+- **Key finding:** Defines "obvious dominance": a strategy is obviously dominant if, at any information set where it first diverges from an alternative, the best outcome from deviating is no better than the worst outcome from the dominant strategy. A mechanism is OSP if it has an equilibrium in obviously dominant strategies. Behavioral interpretation: obviously dominant if and only if a cognitively limited agent (who cannot do contingent reasoning across information sets) can recognize it as weakly dominant. Key applied result: ascending auctions are OSP while second-price sealed-bid auctions are not — explaining the longstanding experimental regularity that ascending auctions outperform sealed-bid auctions despite theoretical equivalence.
+- **Relevance:** The foundational paper for the simplicity refinements literature that Tsakas (2019), Chakraborty & Kendall (2022), Brown et al. (2025), and Badio et al. (2026) all build on. Li's framework is the theoretical lens through which we understand WHY BDM is cognitively hard: BDM requires subjects to reason about what would happen at information sets they will never reach (contingent reasoning), which OSP mechanisms avoid. The standard BDM mechanism (sealed-bid) is NOT OSP. Whether an OSP implementation of BDM-for-beliefs (e.g., a clock mechanism) would help is an open question — Tsakas (2019) shows the theory, Brown et al. (2025) show it does not help for values.
+
+**Tsakas (2019)**, "Obvious Belief Elicitation," *Games and Economic Behavior*, 118, 374-381.
+- **Proximity:** 2
+- **Method:** Theory
+- **Key finding:** Applies Li's (2017) OSP framework specifically to belief elicitation mechanisms. Proves that the static Karni (2009) mechanism does NOT have obviously dominant strategies. Proves that the ascending Karni mechanism (clock auction format) also does NOT have obviously dominant strategies. Introduces a novel DESCENDING Karni mechanism that always has obviously dominant strategies. Under the assumption that subjects choose an obviously dominant strategy, the descending mechanism can approximate true beliefs with arbitrary precision. Results hold for a very broad class of likelihood relations, well beyond expected utility.
+- **Relevance:** This is the belief-elicitation-specific application of Li (2017). The key theoretical result for our project: standard BDM-for-beliefs (Karni 2009) is NOT OSP, and even the "obvious" fix (ascending clock) is NOT OSP either. Only the descending mechanism achieves OSP — and this has NEVER been tested experimentally for belief elicitation. Brown et al. (2025) tested a descending clock for value elicitation and found it did not help, but the belief context is different. The gap between Tsakas's theory and experimental evidence is a potential research opportunity, though not our primary focus. Published in *Games and Economic Behavior* — addresses the GEB journal coverage gap noted by the librarian-critic.
+
 **Brown, Stephenson & Velez (2025)**, "Testing the Simplicity of Strategy-Proof Mechanisms," *Economic Theory*.
 - **Proximity:** 3
 - **Method:** Lab experiment (uniform rationing problems)
@@ -194,6 +222,12 @@ The following papers were present in the 2022-vintage review (`master_supporting
 - **Relevance:** Different interfaces produce different belief distributions. This means the choice of interface is not neutral — it's a treatment. Experimenters who use BDM with different interfaces are studying different things.
 - **Status:** NOT in library.
 - **Note (psychology journal):** Published in JEP: General, a psychology journal. The studies do not use incentivized elicitation in the economics sense (no BDM, BSR, or other IC mechanism). Beliefs are evaluated against realized outcomes using accuracy metrics, not incentive-compatible payment. Very large samples (N=14,553 across studies) provide strong statistical power, but inference standards differ from economics conventions — no clustering at session level (online individual-level data), and the focus is on mean accuracy differences rather than structural modeling of reporting behavior. The interface findings are nonetheless highly relevant for experimental design.
+
+**Schlag & Tremewan (2021)**, "Simple Belief Elicitation: An Experimental Evaluation," *Journal of Risk and Uncertainty*, 62, 137-155.
+- **Proximity:** 2
+- **Method:** Lab experiment comparing the "frequency method" to the Karni (direct BDM) method
+- **Key finding:** Proposes and tests the "frequency method" for belief elicitation: uses multiple realizations of an outcome to identify bounds on beliefs, is IC for any reasonable utility function, and is highly transparent and simple. Compared experimentally to the Karni (direct BDM) method. The frequency method is easier to understand, faster to complete, and produces fewer 50%-focal reports. The Karni method shows confusion-driven 50% bias specifically for low cognitive ability subjects. The frequency method produces more correct Bayesian updating answers. Trade-off: the frequency method identifies bounds on beliefs rather than point beliefs, trading precision for generality and simplicity.
+- **Relevance:** Directly relevant as another "simpler alternative to BDM" paper — a different approach from the OSP/GSO simplicity refinements (which keep BDM's structure but change the interface) and from flat-fee elicitation (which abandons IC entirely). The frequency method preserves IC while radically simplifying the cognitive task, at the cost of recovering bounds rather than point estimates. The finding that BDM confusion concentrates in low-ability subjects is consistent with Burfurd & Wilkening (2022) on cognitive heterogeneity. Karl Schlag is also a co-author on the Schlag, Tremewan & van der Weele (2015) belief elicitation survey already in section (g). Published in *Journal of Risk and Uncertainty* (economics journal, peer-reviewed).
 
 **Gonzalez-Fernandez, Bosch-Rosa & Meissner (2025)**, "Direct Elicitation of Parametric Belief Distributions," *JEBO*.
 - **Proximity:** 3
@@ -372,6 +406,11 @@ That document contains the full gap assessment (5 gaps with novelty/impact/feasi
 | 20 | Grapow (2026), WP | Mechanism horse race for distributions | MEDIUM |
 | 21 | Ersoy (2025), *JBEE* | Incentive effects are short-lived | MEDIUM |
 | 22 | Dustan, Koutout & Leo (2023), WP | Reduction violations in BQSR | MEDIUM |
+| 23 | Benoit, Dubra & Romagnoli (2022), *AEJ:Micro* | Preference for control in BDM beliefs — key for Hypothesis B | HIGH |
+| 24 | Burfurd & Wilkening (2022), *Experimental Economics* | Cognitive heterogeneity x SBDM — key for Hypothesis D | HIGH |
+| 25 | Schlag & Tremewan (2021), *J. Risk & Uncertainty* | Frequency method as simpler BDM alternative | MEDIUM |
+| 26 | Li (2017), *AER* | OSP theory — foundation for simplicity literature | LOW |
+| 27 | Tsakas (2019), *Games and Economic Behavior* | OSP for belief elicitation — theory only | MEDIUM |
 
 ---
 
@@ -385,8 +424,10 @@ That document contains the full gap assessment (5 gaps with novelty/impact/feasi
 | Kristine Koutout | Reduction paper co-author | kristinekoutout.com/research |
 | Alexander Brown | Simplicity refinements in elicitation | Check SSRN |
 | Andreas Drichoutis | GSO in homegrown, cognitive load, game form recognition | andreasdrichoutis.com |
-| Tom Wilkening | SBDM implementation | U Melbourne page |
+| Tom Wilkening | SBDM implementation, cognitive heterogeneity | U Melbourne page |
 | Daniel Martin | BDM framing/cognitive cost | Check SSRN |
+| Jean-Pierre Benoit | Preference for control in BDM beliefs | Check NYU Abu Dhabi page |
+| Elias Tsakas | OSP belief elicitation theory | Check Maastricht page |
 
 ---
 
@@ -398,11 +439,12 @@ BibTeX entries for all new papers are in `master_supporting_docs/literature/new_
 
 ## Appendix: Journal Coverage Note
 
-**Journals systematically searched:** AER, Econometrica, JPE, QJE, REStud, JEP, AEJ: Micro, Experimental Economics, JEBO, Management Science, European Economic Review, Theory and Decision, JESA, JDM, JEP: General, JASA, Journal of Economic Psychology, Journal of Behavioral and Experimental Economics. Plus SSRN, arXiv, and NBER working papers.
+**Journals systematically searched:** AER, Econometrica, JPE, QJE, REStud, JEP, AEJ: Micro, Experimental Economics, JEBO, Management Science, European Economic Review, Theory and Decision, JESA, JDM, JEP: General, JASA, Journal of Economic Psychology, Journal of Behavioral and Experimental Economics, Games and Economic Behavior, Journal of Risk and Uncertainty. Plus SSRN, arXiv, and NBER working papers.
 
 **Journals searched since initial draft:**
-- **Games and Economic Behavior** — searched 2026-03-29 via Consensus (Semantic Scholar) and Google Scholar using queries: "BDM belief elicitation," "belief elicitation mechanism design incentive compatible," "binarized scoring rule," "probability elicitation mechanism." Karni's foundational work on belief elicitation mechanisms (2009, Econometrica) was published outside GEB. No GEB papers directly relevant to BDM belief elicitation or BIC testing were found beyond what is already captured in this review. GEB publishes mechanism design theory but the empirical belief elicitation literature clusters in AER, AEJ:Micro, Experimental Economics, and JEBO.
+- **Games and Economic Behavior** — searched 2026-03-29 via Consensus (Semantic Scholar) and Google Scholar using queries: "BDM belief elicitation," "belief elicitation mechanism design incentive compatible," "binarized scoring rule," "probability elicitation mechanism." Karni's foundational work on belief elicitation mechanisms (2009, Econometrica) was published outside GEB. One relevant GEB paper found: Tsakas (2019) on obviously strategy-proof belief elicitation, which applies Li's (2017) OSP framework to Karni mechanisms — annotated in section (e). GEB publishes mechanism design theory but the empirical belief elicitation literature clusters in AER, AEJ:Micro, Experimental Economics, and JEBO.
 - **Journal of Economic Psychology** — searched 2026-03-29 via IDEAS/RePEc, ScienceDirect, and Google Scholar using queries: "belief elicitation," "BDM belief," "scoring rule belief elicitation," "incentive compatibility belief," "central tendency bias belief." Found three relevant papers: Burdea & Woon (2022) on online belief elicitation methods (already in review as CESifo WP — now updated to published venue); Crosetto, Filippin, Katuscak & Smith (2020) on central tendency bias in belief elicitation; and Erkal, Gangadharan & Koh (2020), a between-subject replication of Hossain & Okui (2013) comparing BSR vs. QSR. All three annotated in section (j). No additional J. Econ Psychology papers on BDM belief elicitation or BIC testing were found.
+- **Journal of Risk and Uncertainty** — searched 2026-03-29. Found Schlag & Tremewan (2021) on the frequency method for belief elicitation — annotated in section (f). Also includes Hao & Houser (2012) already in section (c).
 
 ## Appendix: Citation Confidence Legend
 

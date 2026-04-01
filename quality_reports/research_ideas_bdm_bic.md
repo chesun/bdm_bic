@@ -1,15 +1,32 @@
 # Gap Analysis & Research Ideas: BDM Behavioral Incentive Compatibility
 
-**Date:** 2026-03-30
+**Date:** 2026-03-31 (v3 — major revision after reading Danz et al. 2024 JEP)
 **Source:** Literature review at `quality_reports/lit_review_bdm_bic_2026.md` (scored 90/100)
+**Reading notes:** `master_supporting_docs/literature/reading_notes/bdm_bic_2026-03.md`
 **Paper draft:** `bdm_bic_paper/paper/main.tex`
 **PI:** Christina Sun
 
 ---
 
+## Critical Update (2026-03-31)
+
+**Danz, Vesterlund & Wilson have a forthcoming paper that BIC-tests BDM.** Their JEP (2024) conclusion states: "Danz, Vesterlund, and Wilson (2024) show for the most used belief elicitation mechanisms (the classic and binarized quadratic scoring rule, and the probabilistic Becker-DeGroot-Marschak rule) that participants largely prefer payoffs different from the intended maximizer under the mechanism, and that information on the incentives increases the rate of false reports."
+
+The paper is listed on David Danz's website as "The Pure-Incentives Test: Applications to Proper Scoring Rules, Auctions, and Matching Markets" (work in progress, with Vesterlund and Wilson). No draft is publicly available.
+
+**What this changes:** The "most obvious gap" (BDM has never been BIC-tested) is being filled by the framework's creators. A standalone BDM BIC test is no longer a viable primary contribution. However:
+- We don't know their design, sample, or implementation details
+- Independent evidence from a different lab/design adds value
+- The BIC test remains a necessary *component* — it grounds whatever else we build on top
+- The *why* and *when* questions behind BIC failure are entirely open
+
+**Also from Danz et al. 2024 JEP:** Benoit, Dubra & Romagnoli (2022) is cited for finding that "preference for control" drives false reports in probabilistic BDM — subjects prefer events they can influence. This identifies a specific behavioral channel beyond comprehension failure.
+
+---
+
 ## How This Document Is Organized
 
-Section 1 maps the state of knowledge as of March 2026. Section 2 identifies gaps — what the literature does NOT know. Section 3 proposes five research directions, ranked by novelty and feasibility. Section 4 assesses how the existing pilot design maps onto these directions.
+Section 1 maps the state of knowledge. Section 2 identifies gaps. Section 3 proposes research directions, ranked. Section 4 assesses the existing pilot design. Section 5 recommends a path forward.
 
 ---
 
@@ -20,175 +37,160 @@ Section 1 maps the state of knowledge as of March 2026. Section 2 identifies gap
 | Claim | Evidence | Strength |
 |-------|----------|----------|
 | BSR fails both BIC conditions | Danz et al. (2022 AER, 2024 JEP); Agyeah et al. (2025 replication) | Strong — replicated |
+| BDM (probabilistic) likely fails BIC too | Danz et al. (2024 JEP conclusion, forthcoming WP) | Previewed but not yet available |
 | BDM value elicitation has game-form misconception | Cason & Plott (2014 JPE); Drichoutis & Nayga (2022 JEBO); Brown et al. (2025 SSRN) | Strong — multiple papers |
+| Preference for control inflates BDM belief reports by 18pp | Benoit, Dubra & Romagnoli (2022 AEJ:Micro) | Strong — lab experiment, large effect size. Context: confidence elicitation (self-beliefs about own performance). 68%+ of measured "overconfidence" is control preference, not belief distortion. Asymmetric: subjects want to bet on doing WELL, not just on themselves. |
 | Simplicity refinements (OSP, contingent protocols) do NOT clearly help BDM value elicitation | Brown et al. (2025); Chakraborty & Kendall (2022) | Moderate — lab only, value only |
 | Flat-fee elicitation performs comparably to BDM/BSR for induced beliefs | Burdea & Woon (2022 J Econ Psych); Charness et al. (2021) | Moderate — online, specific tasks |
 | Incentive effects on beliefs can be short-lived | Ersoy (2025 JBEE) | Suggestive — one study, one domain |
 | Interface/presentation affects elicitation quality | Crosetto & de Haan (2023); Hu & Simmons (2024); Burfurd & Wilkening (2018) | Moderate-strong |
 | 70% of subjects violate compound lottery reduction in BQSR | Dustan et al. (2023 WP) | Moderate — one study, lab |
-| Multiple new mechanisms exist for eliciting belief distributions | Grapow (2026); Leo & Stelnicki (2025); Crosetto & de Haan (2023) | Growing — recent work |
+| SBDM is more sensitive to cognitive heterogeneity than Introspection | Burfurd & Wilkening (2022 Experimental Economics) | Moderate — lab, SBDM amplifies differences in probabilistic reasoning ability but NOT general cognitive ability (Raven/CRT). No mechanism x ability interaction. |
+| Descending Karni mechanism is OSP for beliefs (theory only) | Tsakas (2019 Games and Economic Behavior) | Theory — untested experimentally. Static and ascending Karni mechanisms are NOT OSP. Only the descending variant achieves obvious dominance. |
+| Frequency method is simpler than Karni/BDM, preserves IC, reduces 50% focal bias | Schlag & Tremewan (2021 J. Risk & Uncertainty) | Moderate — one lab experiment. Trade-off: recovers bounds on beliefs, not point estimates. |
 
 ### What we do NOT know
 
 | Question | Status | Why it matters |
 |----------|--------|----------------|
-| Does BDM belief elicitation fail BIC? | **Completely untested** | BDM is the most theoretically attractive mechanism; if it also fails BIC, the problem is general |
-| What mechanism should experimenters actually use for beliefs? | **No head-to-head comparison exists** | Every experimenter choosing a belief elicitation method is guessing |
-| When do incentives help vs. hurt in belief elicitation? | **Fragmented evidence** | Determines whether complex IC mechanisms are ever worth their cognitive cost |
+| *Why* does BDM belief elicitation fail BIC? | **Completely open** | Danz et al. will document *that* it fails; nobody has identified the mechanism |
+| Is it comprehension, preference for control, effort, or something else? | **Competing hypotheses, no clean test** | Different causes imply different remedies |
 | Does BIC failure interact with task complexity? | **Untested** | Beliefs are most valuable in complex settings — exactly where mechanisms may fail most |
-| Can better interfaces rescue BDM? | **Untested** | If interface fixes the problem, no new mechanism is needed |
+| When do incentives help vs. hurt? | **Fragmented evidence** | Determines whether complex IC mechanisms are ever worth their cognitive cost |
+| What should experimenters actually use for beliefs? | **No clear recommendation exists** | The practical question everyone cares about |
 
 ---
 
 ## 2. Gap Assessment
 
-I assess each gap on three dimensions:
-- **Novelty** — Has this been done? How close is the nearest existing work?
-- **Impact** — Would the answer change what experimenters do?
-- **Feasibility** — Can this be done with online experiments on Prolific at reasonable cost?
+### Gap 1: WHY Does BDM Belief Elicitation Fail BIC? (NEW — highest priority)
 
-### Gap 1: BDM Belief Elicitation Has Never Been BIC-Tested
+Danz et al.'s forthcoming paper will document *that* BDM (probabilistic) fails BIC. But *why* it fails is a completely open question with multiple competing hypotheses:
 
-**The single most obvious gap in the literature.** Danz et al. (2022, 2024) established the BIC framework and applied it to BSR. Their 2024 JEP paper explicitly discusses generalizing BIC testing to other mechanisms. Nobody has done it for BDM beliefs. The forward citation search (documented in the lit review) confirms this: no paper since Karni (2009) has subjected BDM belief elicitation to systematic BIC testing.
+**Hypothesis A: Comprehension failure (Cason & Plott channel)**
+Subjects misunderstand BDM's mechanism — they don't grasp the event-lottery vs. number-lottery structure. This predicts that comprehension interventions would help, and that more numerate/educated subjects would show smaller BIC gaps. Evidence from value BDM supports this (Cason & Plott 2014), but Brown et al. (2025) find that comprehension interventions don't help for value BDM. Mixed evidence.
 
-**Novelty:** HIGH in isolation (literally zero papers), but MODERATE as a standalone contribution because:
-- The field's prior has shifted to "most complex mechanisms fail BIC"
-- Danz et al. (2024) already expect BDM would fail — the question is *how* it fails
-- Simply showing "another mechanism also fails" is confirmatory, not surprising
+**Hypothesis B: Preference for control (Benoit, Dubra & Romagnoli channel)**
+Subjects prefer the event lottery because it's tied to an event they feel they can influence or have a stake in, even when this is irrational. This predicts that BIC failures would be larger for events subjects feel connected to (own performance) than for "neutral" events (urn draws). Benoit et al. (2022, AEJ:Micro) provide strong evidence for this channel: using probabilistic BDM (matching probabilities / Karni mechanism) for self-beliefs about task performance, they find subjects inflate beliefs by 18 percentage points due to preference for control. At least 68% of what is normally measured as "overconfidence" is actually preference for control, not genuine belief distortion. Critically, the control motive is asymmetric — subjects want to bet on doing WELL (not just on themselves); betting on doing badly triggers an opposing "anti-control" motive. Their proposed fix: have subjects bet on themselves in BOTH arms (one task vs. another), eliminating the control confound. **Key open question for our design:** Benoit et al.'s context is confidence elicitation (beliefs about own performance), where subjects have a natural stake in the event. Whether preference for control operates when the event is an urn draw (no personal stake) is untested. If it does, this would suggest the control motive is about the mechanism structure (event lottery vs. number lottery), not about the event content. If it does not, this would bound the control channel to self-referential belief tasks.
 
-**Impact:** MODERATE standalone, HIGH as part of a larger design. If BDM fails BIC differently from BSR (e.g., boundary-biased rather than center-biased, as Burfurd & Wilkening 2018 suggest), that would be genuinely informative.
+**Hypothesis C: Effort/attention costs (Mamadehussene & Sguera channel)**
+Subjects can't be bothered to think through the mechanism. They report naively and the complex incentive structure goes unused. This predicts that BIC failures would be similar across mechanism types (if subjects ignore all mechanisms equally) and that effort-inducing interventions would help more than comprehension interventions. Ersoy (2025) provides partial support: incentives initially increase effort but effects fade.
 
-**Feasibility:** HIGH. This is exactly what the existing pilot design tests (Full Info vs. No Info vs. Flat Fee, with BDM). The infrastructure exists.
+**Hypothesis D: Cognitive resource competition (novel)**
+BDM comprehension and belief formation compete for the same limited cognitive resources. When the belief task is easy (induced probabilities), there's enough bandwidth for both. When the belief task is hard (Bayesian updating), the mechanism gets crowded out. This predicts an interaction: BIC failure worsens as task complexity increases. **Important caveat from Burfurd & Wilkening (2022, Experimental Economics):** They tested a related but distinct hypothesis — whether SBDM performance interacts with cognitive ability (Raven's Progressive Matrices, CRT). They found NO significant interaction between elicitation mechanism and cognitive ability/effort. SBDM is more sensitive to heterogeneity in *probabilistic reasoning* specifically, but not to general cognitive ability. This complicates the simple "cognitive resource competition" story, because if the binding constraint were general cognitive capacity, more able subjects should differentially benefit from SBDM. However, their design tests ability (a stable trait) not task complexity (a situational state), and they compare SBDM vs. Introspection rather than BDM with vs. without incentive information. Our proposed test — varying task complexity within-subject while holding ability constant — is distinct from and complementary to their approach.
 
-**Verdict:** Necessary ingredient but not a standalone paper in 2026.
+**Why identifying the mechanism matters:** Different causes imply different remedies. If it's comprehension → simplify the mechanism. If it's preference for control → redesign what the event lottery pays on. If it's effort → make incentives more salient or use flat fee. If it's cognitive competition → use simpler mechanisms for complex tasks.
 
-### Gap 2: BIC Diagnostics Have Only Been Applied to BSR
+**Novelty:** VERY HIGH. Nobody has identified why BDM fails BIC. The forthcoming Danz et al. paper documents failure but (based on the JEP preview) doesn't appear to run mechanism-identification treatments.
 
-**Existing mechanism comparisons ("horse races") are plentiful.** Multiple papers compare belief elicitation methods on accuracy:
-- Trautmann & van de Kuilen (2015): 5 incentivized mechanisms vs. introspection
-- Holt & Smith (2016): QSR vs. BDM direct vs. LC
-- Burdea & Woon (2022): BSR vs. BDM vs. flat fee
-- Grapow (2026): Money Method vs. Bet-Based vs. Introspective (for distributions)
+**Impact:** VERY HIGH. Moves the field from "BIC fails" to "here's why and here's what to do about it."
 
-**What does NOT exist:** applying Danz et al.'s BIC *diagnostic framework* to any mechanism other than BSR. The existing horse races ask "which mechanism is most accurate?" The BIC framework asks a different question: "do the mechanism's incentives actually work as designed?" These are not the same thing — a mechanism can produce accurate reports because subjects naively report their belief (ignoring the mechanism entirely), which looks good on accuracy but means the IC properties are irrelevant.
+**Feasibility:** MODERATE-HIGH. Requires carefully designed treatment arms that isolate channels. More complex than a simple BIC test, but tractable.
 
-Danz et al.'s two diagnostic conditions are:
-- (i) Does providing incentive information increase or decrease false reporting?
-- (ii) In a direct choice over the mechanism's lottery menu, do subjects choose the theorized maximizer?
+### Gap 2: Task Complexity x Mechanism Interaction (Hypothesis D)
 
-These have been applied to BSR only. Not to BDM, not to any other mechanism. The contribution is not "another horse race" but "do any mechanisms actually achieve behavioral IC, or is the entire IC enterprise failing?"
+Does BIC failure worsen when subjects must also do something cognitively demanding? The existing pilot already builds this in: subjects report priors (easy — just count urns) and posteriors after signals (harder — requires Bayesian updating). But nobody has formally tested the interaction.
 
-**Novelty:** HIGH for the diagnostic framework extension. LOW for mechanism comparison per se.
-
-**Impact:** HIGH — but only if the paper's contribution is framed as "testing whether IC works" rather than "comparing accuracy." The accuracy comparison already exists.
-
-**Feasibility:** MODERATE. Requires multiple mechanism arms. A focused BDM-only BIC test (Gap 1) is cheaper; adding BSR provides the comparison with Danz et al.'s existing results.
-
-**Verdict:** Valuable if properly scoped. The contribution is the BIC diagnostic applied to new mechanisms, not the accuracy comparison. Must be honest that horse races exist and the novelty is in the diagnostic, not the comparison.
-
-### Gap 3: When Do Incentives Help vs. Hurt?
-
-The evidence is now converging from multiple directions:
-- Danz et al. (2022): incentive information *hurts* for BSR
-- Burdea & Woon (2022): no accuracy advantage for BDM or BSR over flat fee
-- Ersoy (2025): incentive effects are *short-lived* even when initially positive
-- Charness et al. (2021): introspection performs "surprisingly well"
-- Gangadharan et al. (2024): incentives only matter when competing motivations exist
-- Abeler et al. (2019): intrinsic truth-telling preferences are widespread
-
-The emerging picture: incentives may be net negative for belief elicitation in most standard settings, because the comprehension cost exceeds the honesty benefit. But the literature has NOT tested this systematically. Nobody has cleanly identified *when* incentives help (competing motivations? high stakes? repeated interactions?) versus when they hurt (complex mechanisms? cognitively demanding tasks? naive subjects?).
-
-**Novelty:** MODERATE-HIGH. The individual findings exist; the synthesis and systematic test do not.
-
-**Impact:** VERY HIGH. This reframes the entire belief elicitation enterprise. The practical implication — "just use flat fee for most belief tasks" — would be enormously influential.
-
-**Feasibility:** HIGH. The Full Info / No Info / Flat Fee comparison is already in the pilot design.
-
-**Verdict:** Compelling framing for a paper, especially combined with Gap 2.
-
-### Gap 4: Task Complexity x Mechanism Interaction
-
-Does BIC failure worsen when subjects must also do something cognitively demanding (Bayesian updating)? The existing pilot already has this built in: subjects report priors (easy) and posteriors after signals (harder). But nobody has formally tested the interaction.
-
-Theoretical prediction: limited cognitive resources split between mechanism comprehension and belief formation. When the task is hard, subjects either (a) give up on understanding the mechanism and report naively, or (b) give up on careful updating and report round numbers. Either way, the mechanism's IC properties matter less.
+This is a clean test of Hypothesis D above. It also has a strong practical implication: belief elicitation is most valuable in complex settings (Bayesian updating, strategic environments, forecasting). If IC mechanisms fail *more* in exactly these settings, experimenters are paying a cognitive cost for nothing.
 
 **Novelty:** HIGH. Ba, Bohren & Imas (2025) show complexity interactions in belief formation, but nobody connects this to elicitation mechanism failure.
 
-**Impact:** MODERATE-HIGH. Important for interpreting all belief updating experiments that use IC mechanisms.
+**Impact:** HIGH. Changes the practical recommendation for every belief updating experiment.
 
-**Feasibility:** HIGH. The existing pilot design already varies task complexity (priors vs. posteriors).
+**Feasibility:** HIGH. Built into the existing design for free.
 
-**Verdict:** Strong complement to Gaps 1-3. Natural second dimension in a factorial design.
+### Gap 3: BDM-Specific BIC Test (Independent Evidence)
+
+Danz et al.'s forthcoming paper covers this, but:
+- Their paper is not available — we don't know their design, implementation, or specific results
+- Independent evidence from a different design/setting adds robustness
+- Different implementations of BDM (e.g., urn task vs. confidence elicitation, online vs. lab) may produce different results
+- Including our own BIC test makes the paper self-contained — readers don't need to wait for their WP
+
+**Novelty:** LOW as standalone (Danz et al. are first). MODERATE as independent replication/extension with different design features.
+
+**Impact:** MODERATE — valuable as foundation for the "why" analysis, not as the main result.
+
+**Feasibility:** HIGH. Already built into the pilot design.
+
+**Verdict:** Include as a component, not as the headline contribution. Frame as "we confirm Danz et al.'s (forthcoming) finding that BDM fails BIC, and then ask: why?"
+
+### Gap 4: When Do Incentives Help vs. Hurt?
+
+Evidence is converging that incentives are often net negative for belief elicitation. The question is no longer "do incentives help?" but "when do they help, and when do they hurt?"
+
+This is closely related to Gap 1 — if we understand why BDM fails, we can predict when incentives would help (strong competing motivations, like Gangadharan et al. 2024) vs. hurt (complex tasks, low-stakes settings).
+
+**Verdict:** This emerges naturally from the "why" analysis rather than requiring a separate design.
 
 ### Gap 5: Interface Effects on BIC
 
-Crosetto & de Haan (2023), Hu & Simmons (2024), and Burfurd & Wilkening (2018) all show presentation matters. But nobody has tested whether a better interface (e.g., visual representation of the mechanism, interactive tutorial, click-and-drag) changes BIC outcomes.
+Still open but risky. Brown et al. (2025) found comprehension interventions didn't help for value BDM. The prior should be pessimistic. Better as a future paper if the "why" analysis points to comprehension as the main driver.
 
-**Novelty:** MODERATE. The components exist (interface research + BIC research) but the connection hasn't been made.
-
-**Impact:** MODERATE. If a simple interface fix resolves BIC problems, that's practically important. But if it doesn't (as Brown et al. 2025 found for contingent protocols in value elicitation), it's a null result.
-
-**Feasibility:** MODERATE. Requires developing interface variants, which is design work. Crosetto & de Haan provide free oTree/Qualtrics plugins that could be adapted.
-
-**Verdict:** Interesting but risky. Better as a treatment arm than a standalone paper.
+**Verdict:** Deprioritize for now. Could be a follow-up.
 
 ---
 
 ## 3. Research Directions (Ranked)
 
-### Direction 1: "Does Any Belief Elicitation Mechanism Actually Achieve Behavioral IC?" (Gaps 1 + 2 + 3)
+### Direction 1 (Recommended): "Why Does BDM Belief Elicitation Fail? Identifying the Mechanism" (Gaps 1 + 2 + 3)
 
-**Research question:** Do the incentives embedded in belief elicitation mechanisms actually work as designed, or does the entire IC enterprise fail for beliefs?
+**Research question:** Why does BDM belief elicitation fail behavioral incentive compatibility, and does the failure worsen when the belief task is cognitively demanding?
 
-**Framing — why this is NOT just another horse race:**
-Multiple papers compare mechanisms on accuracy (Trautmann & van de Kuilen 2015; Holt & Smith 2016; Burdea & Woon 2022; Grapow 2026). Accuracy comparisons are useful but cannot distinguish between two very different worlds: (a) subjects understand the mechanism and it drives truthful reporting, vs. (b) subjects ignore the mechanism and report naively, which happens to be roughly accurate because people have intrinsic truth-telling preferences (Abeler et al. 2019). The BIC diagnostic framework (Danz et al. 2022, 2024) is designed to distinguish these worlds — and it has only been applied to BSR.
+**Paper structure:**
+1. **Document the BIC failure** (independent evidence, confirms Danz et al. forthcoming) — this is the foundation, not the headline
+2. **Characterize the failure** — how does BDM fail differently from BSR? Center-biased vs. boundary-biased? Different misconception types?
+3. **Identify the mechanism** — which behavioral channel (comprehension, preference for control, effort, cognitive competition) drives the failure?
+4. **Test the complexity interaction** — does BIC failure worsen for posterior beliefs vs. prior beliefs?
+5. **Practical recommendation** — given the mechanism, what should experimenters do?
 
-The core contribution is applying the diagnostic framework to BDM (the most theoretically attractive mechanism that has never been BIC-tested) while including flat fee as a benchmark. This answers: are we paying a cognitive cost for IC properties that aren't actually operating?
+**Core design:** Between-subject, with treatment arms designed to isolate channels:
 
-**Design:** Between-subject, 2 mechanisms x 2 information levels + flat fee benchmark:
+| Arm | Mechanism | Info | What it tests |
+|-----|-----------|------|---------------|
+| 1 | BDM | Full incentive info | BIC condition (i) — baseline |
+| 2 | BDM | No incentive info ("rewards accuracy") | BIC condition (i) — does info hurt? |
+| 3 | Flat fee | Accuracy encouragement | Benchmark — no IC mechanism at all |
+| 4 | BDM | Full info + comprehension intervention | Isolates comprehension channel (Hypothesis A) |
+| 5 | BDM (neutral event) | Full info | Isolates preference-for-control (Hypothesis B) — compare to Arm 1 if Arm 1 uses an event subjects feel connected to |
 
-| | Full Incentive Info | Minimal Info ("rewards accuracy") |
-|---|---|---|
-| **BDM (direct report)** | Cell 1 | Cell 2 |
-| **Flat Fee (introspection)** | — | Cell 3 |
+**Within-subject variation (all arms):**
+- Induced priors (easy) vs. posteriors after signals (hard) → tests Hypothesis D (cognitive competition)
+- Comprehension quiz after mechanism explanation → mediator for Hypothesis A
+- Response time → mediator for Hypothesis C (effort)
+- BIC condition (ii): direct lottery choice diagnostic → within-subject test of whether subjects understand what they're choosing
 
-Optional extension: add BSR arms (Cells 4-5) to replicate Danz et al. and enable direct BDM-vs-BSR BIC comparison within one study.
+**Task:** Induced probabilities via urns (priors: 20/40/60/80%) + Bayesian updating with two signals (60% accuracy). Same as existing pilot.
 
-Plus a **BIC diagnostic** (Danz et al.'s condition ii): within-subject direct lottery choice task testing whether BDM subjects choose the theorized maximizer.
-
-**Task:** Induced probabilities via urns + Bayesian updating. The updating component provides a within-subject task complexity variation (priors = easy, posteriors = hard) that tests Gap 4 for free.
-
-**Primary outcomes:**
-1. BIC condition (i): does incentive information increase false reporting under BDM? (The central test — extends Danz et al.'s finding from BSR to BDM)
-2. BIC condition (ii): do subjects choose the theorized maximizer in the BDM lottery menu?
-3. Accuracy comparison: BDM (full info) vs. BDM (minimal info) vs. flat fee
-4. Misreporting patterns: center-biased (like BSR per Danz et al.) or boundary-biased (as Burfurd & Wilkening 2018 suggest for BDM)?
-5. Task complexity interaction: do BIC failures worsen for posteriors vs. priors?
-
-**Sample size (core design):** 3 cells x 150/cell = 450 subjects. ~$5,400 on Prolific.
-**With BSR extension:** 5 cells x 150/cell = 750 subjects. ~$9,000.
+**Sample size:** 5 arms x 150/arm = 750 subjects. ~$9,000 on Prolific.
+**Reduced design (drop Arm 5):** 4 arms x 150 = 600 subjects. ~$7,200.
+**Minimal design (Arms 1-3 only):** 3 arms x 150 = 450 subjects. ~$5,400. (Loses mechanism identification but keeps BIC test + complexity interaction.)
 
 **What makes this publishable:**
-- First BIC test of BDM belief elicitation — the most obvious unfilled gap
-- Tests whether IC properties are actually *operating* (not just whether reports are accurate)
-- Flat fee benchmark answers the "do we even need incentives?" question (Gap 3)
-- Task complexity interaction is genuinely novel (Gap 4)
-- If BDM fails BIC *differently* from BSR (different misreporting patterns), that's diagnostic of different cognitive mechanisms
+- Moves from "BDM fails BIC" (confirmatory) to "*why* it fails" (novel)
+- Task complexity interaction is genuinely new (nobody has tested this for any mechanism)
+- Multiple channel identification within one design
+- Independent BIC evidence complements Danz et al. (forthcoming)
+- Practical recommendation grounded in mechanism identification
+- Self-contained: doesn't require the reader to have Danz et al.'s WP
 
-**What does NOT make this publishable (be honest):**
-- "Another mechanism fails BIC" is confirmatory — the field expects this
-- The accuracy comparison (BDM vs. flat fee) already exists in Burdea & Woon (2022)
-- Without a theoretical contribution explaining *why* BDM fails (if it does), this risks being purely empirical
+**Risks and honest limitations:**
+- The comprehension intervention (Arm 4) has a pessimistic prior (Brown et al. 2025 found it didn't help for value BDM)
+- Arm 5 (preference for control) requires a clean manipulation of how "controllable" the event feels — design challenge
+- If all channels show null results, the paper becomes "BDM fails BIC and we don't know why" — less satisfying
+- 750 subjects is a substantial budget commitment
 
-**Risk:** The most likely outcome — BDM fails BIC, flat fee performs comparably — is important but unsurprising. The paper needs a "so what" beyond documenting failure. Possible "so whats": (a) the misreporting patterns differ from BSR, revealing different cognitive mechanisms; (b) the task complexity interaction shows IC matters less as tasks get harder; (c) the lottery choice diagnostic reveals what subjects think BDM does (misconception typology).
+**Mitigation:** Even if no single channel is cleanly identified, the complexity interaction (Hypothesis D) is testable in Arms 1-3 alone and is the most novel contribution. The minimal 3-arm design is still a strong paper.
 
-**Novelty:** 7/10 | **Impact:** 8/10 | **Feasibility:** 9/10
+**Novelty:** 8/10 | **Impact:** 9/10 | **Feasibility:** 7/10
 
 ---
 
-### Direction 2: "The Cognitive Cost of Incentive Compatibility" (Gap 3 + Gap 4)
+### Direction 2: "The Cognitive Cost of Incentive Compatibility" (Gaps 2 + 4 — lean version)
 
 **Research question:** When does the cognitive cost of implementing a TIC mechanism exceed its honesty benefit?
+
+This is a stripped-down version that focuses purely on the complexity interaction without trying to identify the behavioral channel. Simpler, cheaper, but less ambitious.
 
 **Design:** 2x2 factorial (mechanism complexity x task complexity):
 
@@ -197,108 +199,76 @@ Plus a **BIC diagnostic** (Danz et al.'s condition ii): within-subject direct lo
 | **Complex mechanism (BDM with full info)** | Cell 1 | Cell 2 |
 | **Simple mechanism (flat fee)** | Cell 3 | Cell 4 |
 
-**Key hypothesis:** The BIC gap (Cell 1 vs. Cell 3) is smaller than the BIC gap (Cell 2 vs. Cell 4). That is, the cost of mechanism complexity is amplified when the task is also complex.
+**Key hypothesis:** The accuracy gap between BDM and flat fee is *smaller* (or reverses) when the task is complex. That is, mechanism complexity hurts more when the task is also demanding.
 
 **What makes this publishable:**
-- Novel interaction test (nobody has crossed mechanism complexity with task complexity)
+- Novel interaction test — nobody has crossed mechanism complexity with task complexity
 - Clean theoretical prediction (cognitive resource competition)
-- Policy implication: incentivized elicitation may be actively harmful in complex settings, exactly where beliefs matter most
-- Parsimonious design (4 cells, ~400 subjects, ~$4,800)
+- Parsimonious: 4 cells, ~400 subjects, ~$4,800
+- Policy implication: incentivized elicitation may be harmful in complex settings
 
-**Risk:** The interaction may be small or null. Mitigation: main effects are still informative (BDM vs. flat fee comparison is Gap 1).
+**Relationship to Direction 1:** This is essentially Direction 1's minimal design (Arms 1-3). Could serve as a fallback if the full mechanism-identification design proves too complex or expensive.
 
-**Novelty:** 8/10 | **Impact:** 8/10 | **Feasibility:** 9/10
+**Novelty:** 8/10 | **Impact:** 7/10 | **Feasibility:** 9/10
 
 ---
 
-### Direction 3: "Beyond Point Estimates: A Practical Guide to Belief Distribution Elicitation" (Gap 2 variant)
+### Direction 3: "Beyond Point Estimates: Belief Distribution Elicitation" (separate project)
 
-**Research question:** Which method for eliciting belief distributions is most accurate, easiest for subjects, and most robust to preference assumptions?
+**Research question:** Which method for eliciting full belief distributions is most practical and accurate?
 
-**Design:** Between-subject comparison of:
-1. Quantile price list (Leo & Stelnicki 2025)
-2. Bet-Based Method (Grapow 2026)
-3. Click-and-drag distribution (Crosetto & de Haan 2023)
-4. Introspective bins (standard)
-
-All applied to the same induced-probability task with known ground truth.
-
-**What makes this publishable:**
-- Growing demand for distribution elicitation (inflation expectations, risk perceptions)
-- No existing head-to-head with these specific methods
-- Practical: could include a "recommended method" based on results
-
-**Risk:** Grapow (2026) partially addresses this. The marginal contribution over her paper needs to be clear (e.g., adding IC diagnostics, using different tasks, comparing to newer methods she doesn't include).
+This is a different paper — doesn't build on the BIC framework. Better suited as a second project. Deprioritized for now given the BIC opportunity.
 
 **Novelty:** 6/10 | **Impact:** 7/10 | **Feasibility:** 7/10
 
 ---
 
-### Direction 4: "The BDM-Specific BIC Test" (Gap 1, Standalone)
-
-**Research question:** Does BDM belief elicitation satisfy behavioral incentive compatibility?
-
-This is the original paper, essentially — the Danz et al. test applied to BDM. The existing pilot design already implements this.
-
-**What makes this publishable:**
-- Direct gap-fill: literally nobody has done this
-- Clean, interpretable design
-
-**What limits it:**
-- Incremental: applies an existing framework to a new mechanism
-- The answer is likely "no" — confirmation bias concern
-- Doesn't tell experimenters what to use instead
-
-**Novelty:** 5/10 | **Impact:** 5/10 | **Feasibility:** 10/10
-
----
-
-### Direction 5: "Can You Fix BDM?" (Gap 5 + Gap 1)
-
-**Research question:** Can interface or instructional interventions restore behavioral incentive compatibility in BDM belief elicitation?
-
-**Design:** BDM with full info, varying the presentation:
-1. Standard text instructions (baseline)
-2. Contingency-framed explanation (Martin & Munoz-Rodriguez 2020 style)
-3. Interactive tutorial with practice and feedback
-4. Visual/graphical mechanism representation
-
-**Risk:** HIGH. Brown et al. (2025) found contingent protocols didn't help for value BDM. The prior should be pessimistic. But the belief version is different enough that it's worth testing.
-
-**Novelty:** 6/10 | **Impact:** 7/10 (if positive) / 4/10 (if null) | **Feasibility:** 6/10
-
----
-
-## 4. How the Existing Pilot Maps Onto These Directions
+## 4. How the Existing Pilot Maps Onto Direction 1
 
 The 2022 pilot tested:
 - BDM direct elicitation only (no mechanism comparison)
 - 3 treatments: Full Information, No Information, Introspection with Payment
-- Urn task with Bayesian updating (4 events, 2 signals each)
+- Urn task with Bayesian updating (4 events x 5 urns, 2 signals each, 60% accuracy)
 - Online via Prolific/Qualtrics
 
-**Strengths to keep:**
-- The Full Info / No Info / Flat Fee structure is Danz et al.'s BIC condition (i) — good
-- The urn/updating task provides task complexity variation naturally
-- Online/Prolific is cost-effective and scalable
+**What carries over directly:**
+- Arms 1-3 of Direction 1 are essentially the pilot design (Full Info = Arm 1, No Info = Arm 2, Flat Fee = Arm 3)
+- The urn/updating task with induced probabilities
+- The within-subject complexity variation (priors vs. posteriors)
+- Prolific/Qualtrics infrastructure
 
-**What to add for the recommended Direction 1:**
-- Add BSR arm (to compare BDM vs. BSR vs. flat fee)
-- Add Danz et al.'s BIC condition (ii): the direct lottery choice diagnostic
+**What needs to be added:**
+- Arm 4: comprehension intervention (requires designing the intervention)
+- Arm 5: "neutral event" variant (requires redesigning what the event lottery pays on)
+- BIC condition (ii): direct lottery choice diagnostic (new task, within-subject)
+- Comprehension quiz (short, after mechanism explanation)
+- Response time logging (Qualtrics has this built in)
 - Fix randomization issues from the pilot
-- Increase power (the pilot was underpowered)
+- Increase sample size substantially
 
-**What to change:**
-- Consider dropping the "No Information" treatment (where BDM is used but incentives aren't explained). This cell is the least interesting — subjects are under BDM but don't know it, which is an unusual real-world scenario. Replacing it with BSR gives more value.
-- Consider adding response time measurement (free diagnostic, follows Brocas et al. 2025)
-- Consider adding comprehension quiz (mediator analysis)
+**What to reconsider:**
+- The pilot used 5 urns with 10 balls each. The signal accuracy is only 60% — subjects need to understand conditional probabilities to update correctly. Consider whether this is too demanding when combined with mechanism comprehension.
+- The pilot had 4 events x 3 elicitations = 12 belief reports per subject. This may be too many if we add the BIC diagnostic task. Consider reducing.
 
 ---
 
 ## 5. Recommended Path Forward
 
-**Primary recommendation: Direction 1 (Horse Race)** — combine the BDM BIC test with a mechanism comparison including BSR and flat fee, all with BIC diagnostics, on the existing urn/updating task.
+1. **Finish reading priority papers** — especially Brown et al. (2025) on simplicity refinements. Benoit et al. (2022) has now been read and integrated into Hypothesis B above.
+2. **Run `/discover interview`** to pressure-test Direction 1's mechanism-identification approach
+3. **Key design decisions to resolve in the interview:**
+   - How to operationalize the comprehension intervention (Arm 4)
+   - Whether the "preference for control" arm (Arm 5) is cleanly implementable or should be dropped — Benoit et al.'s (2022) approach (bet on self in both arms) provides a concrete design template
+   - Whether to include a BSR arm for within-study comparison with Danz et al.
+   - How many belief elicitations per subject (power vs. fatigue)
+   - Whether to run the minimal design first (Arms 1-3) and add mechanism-identification arms in a second study
+4. **Write research specification** after interview
+5. **Run `/design experiment`** for the 14-step inference-first checklist
 
-**Before committing to a design:** Run `/discover interview` to pressure-test these ideas interactively and develop a full research specification. Then `/design experiment` for the 14-step inference-first design checklist.
+**Alternative mechanisms for experimenters to consider (from the literature):**
+- **Descending Karni mechanism** (Tsakas 2019, GEB) — the only OSP implementation of BDM-for-beliefs. Theory proves obvious dominance; never tested experimentally. Would be a natural candidate if comprehension (Hypothesis A) is the binding constraint.
+- **Frequency method** (Schlag & Tremewan 2021, J. Risk & Uncertainty) — uses multiple outcome realizations to identify belief bounds. IC for any reasonable utility function, radically simpler than BDM, fewer 50%-focal reports. Trade-off: recovers bounds, not point estimates.
+- **Quantile price list** (Leo & Stelnicki 2025, Experimental Economics) — elicits quantiles of belief distributions. IC under weak assumptions.
+- **Flat fee with accuracy encouragement** — emerging as a serious competitor for simple belief tasks (Burdea & Woon 2022; Ersoy 2025).
 
-**Timeline consideration:** Grapow (2026) and Leo & Stelnicki (2025) are very recent. If someone is working on a belief mechanism horse race with BIC diagnostics, it hasn't appeared yet. The window is open but may not stay open long.
+**Timeline note:** Danz et al.'s "Pure-Incentives Test" paper is work in progress. Once it circulates, the window for independent BIC evidence narrows. But the "why" question remains open regardless.

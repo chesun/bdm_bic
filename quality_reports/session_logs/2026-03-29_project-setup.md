@@ -76,3 +76,30 @@
 **Decisions:**
 - Reading notes kept in markdown, single running file (not Notion, not one-per-paper)
 - TODO.md lives at project root per rule, not in quality_reports/
+
+## 2026-03-31
+
+**Major finding from reading Danz et al. (2024) JEP:**
+- Danz, Vesterlund & Wilson have a forthcoming WP ("The Pure-Incentives Test") that BIC-tests BDM (probabilistic). Listed as work in progress on David Danz's website. No draft available.
+- JEP conclusion previews: BDM fails both BIC conditions (subjects prefer non-maximizer payoffs; incentive info increases false reports)
+- This means a standalone BDM BIC test is no longer a viable primary contribution — must add "why does it fail?"
+- Benoit, Dubra & Romagnoli (2022, AEJ:Micro) identified "preference for control" as a channel: 18pp inflation in BDM belief reports when subjects bet on own performance
+
+**Research direction reframed (v3):**
+- Old: "Does BDM fail BIC?" → New: "WHY does BDM fail BIC?"
+- Four competing hypotheses: (A) comprehension, (B) preference for control, (C) effort, (D) cognitive resource competition
+- BIC test remains as a component (independent evidence) but is no longer the headline
+- Direction 1 redesigned with 5 treatment arms to isolate channels
+
+**Operations:**
+- CS read Danz et al. (2024) JEP, took detailed notes with critical insight about forthcoming BDM paper
+- Research ideas document updated to v3 with new framing
+- Updated TODO.md
+- Incorporated 5 new papers CS downloaded: Benoit et al. (2022), Tsakas (2019), Li (2017), Burfurd & Wilkening (2022), Schlag & Tremewan (2021)
+- Burfurd & Wilkening (2022, Experimental Economics) is a DIFFERENT paper from their 2018 JESA — tests SBDM × cognitive heterogeneity interaction. Key finding: no mechanism × ability interaction, complicates Hypothesis D.
+- Tsakas (2019, GEB): ascending Karni is NOT OSP; novel descending Karni IS OSP. Theory only, untested.
+- CS added 2 more papers: Chakraborty & Kendall (2025) supersedes their 2022 SSRN with "UJS" concept; Martin & Muñoz-Rodriguez (2022) EER full paper read
+- Pending: incorporate these last 2 papers into lit review
+
+**Key papers in the project collection (15 total in papers/ folder):**
+Danz et al. 2024, Brown et al. 2025, Healy & Leo 2025, Leo & Stelnicki 2025, Grapow 2026, Ersoy 2025, Dustan et al. 2023, Benoit et al. 2022, Tsakas 2019, Li 2017, Burfurd & Wilkening 2022, Schlag & Tremewan 2021, Chakraborty & Kendall 2022 + 2025, Martin & Muñoz-Rodriguez 2022
