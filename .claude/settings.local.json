@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Consensus__search",
+      "WebSearch",
+      "WebFetch(domain:david-danz.com)",
+      "WebFetch(domain:papers.ssrn.com)",
+      "WebFetch(domain:ideas.repec.org)",
+      "WebFetch(domain:healy.econ.ohio-state.edu)",
+      "WebFetch(domain:gregcleo.com)",
+      "WebFetch(domain:events.bse.eu)",
+      "WebFetch(domain:www.andreasdrichoutis.com)"
+    ]
+  }
+}
