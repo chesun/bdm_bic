@@ -14,7 +14,7 @@ The field has moved substantially. Three developments reshape the landscape:
 
 1. **The BIC concept is now mainstream.** Danz, Vesterlund & Wilson published a JEP survey (2024) generalizing BIC beyond BSR. A 2025 replication confirms their AER results. BIC is no longer a single-paper claim — it's a framework the field is adopting.
 
-2. **The "simplicity" literature has exploded.** New theoretical concepts (OSP, GSO, future self-proof) have been tested experimentally for value elicitation. The consistent finding: MPL-type interfaces outperform BDM in value contexts, but making BDM "obviously strategy-proof" (clock mechanism) does not help. This literature has NOT been applied to belief elicitation.
+2. **The "simplicity" literature has exploded.** New theoretical concepts (OSP, GSO, UJS) have been tested experimentally for value elicitation. The consistent finding: MPL-type interfaces outperform BDM in value contexts, but making BDM "obviously strategy-proof" (clock mechanism) does not help. This literature has NOT been applied to belief elicitation.
 
 3. **Interface and presentation effects are now first-class concerns.** Multiple papers (2023-2025) show that *how* you present the elicitation task matters as much as the mechanism's formal properties. Click-and-drag interfaces outperform sliders; Distribution Builder outperforms Sliders; direct parametric elicitation outperforms bins. None of this work connects to BIC testing.
 
@@ -74,11 +74,12 @@ The field has moved substantially. Three developments reshape the landscape:
 - **Key finding:** Tests BDM against three cognitively-simpler alternatives: (1) descending price clock (OSP), (2) BDM with contingent protocols (improves understanding), (3) dynamic MPL. **MPL improves game-form misconceptions but not overall accuracy. Neither OSP clock nor contingent protocols outperform standard BDM in the lab.** This is a surprising null: simplicity refinements don't help for value elicitation in the lab.
 - **Relevance:** Directly tests whether making BDM simpler helps. The answer is discouraging for value elicitation. The belief elicitation equivalent has NOT been done.
 
-**Chakraborty & Kendall (2022)**, SSRN Working Paper #4032946.
-- **Proximity:** 3
-- **Method:** Theory + lab experiment
-- **Key finding:** Introduces "future self-proof" mechanisms and "game-structure obvious" (GSO) as new simplicity concepts. GSO (resembling MPL) outperforms OSP mechanism, but has its own source of mistakes. Suggests an inherent tradeoff in designing robust mechanisms.
-- **Relevance:** Theoretical foundation for why BDM is hard — subjects can't forecast their own future actions in the game tree. BDM is not GSO. Applied to value elicitation only.
+**Chakraborty & Kendall (2025)**, "Uniquely Justifiable Strategies and Mechanism Design with Boundedly Rational Players," Working Paper, September 2025. Supersedes "Future Self-Proof Elicitation Mechanisms" (SSRN #4032946, 2022).
+- **Proximity:** 2
+- **Method:** Theory + online experiment (value elicitation, WTA for induced-value item)
+- **Key finding:** Introduces *Uniquely Justifiable Strategy (UJS)* — the dominant strategy is the only action justifiable as a best response to ANY payoff-relevant contingency at every decision point. Replaces the earlier "future self-proof" and "game-structure obvious" (GSO) concepts from the 2022 SSRN version. Key results: (1) BDM is NOT UJS — many non-dominant bids are justifiable because subjects can rationalize any bid by considering a specific random-price realization; (2) OSP clock (Li 2017) is NOT UJS — early exit is justifiable if subjects cannot forecast their own future actions; (3) UJS mechanisms take the form of a *generalized MPL* — a sequence of independent binary decisions with one randomly selected; (4) OSP and UJS are *mutually exclusive* with 3+ types (no mechanism can satisfy both). Experimentally: both UJS-E (modified clock) and OSP-E greatly outperform BDM, but there is a tradeoff — UJS mechanisms suffer from multiple switching (the classic MPL problem) while OSP mechanisms fail because subjects cannot forecast future actions. 60% of subjects do NOT play rationally in OSP-E, with >70% choosing the justifiable-but-dominated action.
+- **Relevance:** Central theoretical paper for understanding WHY BDM is hard. The UJS framework formalizes comprehension failure: in BDM, many non-dominant actions are justifiable, so the dominant strategy only emerges when subjects reason through ALL contingencies simultaneously. The result that UJS = generalized MPL connects to Healy & Leo's "BDM as hidden MPL" observation — the MPL format may be behaviorally easier precisely because it is UJS. The OSP-UJS mutual exclusivity result means there is no "best of both worlds" simplification of BDM. Applied to value elicitation only; belief context is untested but the theory extends directly.
+- **Note:** Supersedes Chakraborty & Kendall (2022) SSRN #4032946. The 2025 version replaces "future self-proof" and "GSO" terminology with the more general UJS concept and adds new experimental treatments (UJ-OSP diagnostic, OSP-L).
 
 **Badio, Palma, Drichoutis, Zapata & Nayga (2026)**, Working Paper.
 - **Proximity:** 3
@@ -185,7 +186,7 @@ The following papers were present in the 2022-vintage review (`master_supporting
 - **Proximity:** 3 (theoretical foundation for the simplicity literature)
 - **Method:** Theory
 - **Key finding:** Defines "obvious dominance": a strategy is obviously dominant if, at any information set where it first diverges from an alternative, the best outcome from deviating is no better than the worst outcome from the dominant strategy. A mechanism is OSP if it has an equilibrium in obviously dominant strategies. Behavioral interpretation: obviously dominant if and only if a cognitively limited agent (who cannot do contingent reasoning across information sets) can recognize it as weakly dominant. Key applied result: ascending auctions are OSP while second-price sealed-bid auctions are not — explaining the longstanding experimental regularity that ascending auctions outperform sealed-bid auctions despite theoretical equivalence.
-- **Relevance:** The foundational paper for the simplicity refinements literature that Tsakas (2019), Chakraborty & Kendall (2022), Brown et al. (2025), and Badio et al. (2026) all build on. Li's framework is the theoretical lens through which we understand WHY BDM is cognitively hard: BDM requires subjects to reason about what would happen at information sets they will never reach (contingent reasoning), which OSP mechanisms avoid. The standard BDM mechanism (sealed-bid) is NOT OSP. Whether an OSP implementation of BDM-for-beliefs (e.g., a clock mechanism) would help is an open question — Tsakas (2019) shows the theory, Brown et al. (2025) show it does not help for values.
+- **Relevance:** The foundational paper for the simplicity refinements literature that Tsakas (2019), Chakraborty & Kendall (2025), Brown et al. (2025), and Badio et al. (2026) all build on. Li's framework is the theoretical lens through which we understand WHY BDM is cognitively hard: BDM requires subjects to reason about what would happen at information sets they will never reach (contingent reasoning), which OSP mechanisms avoid. The standard BDM mechanism (sealed-bid) is NOT OSP. Whether an OSP implementation of BDM-for-beliefs (e.g., a clock mechanism) would help is an open question — Tsakas (2019) shows the theory, Brown et al. (2025) show it does not help for values.
 
 **Tsakas (2019)**, "Obvious Belief Elicitation," *Games and Economic Behavior*, 118, 374-381.
 - **Proximity:** 2
@@ -275,7 +276,7 @@ The following papers were present in the 2022-vintage review (`master_supporting
 
 **Healy & Leo (2025)**, "Belief Elicitation: A User's Guide," Chapter 8 in *Handbook of Experimental Methodology*.
 - **Proximity:** 1
-- **Key contribution:** Comprehensive survey of belief elicitation mechanisms. Covers BDM, BSR, QSR, and alternatives. The definitive current reference.
+- **Key contribution:** Comprehensive handbook chapter on belief elicitation mechanisms. Establishes the IC assumption hierarchy: statewise monotonicity (weakest, required for BDM/MPL) < subjective-objective reduction (required for BQSR) < risk-neutral EU (required for QSR). MPL/BDM are thus theoretically superior to binarized scoring rules in IC terms, requiring only the weakest assumption -- the same one needed for any random-round payment. Practical recommendations include: do NOT put incentive details on the decision screen (tell subjects truth-telling is optimal in instructions only, as showing incentives can increase misreporting); consider coarse elicitation to strengthen incentives; BDM/MPL reduce hedging incentives relative to BQSR. Introduces the "BDM as hidden MPL" pedagogical framing -- the single-response BDM can be understood as an MPL with randomly selected row -- which connects directly to Chakraborty & Kendall's (2025) result that UJS = generalized MPL.
 - **Status:** In `master_supporting_docs/experimental_design`. Confirm this is the updated handbook version.
 
 **Healy & Leo (2025)**, "Ternary Belief Elicitation," Working Paper (BSE presentation Feb 2025).
@@ -297,10 +298,10 @@ The following papers were present in the 2022-vintage review (`master_supporting
 - **Relevance:** Speaks to when incentivized elicitation matters most — when subjects have motivated reasoning. In "neutral" belief tasks (like induced probabilities), flat fee may be sufficient.
 
 **Ersoy (2025)**, "Do Incentives Matter in Elicitation of Beliefs?", *Journal of Behavioral and Experimental Economics*, 119, 102477.
-- **Proximity:** 2
+- **Proximity:** 3
 - **Method:** Online experiment (Duolingo/Prolific), 4-week longitudinal, between-subject (incentivized absolute scoring rule vs. flat-pay)
 - **Key finding:** Incentivization initially reduces bias and increases effort (more round answers, longer response times). But these effects DIMINISH and become nonexistent in later weeks — suggesting short-lived effects. Incentivization does NOT improve overall accuracy of beliefs or confidence. Uses absolute scoring rule (not BSR or BDM) to reduce cognitive complexity.
-- **Relevance:** Directly speaks to Gap E ("when do incentives help?"). The finding that incentive effects are short-lived is important — it challenges the assumption that incentivized elicitation is always worth its cognitive cost. Also relevant: Ersoy explicitly chose an absolute scoring rule to reduce comprehension burden, echoing the simplicity literature. Published in *JBEE* (economics journal); study uses monetary incentives; economics inference standards.
+- **Relevance:** Speaks to Gap E ("when do incentives help?"). The finding that incentive effects are short-lived is noted but the paper's distance from our setting limits its direct relevance: uses an absolute scoring rule (not BDM or BSR), Duolingo language-learning beliefs are far from our urn-draw paradigm, and the longitudinal design tests persistence rather than BIC conditions. Published in *JBEE* (economics journal); study uses monetary incentives; economics inference standards.
 
 **Canen & Chakraborty (2022)**, "Choosing The Best Incentives for Belief Elicitation with an Application to Political Protests," arXiv:2210.12549.
 - **Proximity:** 3
@@ -344,7 +345,7 @@ This subsection covers the experimental literature on belief updating that groun
 **Dustan, Koutout & Leo (2023)**, "Reduction in Belief Elicitation," Working Paper (December 2023). Pre-registered: AEA RCT Registry AEARCTR-0007939.
 - **Proximity:** 2
 - **Method:** Lab experiment
-- **Key finding:** 70% of subjects violate compound lottery reduction for BQSR. Reducers are 33% more accurate. Their novel Rank-Ordered Elicitation (ROE), which doesn't require reduction, does NOT improve accuracy. This means the problem isn't just the reduction assumption — something else is going on.
+- **Key finding:** 70% of subjects violate compound lottery reduction for BQSR. Reducers are 13 percentage points more likely to report accurate beliefs (correctly report the objective probability) than non-reducers. Note: the reading notes report this as "13pp" which, on a base accuracy rate of approximately 39% for non-reducers, corresponds to a roughly 33% relative improvement -- both figures describe the same finding. Their novel Rank-Ordered Elicitation (ROE), which doesn't require reduction, does NOT improve accuracy. This means the problem isn't just the reduction assumption — something else is going on.
 - **Relevance:** Important for understanding WHY BSR fails. The reduction assumption is a problem, but fixing it doesn't fix behavior. Suggests deeper comprehension or motivation issues. BDM doesn't rely on reduction, which is a theoretical advantage — but BDM has its own comprehension problems. NOTE: This is a separate working paper from Dustan et al. (2022, JEBO) "Second-Order Beliefs and Gender." Same authors, different research question.
 
 ### (j) Journal of Economic Psychology: Belief Elicitation Papers
@@ -390,68 +391,10 @@ That document contains the full gap assessment (5 gaps with novelty/impact/feasi
 | 4 | Healy & Leo (2025), "Ternary Belief Elicitation" WP | New mechanism | HIGH |
 | 5 | Leo, "Coarse Belief Elicitation" WP | New mechanism | HIGH |
 | 6 | Peski & Stewart (2025), arXiv | Nondistortionary BDM theory | MEDIUM |
-| 7 | Chakraborty & Kendall (2022), SSRN | GSO theory | MEDIUM |
+| 7 | Chakraborty & Kendall (2025), WP | UJS theory (supersedes 2022 SSRN) | MEDIUM |
 | 8 | Mamadehussene & Sguera (2023), *Mgmt Sci* | BDM reliability / effort theory | MEDIUM |
 | 9 | Drichoutis & Palma (2024), *Theory & Decision* | Reference dependence in BDM | MEDIUM |
 | 10 | Hu & Simmons (2024), *JEP:General* | Interface effects | MEDIUM |
 | 11 | Gonzalez-Fernandez, Bosch-Rosa & Meissner (2025), *JEBO* | New elicitation interface | MEDIUM |
 | 12 | Agyeah et al. (2025), I4R | Danz et al. replication | LOW |
 | 13 | Snowberg & Yariv (2025), Handbook intro chapter | Design evaluation framework | LOW |
-| 14 | Badio et al. (2026), WP | GSO vs BDM homegrown | LOW |
-| 15 | Brown, Stephenson & Velez (2025), *Economic Theory* | Feedback > simplicity | MEDIUM |
-| 16 | Esponda, Vespa & Yuksel (2024), *AER* | Mental models and base-rate neglect | HIGH |
-| 17 | Niederle (2025), NBER WP 33630 | Methodological reference | MEDIUM |
-| 18 | Gneiting & Raftery (2007), *JASA* | Scoring rules theory | LOW |
-| 19 | Leo & Stelnicki (2025), *Experimental Economics* | Quantile price list for beliefs | HIGH |
-| 20 | Grapow (2026), WP | Mechanism horse race for distributions | MEDIUM |
-| 21 | Ersoy (2025), *JBEE* | Incentive effects are short-lived | MEDIUM |
-| 22 | Dustan, Koutout & Leo (2023), WP | Reduction violations in BQSR | MEDIUM |
-| 23 | Benoit, Dubra & Romagnoli (2022), *AEJ:Micro* | Preference for control in BDM beliefs — key for Hypothesis B | HIGH |
-| 24 | Burfurd & Wilkening (2022), *Experimental Economics* | Cognitive heterogeneity x SBDM — key for Hypothesis D | HIGH |
-| 25 | Schlag & Tremewan (2021), *J. Risk & Uncertainty* | Frequency method as simpler BDM alternative | MEDIUM |
-| 26 | Li (2017), *AER* | OSP theory — foundation for simplicity literature | LOW |
-| 27 | Tsakas (2019), *Games and Economic Behavior* | OSP for belief elicitation — theory only | MEDIUM |
-
----
-
-## 6. Forward Citation Search: Key Author Pages to Check
-
-| Author | Why | URL |
-|--------|-----|-----|
-| David Danz | BIC program lead | david-danz.com |
-| Paul Healy | Handbook chapter, ternary elicitation, BDM explanation note | healy.econ.ohio-state.edu |
-| Greg Leo | Coarse elicitation, handbook chapter, reduction paper, quantile price list | gregcleo.com |
-| Kristine Koutout | Reduction paper co-author | kristinekoutout.com/research |
-| Alexander Brown | Simplicity refinements in elicitation | Check SSRN |
-| Andreas Drichoutis | GSO in homegrown, cognitive load, game form recognition | andreasdrichoutis.com |
-| Tom Wilkening | SBDM implementation, cognitive heterogeneity | U Melbourne page |
-| Daniel Martin | BDM framing/cognitive cost | Check SSRN |
-| Jean-Pierre Benoit | Preference for control in BDM beliefs | Check NYU Abu Dhabi page |
-| Elias Tsakas | OSP belief elicitation theory | Check Maastricht page |
-
----
-
-## 7. BibTeX Entries
-
-BibTeX entries for all new papers are in `master_supporting_docs/literature/new_references_2026-03-29.bib` and have been added to `bdm_bic_paper/paper/references.bib`.
-
----
-
-## Appendix: Journal Coverage Note
-
-**Journals systematically searched:** AER, Econometrica, JPE, QJE, REStud, JEP, AEJ: Micro, Experimental Economics, JEBO, Management Science, European Economic Review, Theory and Decision, JESA, JDM, JEP: General, JASA, Journal of Economic Psychology, Journal of Behavioral and Experimental Economics, Games and Economic Behavior, Journal of Risk and Uncertainty. Plus SSRN, arXiv, and NBER working papers.
-
-**Journals searched since initial draft:**
-- **Games and Economic Behavior** — searched 2026-03-29 via Consensus (Semantic Scholar) and Google Scholar using queries: "BDM belief elicitation," "belief elicitation mechanism design incentive compatible," "binarized scoring rule," "probability elicitation mechanism." Karni's foundational work on belief elicitation mechanisms (2009, Econometrica) was published outside GEB. One relevant GEB paper found: Tsakas (2019) on obviously strategy-proof belief elicitation, which applies Li's (2017) OSP framework to Karni mechanisms — annotated in section (e). GEB publishes mechanism design theory but the empirical belief elicitation literature clusters in AER, AEJ:Micro, Experimental Economics, and JEBO.
-- **Journal of Economic Psychology** — searched 2026-03-29 via IDEAS/RePEc, ScienceDirect, and Google Scholar using queries: "belief elicitation," "BDM belief," "scoring rule belief elicitation," "incentive compatibility belief," "central tendency bias belief." Found three relevant papers: Burdea & Woon (2022) on online belief elicitation methods (already in review as CESifo WP — now updated to published venue); Crosetto, Filippin, Katuscak & Smith (2020) on central tendency bias in belief elicitation; and Erkal, Gangadharan & Koh (2020), a between-subject replication of Hossain & Okui (2013) comparing BSR vs. QSR. All three annotated in section (j). No additional J. Econ Psychology papers on BDM belief elicitation or BIC testing were found.
-- **Journal of Risk and Uncertainty** — searched 2026-03-29. Found Schlag & Tremewan (2021) on the frequency method for belief elicitation — annotated in section (f). Also includes Hao & Houser (2012) already in section (c).
-
-## Appendix: Citation Confidence Legend
-
-| Symbol | Meaning |
-|--------|---------|
-| Proximity 1 | Directly competes (same question, similar method) |
-| Proximity 2 | Closely related (same question, different method or setting) |
-| Proximity 3 | Related (overlapping topic, different angle) |
-| Proximity 4 | Background (provides theory, method, or context) |
-| % UNVERIFIED | Citation details need verification before use in paper |

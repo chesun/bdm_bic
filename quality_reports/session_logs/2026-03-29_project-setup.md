@@ -103,3 +103,35 @@
 
 **Key papers in the project collection (15 total in papers/ folder):**
 Danz et al. 2024, Brown et al. 2025, Healy & Leo 2025, Leo & Stelnicki 2025, Grapow 2026, Ersoy 2025, Dustan et al. 2023, Benoit et al. 2022, Tsakas 2019, Li 2017, Burfurd & Wilkening 2022, Schlag & Tremewan 2021, Chakraborty & Kendall 2022 + 2025, Martin & Muñoz-Rodriguez 2022
+
+## 2026-04-01/02
+
+**Reading notes completion:**
+- Librarian filled in blank sections for 5 papers (3, 4, 5, 7, 9) and CS's missing Relevance/Open Questions (papers 1, 2, 6, 8)
+- Added Benoit et al. (2022) and Burfurd & Wilkening (2022) as papers 10-11 in reading notes — these anchor Hypotheses B and D
+- Critic scored reading notes 82/100: accurate, well-structured; flagged empty Cross-Paper Themes section and missing Azrieli et al. (2018)
+- Critic identified 5 cross-paper themes CS should consider
+
+**Lit review fixes (from critic round 4):**
+- Chakraborty & Kendall entry updated from 2022 GSO → 2025 UJS version, proximity raised to 2
+- Healy & Leo entry expanded with IC hierarchy, "don't show incentives" recommendation, BDM-as-hidden-MPL
+- Ersoy downgraded to proximity 3
+- Dustan et al. 13pp/33% discrepancy reconciled
+
+**CS reading progress:**
+- CS read Benoit et al. (2022) closely — identified an unstated normalization in the Formalism section (Δu = 1 needed for their p* expression, never stated). Noted in CS Comments.
+- CS confirmed Ersoy (2025) is low relevance — marked accordingly
+- CS read Brown et al. (2025), Martin & Muñoz-Rodriguez (2022) with detailed notes
+
+**New paper added:**
+- Gonzalez-Fernandez, Bosch-Rosa & Meissner (2025) — direct elicitation of parametric belief distributions. Added as Paper 12 in reading notes. Non-IC but outperforms Bins method.
+
+**Papers now in collection (16 total):** added Gonzalez-Fernandez et al. 2025
+
+## Status
+- Done: Reading notes for 12 papers (11 with substantial notes, Ersoy marked low-relevance)
+- Done: Lit review fixes from critic round 4
+- Next: CS to fill in Cross-Paper Themes, add CS Comments to librarian-filled entries
+- Next: `/discover interview` to pressure-test "WHY does BDM fail BIC?" direction
+- Next: Write research specification
+- Open: Azrieli et al. (2018) should be added to reading notes as foundational reference
