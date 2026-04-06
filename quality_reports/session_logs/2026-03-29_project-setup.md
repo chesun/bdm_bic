@@ -128,10 +128,27 @@ Danz et al. 2024, Brown et al. 2025, Healy & Leo 2025, Leo & Stelnicki 2025, Gra
 
 **Papers now in collection (16 total):** added Gonzalez-Fernandez et al. 2025
 
+## 2026-04-06
+
+**Benoit et al. (2022) reading completed:**
+- CS finished the full paper. Key conclusion: preference for control (Hypothesis B) is unlikely to apply to our urn-draw paradigm. Subjects have no personal stake in which urn is selected, no ability to influence the outcome, no domain expertise. The references Benoit et al. cite for control in objective events (Goodie 2003, Goodie & Young 2007, Heath & Tversky 1991) are about domain competence/familiarity, not agency-free urn draws.
+- CS identified unstated Δu = 1 normalization in their Formalism section — noted in reading notes.
+
+**Design decision: Hypothesis B ruled out by design, Arm 5 dropped**
+- The urn-draw setting serves as a natural "design by subtraction" that eliminates preference for control. If BDM still fails BIC in urn draws, the failure must be comprehension (A), effort (C), or cognitive competition (D).
+- Dropped the control-motive treatment arm (Arm 5) from the design. Now 4 arms, not 5.
+- Design is cleaner and cheaper: 4 arms × 150 = 600 subjects (~$7,200)
+
+**Research directions updated (v4):**
+- Hypothesis B marked "RULED OUT BY DESIGN"
+- Paper structure now includes "rule out preference for control" as a contribution
+- Three remaining hypotheses to distinguish: A, C, D
+
 ## Status
-- Done: Reading notes for 12 papers (11 with substantial notes, Ersoy marked low-relevance)
-- Done: Lit review fixes from critic round 4
-- Next: CS to fill in Cross-Paper Themes, add CS Comments to librarian-filled entries
-- Next: `/discover interview` to pressure-test "WHY does BDM fail BIC?" direction
+- Done: Reading notes for 12 papers, Benoit et al. fully read with CS Comments
+- Done: Hypothesis B ruled out, design streamlined to 4 arms
+- Active: CS reading Burfurd & Wilkening (2022) next — key for Hypothesis D
+- Next: Fill in Cross-Paper Themes, add CS Comments to librarian-filled entries
+- Next: `/discover interview` to pressure-test direction
 - Next: Write research specification
 - Open: Azrieli et al. (2018) should be added to reading notes as foundational reference

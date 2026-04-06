@@ -1,9 +1,9 @@
 # TODO — BDM Incentive Compatibility
 
-Last updated: 2026-04-02
+Last updated: 2026-04-06
 
 ## Active (doing now)
-- [ ] Finish reading Benoit, Dubra & Romagnoli (2022, AEJ:Micro) — read through Formalism (Section II), experiments and results remaining
+- [ ] Read Burfurd & Wilkening (2022, Experimental Economics) — key for Hypothesis D (cognitive competition)
 
 ## Up Next
 - [ ] Fill in Cross-Paper Themes in reading notes — critic identified 5 themes to consider
@@ -25,7 +25,8 @@ Last updated: 2026-04-02
 - [ ] Update Qualtrics survey for new design
 
 ## Done (recent)
-- [x] Read Benoit et al. (2022) Formalism section — noted Δu normalization issue (2026-04-02)
+- [x] Read Benoit et al. (2022) fully — Hypothesis B ruled out for urn-draw design, no control arm needed (2026-04-06)
+- [x] Updated research directions: dropped Arm 5 (control), design now 4 arms (2026-04-06)
 - [x] Added Gonzalez-Fernandez et al. (2025) to reading notes (2026-04-02)
 - [x] Reading notes completed for 12 papers, critic scored 82/100 (2026-04-01)
 - [x] Lit review fixes: Chakraborty & Kendall → 2025 UJS, Healy & Leo expanded, Ersoy ↓ (2026-04-01)

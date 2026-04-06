@@ -70,8 +70,8 @@ Danz et al.'s forthcoming paper will document *that* BDM (probabilistic) fails B
 **Hypothesis A: Comprehension failure (Cason & Plott channel)**
 Subjects misunderstand BDM's mechanism — they don't grasp the event-lottery vs. number-lottery structure. This predicts that comprehension interventions would help, and that more numerate/educated subjects would show smaller BIC gaps. Evidence from value BDM supports this (Cason & Plott 2014), but Brown et al. (2025) find that comprehension interventions don't help for value BDM. Mixed evidence.
 
-**Hypothesis B: Preference for control (Benoit, Dubra & Romagnoli channel)**
-Subjects prefer the event lottery because it's tied to an event they feel they can influence or have a stake in, even when this is irrational. This predicts that BIC failures would be larger for events subjects feel connected to (own performance) than for "neutral" events (urn draws). Benoit et al. (2022, AEJ:Micro) provide strong evidence for this channel: using probabilistic BDM (matching probabilities / Karni mechanism) for self-beliefs about task performance, they find subjects inflate beliefs by 18 percentage points due to preference for control. At least 68% of what is normally measured as "overconfidence" is actually preference for control, not genuine belief distortion. Critically, the control motive is asymmetric — subjects want to bet on doing WELL (not just on themselves); betting on doing badly triggers an opposing "anti-control" motive. Their proposed fix: have subjects bet on themselves in BOTH arms (one task vs. another), eliminating the control confound. **Key open question for our design:** Benoit et al.'s context is confidence elicitation (beliefs about own performance), where subjects have a natural stake in the event. Whether preference for control operates when the event is an urn draw (no personal stake) is untested. If it does, this would suggest the control motive is about the mechanism structure (event lottery vs. number lottery), not about the event content. If it does not, this would bound the control channel to self-referential belief tasks.
+**Hypothesis B: Preference for control (Benoit, Dubra & Romagnoli channel) — RULED OUT BY DESIGN**
+Benoit et al. (2022, AEJ:Micro) find that subjects inflate beliefs by 18pp due to preference for control when eliciting self-beliefs about own task performance. The control motive is asymmetric (desire to bet on doing *well*, anti-control for doing badly). However, their evidence is entirely about confidence elicitation where subjects have a personal stake in the event. The references they cite for control in objective events (Goodie 2003; Goodie & Young 2007; Heath & Tversky 1991) concern domain competence/familiarity, not the kind of agency-free urn draws used in our paradigm. **Decision: Our urn-draw design rules out Hypothesis B by construction.** Subjects have no personal stake in which urn is selected, no ability to influence the outcome, and no domain expertise. If BDM still fails BIC in this setting, control cannot be the explanation. This is a feature, not a limitation — it's a clean "design by subtraction" (Danz et al. 2024) that eliminates one competing hypothesis, allowing us to focus on Hypotheses A, C, and D. No dedicated treatment arm needed.
 
 **Hypothesis C: Effort/attention costs (Mamadehussene & Sguera channel)**
 Subjects can't be bothered to think through the mechanism. They report naively and the complex incentive structure goes unused. This predicts that BIC failures would be similar across mechanism types (if subjects ignore all mechanisms equally) and that effort-inducing interventions would help more than comprehension interventions. Ersoy (2025) provides partial support: incentives initially increase effort but effects fade.
@@ -79,7 +79,7 @@ Subjects can't be bothered to think through the mechanism. They report naively a
 **Hypothesis D: Cognitive resource competition (novel)**
 BDM comprehension and belief formation compete for the same limited cognitive resources. When the belief task is easy (induced probabilities), there's enough bandwidth for both. When the belief task is hard (Bayesian updating), the mechanism gets crowded out. This predicts an interaction: BIC failure worsens as task complexity increases. **Important caveat from Burfurd & Wilkening (2022, Experimental Economics):** They tested a related but distinct hypothesis — whether SBDM performance interacts with cognitive ability (Raven's Progressive Matrices, CRT). They found NO significant interaction between elicitation mechanism and cognitive ability/effort. SBDM is more sensitive to heterogeneity in *probabilistic reasoning* specifically, but not to general cognitive ability. This complicates the simple "cognitive resource competition" story, because if the binding constraint were general cognitive capacity, more able subjects should differentially benefit from SBDM. However, their design tests ability (a stable trait) not task complexity (a situational state), and they compare SBDM vs. Introspection rather than BDM with vs. without incentive information. Our proposed test — varying task complexity within-subject while holding ability constant — is distinct from and complementary to their approach.
 
-**Why identifying the mechanism matters:** Different causes imply different remedies. If it's comprehension → simplify the mechanism. If it's preference for control → redesign what the event lottery pays on. If it's effort → make incentives more salient or use flat fee. If it's cognitive competition → use simpler mechanisms for complex tasks.
+**Why identifying the mechanism matters:** Different causes imply different remedies. If it's comprehension → simplify the mechanism or use MPL/frequency method. If it's effort → make incentives more salient or use flat fee. If it's cognitive competition → use simpler mechanisms for complex tasks. (Preference for control is ruled out by our urn-draw design.)
 
 **Novelty:** VERY HIGH. Nobody has identified why BDM fails BIC. The forthcoming Danz et al. paper documents failure but (based on the JEP preview) doesn't appear to run mechanism-identification treatments.
 
@@ -140,11 +140,12 @@ Still open but risky. Brown et al. (2025) found comprehension interventions didn
 **Paper structure:**
 1. **Document the BIC failure** (independent evidence, confirms Danz et al. forthcoming) — this is the foundation, not the headline
 2. **Characterize the failure** — how does BDM fail differently from BSR? Center-biased vs. boundary-biased? Different misconception types?
-3. **Identify the mechanism** — which behavioral channel (comprehension, preference for control, effort, cognitive competition) drives the failure?
-4. **Test the complexity interaction** — does BIC failure worsen for posterior beliefs vs. prior beliefs?
-5. **Practical recommendation** — given the mechanism, what should experimenters do?
+3. **Rule out preference for control** — the urn-draw design eliminates Hypothesis B by construction (no personal stake, no agency). If BDM still fails BIC here, it's comprehension/effort/complexity.
+4. **Identify the remaining mechanism** — which of A (comprehension), C (effort), D (cognitive competition) drives the failure?
+5. **Test the complexity interaction** — does BIC failure worsen for posterior beliefs vs. prior beliefs?
+6. **Practical recommendation** — given the mechanism, what should experimenters do?
 
-**Core design:** Between-subject, with treatment arms designed to isolate channels:
+**Core design:** Between-subject, with treatment arms designed to isolate channels. Urn-draw paradigm rules out Hypothesis B (preference for control) by design.
 
 | Arm | Mechanism | Info | What it tests |
 |-----|-----------|------|---------------|
@@ -152,7 +153,6 @@ Still open but risky. Brown et al. (2025) found comprehension interventions didn
 | 2 | BDM | No incentive info ("rewards accuracy") | BIC condition (i) — does info hurt? |
 | 3 | Flat fee | Accuracy encouragement | Benchmark — no IC mechanism at all |
 | 4 | BDM | Full info + comprehension intervention | Isolates comprehension channel (Hypothesis A) |
-| 5 | BDM (neutral event) | Full info | Isolates preference-for-control (Hypothesis B) — compare to Arm 1 if Arm 1 uses an event subjects feel connected to |
 
 **Within-subject variation (all arms):**
 - Induced priors (easy) vs. posteriors after signals (hard) → tests Hypothesis D (cognitive competition)
@@ -160,11 +160,10 @@ Still open but risky. Brown et al. (2025) found comprehension interventions didn
 - Response time → mediator for Hypothesis C (effort)
 - BIC condition (ii): direct lottery choice diagnostic → within-subject test of whether subjects understand what they're choosing
 
-**Task:** Induced probabilities via urns (priors: 20/40/60/80%) + Bayesian updating with two signals (60% accuracy). Same as existing pilot.
+**Task:** Induced probabilities via urns (priors: 20/40/60/80%) + Bayesian updating with two signals (60% accuracy). Same as existing pilot. The urn-draw setting is objective and impersonal — subjects have no stake in the event, ruling out preference-for-control motives (Benoit et al. 2022).
 
-**Sample size:** 5 arms x 150/arm = 750 subjects. ~$9,000 on Prolific.
-**Reduced design (drop Arm 5):** 4 arms x 150 = 600 subjects. ~$7,200.
-**Minimal design (Arms 1-3 only):** 3 arms x 150 = 450 subjects. ~$5,400. (Loses mechanism identification but keeps BIC test + complexity interaction.)
+**Sample size:** 4 arms x 150/arm = 600 subjects. ~$7,200 on Prolific.
+**Minimal design (Arms 1-3 only):** 3 arms x 150 = 450 subjects. ~$5,400. (Loses comprehension intervention but keeps BIC test + complexity interaction.)
 
 **What makes this publishable:**
 - Moves from "BDM fails BIC" (confirmatory) to "*why* it fails" (novel)
