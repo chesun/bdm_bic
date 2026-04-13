@@ -38,6 +38,7 @@
       "Bash(cat *)",
       "Bash(git rm *)",
       "Bash(git show *)",
+      "Bash(git config http.postBuffer)",
       "Bash(find *)"
     ],
     "additionalDirectories": []
