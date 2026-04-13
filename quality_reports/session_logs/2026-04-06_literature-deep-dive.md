@@ -63,3 +63,29 @@ Read newly downloaded papers (Burfurd & Wilkening 2018, Hao & Houser 2012, Burde
 ## Status
 - Done: Literature deep dive complete. **23 papers** with detailed, critic-verified notes. Mechanism taxonomy documented. 5 cross-paper themes + 7 implications synthesized.
 - Pending: CS Comments for papers 3, 4, 5, 7, 9, 11, 12. Pressure-test research direction via `/discover interview`.
+
+## 2026-04-07 — Research Direction Discussion
+
+**Operations:**
+- Christina raised 7 corrections/questions on the reformulated research direction (Section 6 of research_ideas_bdm_bic.md)
+- Discussion documented at `quality_reports/research_direction_discussion_2026-04-07.md`
+
+**Decisions:**
+- Comprehension failure = contingent reasoning failure (one mechanism, not three). Game-form misconception has no known belief analog.
+- H5 (info effect) is Condition 1 of the Danz et al. BIC test → folded into H1a
+- Preference for control neutralized both by design (urn draws) AND by within-mechanism comparison (stronger argument)
+- UJS is more relevant than OSP for our MPL comparison
+- H1 should use Danz et al.'s two-condition direct test framework
+- Condition 2 (pure-incentives test) for BDM is hard to operationalize — 5 options identified, none settled
+
+**Status:** Hypothesis structure updated to v5 (H1a/H1b, H2, H3, H4). Key open question: how to operationalize Condition 2 for BDM belief elicitation.
+
+## 2026-04-08 — Markdown Fixes & Theory Intuition
+
+**Operations:**
+- Fixed MacDown rendering: escaped all dollar signs (\$), added blank lines before lists, converted math notation to proper LaTeX ($\pi(E)$, $\mu$, etc.) in Azrieli and Karni entries
+- Created `intuition_azrieli_karni_connection.md` — plain-language explanation of how RPS IC (Azrieli) connects to belief BDM IC (Karni)
+- Investigated session log hook (`log-reminder.py`) — fires after 15 responses without log update; accepts any .md in session_logs/
+- Saved feedback memory: save long responses to documents instead of terminal
+
+**Status:** Literature foundation complete. Next: resolve Condition 2 operationalization, then pressure-test research direction.

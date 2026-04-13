@@ -12,13 +12,13 @@ A fundamental source of confusion: the same mechanism names (BDM, MPL, clock) ar
 
 ### Value Elicitation
 - **Goal:** Elicit a subject's certainty equivalent (CE) or willingness-to-pay/accept for a good or lottery.
-- **Payoff structure:** Outcomes involve **different monetary amounts**. E.g., keep a $2 card vs. sell it for price $π.
+- **Payoff structure:** Outcomes involve **different monetary amounts**. E.g., keep a \$2 card vs. sell it for price \$π.
 - **IC requirement:** Expected utility (for standard BDM); weaker for refinements.
 - **Key papers:** Becker, DeGroot & Marschak (1964); Cason & Plott (2014); Brown, Liu & Tsoi (2026); Martin & Munoz-Rodriguez (2022).
 
 ### Belief Elicitation
 - **Goal:** Elicit a subject's subjective probability p that some event E occurs.
-- **Payoff structure:** Both outcomes are **lotteries with identical prizes** (e.g., $15 or $0) that differ only in **probabilities**. This makes the mechanism robust to risk preferences.
+- **Payoff structure:** Both outcomes are **lotteries with identical prizes** (e.g., \$15 or \$0) that differ only in **probabilities**. This makes the mechanism robust to risk preferences.
 - **IC requirement:** Statewise monotonicity (weakest; for BDM/MPL family) or subjective-objective reduction (stronger; for scoring rules). See Healy & Leo (2025) for the hierarchy.
 - **Key papers:** Karni (2009); Healy & Leo (2025); Hao & Houser (2012); Burfurd & Wilkening (2018, 2022); Burdea & Woon (2022).
 
@@ -41,10 +41,10 @@ A result about "BDM" in value elicitation (e.g., Brown et al.'s finding that CBC
 **Belief elicitation version (Karni 2009; also called "probabilistic BDM," "SBDM," "matching probabilities," or "declarative mechanism"):**
 - Subject reports a probability p (0-100) that event E occurs.
 - Computer draws a random number r from Uniform[0,100].
-- If p ≥ r: subject gets the **event bet** (pays $H if E occurs, $L otherwise).
-- If p < r: subject gets an **objective lottery** (pays $H with probability r/100, $L otherwise).
+- If p ≥ r: subject gets the **event bet** (pays \$H if E occurs, \$L otherwise).
+- If p < r: subject gets an **objective lottery** (pays \$H with probability r/100, \$L otherwise).
 - Dominant strategy: report p = true subjective probability of E.
-- Key feature: both outcomes pay the same prizes ($H, $L) — they differ only in probabilities. This makes the mechanism IC under statewise monotonicity alone, without requiring risk neutrality or EU.
+- Key feature: both outcomes pay the same prizes (\$H, \$L) — they differ only in probabilities. This makes the mechanism IC under statewise monotonicity alone, without requiring risk neutrality or EU.
 - **Historical lineage:** First experimental implementation: Ducharme & Donnell (1973, "bets mode" — in psychology). First in economics: Grether (1981). Independently rediscovered by Karni (2009, Econometrica — with formal IC proof under probabilistic sophistication + dominance), Holt & Smith (2009, 2016), Mobius et al. (2013). Note: Savage (1971) developed the *proper scoring rule* method for probability elicitation, which is a different mechanism family — do not conflate with the BDM-for-beliefs. The belief BDM is an instance of the general Random Problem Selection (RPS) mechanism, whose IC under the weaker assumption of statewise monotonicity was established by Azrieli, Chambers & Healy (2018, JPE). Healy & Leo (2025, Proposition 4) derive belief BDM IC as "a simple application of Azrieli et al. (2018)."
 - **IC conditions — two formulations:** Karni's (2009) original IC conditions are *probabilistic sophistication* (Machina & Schmeidler 1995) + *dominance*. Azrieli et al. (2018) / Healy & Leo (2025) restate this under the weaker assumption of *statewise monotonicity* alone. The Azrieli et al. formulation is more general (does not require well-defined subjective probabilities), but Karni's formulation is more specific to the belief elicitation context.
 
@@ -64,7 +64,7 @@ A result about "BDM" in value elicitation (e.g., Brown et al.'s finding that CBC
 ### 2.2 MPL (Multiple Price List)
 
 **Value elicitation version:**
-- Subject sees a list of rows, each offering a choice: keep the good vs. sell at price $X.
+- Subject sees a list of rows, each offering a choice: keep the good vs. sell at price \$X.
 - Prices increase (or decrease) across rows.
 - Subject indicates where they switch from "keep" to "sell" (or vice versa).
 - Switch point = elicited value.
@@ -72,7 +72,7 @@ A result about "BDM" in value elicitation (e.g., Brown et al.'s finding that CBC
 - Also called: "price list," "descending price list" (if prices go high to low).
 
 **Belief elicitation version (Healy & Leo 2025, Section 5.1.1):**
-- Subject sees a list of rows, each offering a choice: **event bet** (pays $H if E, $L otherwise) vs. **objective lottery** (pays $H with probability r, $L otherwise).
+- Subject sees a list of rows, each offering a choice: **event bet** (pays \$H if E, \$L otherwise) vs. **objective lottery** (pays \$H with probability r, \$L otherwise).
 - The objective lottery probability r increases across rows (e.g., 0%, 1%, 2%, ..., 100%).
 - Subject indicates where they switch from preferring the event bet to preferring the objective lottery.
 - Switch point = elicited probability belief.
@@ -137,7 +137,7 @@ Brown et al. test three formal simplicity properties, each applied to one base m
 
 **What it does:** Takes the standard BDM and reframes each possible random price as a **separate computerized player**. Instead of "the computer will draw a random price," subjects are told "there are N computerized players, each offering a different price; one will be randomly selected." Subjects also see payoff tables that enumerate all contingencies explicitly. **The "computer bidder" framing and the contingency-by-contingency payoff tables both originate from Martin & Munoz-Rodriguez (2022, EER)** — Brown et al. adopted their design for the CBC treatment.
 
-**What it simplifies:** The **payoff function**. By presenting each contingency separately (what happens if the price is $0.25, what happens if the price is $0.50, etc.), it reduces the cognitive cost of understanding the mechanism's payoff structure. Subjects don't need to reason through all contingencies simultaneously — they can inspect each one.
+**What it simplifies:** The **payoff function**. By presenting each contingency separately (what happens if the price is \$0.25, what happens if the price is \$0.50, etc.), it reduces the cognitive cost of understanding the mechanism's payoff structure. Subjects don't need to reason through all contingencies simultaneously — they can inspect each one.
 
 **How it relates to MPL:** CBC and MPL both decompose the BDM into consideration of individual contingencies. The difference:
 - **CBC** keeps the BDM frame (subject still submits a single bid) but presents payoff information contingency-by-contingency via tables. It simplifies the *information presentation* while keeping the *action space* the same (one number).
