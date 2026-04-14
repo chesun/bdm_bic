@@ -9,7 +9,8 @@
       "WebFetch(domain:healy.econ.ohio-state.edu)",
       "WebFetch(domain:gregcleo.com)",
       "WebFetch(domain:events.bse.eu)",
-      "WebFetch(domain:www.andreasdrichoutis.com)"
+      "WebFetch(domain:www.andreasdrichoutis.com)",
+      "Read(//Users/christinasun/github_repos/bdm_bic_paper/paper/**)"
     ]
   }
 }

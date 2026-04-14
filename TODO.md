@@ -1,11 +1,13 @@
 # TODO — BDM Incentive Compatibility
 
-Last updated: 2026-04-06
+Last updated: 2026-04-13 (evening)
 
 ## Active (doing now)
+- [ ] Resolve MPL format decision — review `quality_reports/mpl_format_decision_analysis.md` and commit to Section 10 criteria (seven items: multi-switching tolerance, accuracy metric, ε, B&H auxiliary, revise screen, burden budget, precision)
 - [ ] Add CS Comments to librarian-filled entries (papers 3, 4, 5, 7, 9, 11, 12)
 
 ## Up Next
+- [ ] Operationalize Condition 2 for BDM (Point 6 of April 7 discussion) — pick from options A-E
 - [ ] Pressure-test research directions via `/discover interview`
 - [ ] Finalize research direction and write research spec
 
