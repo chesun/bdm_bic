@@ -20,17 +20,18 @@ Three things hinge on this choice:
 
 ## 2. The Trilemma
 
-We cannot simultaneously maximize all three desiderata. Each format choice trades one against the others.
+We cannot simultaneously maximize all desiderata. Each format choice trades one against the others. Burden is separated into two dimensions: *cognitive burden* (how many binary choices the subject must make) and *navigation burden* (how many screens they must traverse). These are distinct — a 100-row full list is one screen but 100 choices; a full separated elicitation is 100 screens and 100 choices; a coarse separated elicitation is 10-20 of each.
 
-| Desideratum | List (full or LC) | Separated (one row per screen, random order) | Coarse separated (10-20 rows, separated) |
-|---|---|---|---|
-| IC assumption holds | Weakened (Brown & Healy 2018 risk result; transfer to beliefs unknown) | Preserved for risk; assumed to transfer to beliefs | Preserved (same as separated) |
-| Interpretability (single crossing) | Enforced by design | Not enforced — multi-switching possible | Not enforced — multi-switching possible |
-| Subject burden | Low (one or two screens) | High (100 screens) | Moderate (10-20 screens) |
-| Closeness to UJS ideal | Violates UJS (list visible) | Closest to UJS | Close to UJS |
-| Precision | High (1pp with LC two-stage) | High (1pp possible) | Coarse (5pp if 20 rows) |
+| Desideratum | Full list (100 rows, 1 screen) | Holt & Smith two-stage LIST (coarse → fine list) | Full separated (100 rows, one per screen) | Coarse separated (10-20 rows, one per screen) |
+|---|---|---|---|---|
+| IC assumption holds | Weakened (Brown & Healy 2018 risk result; transfer to beliefs unknown) | Weakened (inherits list-format concern in both stages) | Preserved for risk; assumed to transfer to beliefs | Preserved (same as separated) |
+| Interpretability (single crossing) | Enforced by design | Enforced by design | Not enforced — multi-switching possible | Not enforced — multi-switching possible |
+| Cognitive burden (# choices) | High (100) | Moderate (~20) | High (100) | Low-moderate (10-20) |
+| Navigation burden (# screens) | Low (1) | Low (2) | High (100) | Moderate (10-20) |
+| Closeness to UJS ideal | Violates UJS (list visible) | Violates UJS (list visible each stage) | Closest to UJS | Close to UJS |
+| Precision | 1pp (if full 100) | 1pp (from fine stage) | 1pp possible | 5pp if 20 rows |
 
-The trilemma is real. There is no format that gets all three. The question is which trade-off is least damaging to the paper's contribution.
+The trilemma is real. No format wins on every row. The question is which trade-off is least damaging to the paper's contribution.
 
 ---
 
@@ -88,7 +89,9 @@ Separated format does not change the subject's preferences. It restricts the sub
 
 ---
 
-## 4. Multi-Switching: The Central Diagnostic Problem
+## 4. Multi-Switching: A Descriptive Outcome, Not a Threat
+
+**Framing note (2026-04-14):** An earlier draft of this section treated multi-switching as an ex ante threat that could invalidate H2 if the rate exceeded some threshold. Following Chakraborty & Kendall (2025), we now treat multi-switching as a *descriptive outcome* — a rate to be measured and reported alongside other performance metrics, not a criterion for gating whether H2 can be tested. C&K 2025 report 29.7% multi-switching among attentive subjects and 43.7% in the full sample; reporting these rates directly (rather than declaring them fatal to interpretation) is now standard practice. The analysis in 4.1-4.4 still applies — it just describes *what multi-switching would tell us*, not *how high a rate would kill the paper*.
 
 ### 4.1 What multi-switching means
 
@@ -218,7 +221,7 @@ If Brown & Healy transfers, list format for belief MPL violates the IC assumptio
 
 **Verdict:** risky. Do not use unless we include a belief-specific monotonicity test.
 
-### 7.2 Holt & Smith LC (two-stage: coarse then fine)
+### 7.2 Holt & Smith two-stage LIST (coarse list → fine list)
 
 - **IC:** list-style; Brown & Healy transfer concern applies to both stages; additional concern from Healy & Leo (2025, Section 6.1.3) that IC on row selection requires randomizing from the full grid, not just the coarse grid.
 - **Interpretability:** enforced single crossing at each stage; precise (1pp).
@@ -227,12 +230,14 @@ If Brown & Healy transfers, list format for belief MPL violates the IC assumptio
 
 **Verdict:** practical but inherits IC concerns. Would need auxiliary monotonicity test to defend.
 
-### 7.3 Burfurd & Wilkening titration
+### 7.3 Trautmann-van de Kuilen two-stage list (a.k.a. "TK"; used by Burfurd & Wilkening 2018)
 
-- **IC:** similar list-style concerns.
-- **Interpretability:** 17% reverse reports — substantial uninterpretable fraction.
-- **Burden:** 40s per period is slow; only tested for short protocols.
-- **H2 vulnerability:** the 17% reverse rate from the literature is a warning.
+Originated in Trautmann & van de Kuilen (2015, *Economic Journal*, "Belief Elicitation: A Horse Race among Truth Serums"). Burfurd & Wilkening (2018) adapt it as their "TK" treatment alongside HS and HH formats. Two-stage titration: stage 1 picks a 10-point range; stage 2 refines within it. Both stages use list format.
+
+- **IC:** similar list-style concerns to Holt & Smith LC (7.2).
+- **Interpretability:** Burfurd & Wilkening report 17% reverse reports under this format — substantial uninterpretable fraction.
+- **Burden:** 40s per period is slow in B&W's implementation; only tested for short protocols.
+- **H2 vulnerability:** the 17% reverse rate from the literature is a warning; may be a property of the TK visual framing specifically rather than the two-stage list structure per se.
 
 **Verdict:** not an advance over Holt & Smith LC on any margin.
 
@@ -268,7 +273,7 @@ If Brown & Healy transfers, list format for belief MPL violates the IC assumptio
 
 **Verdict:** worth piloting. The pre-revision data answer the UJS/monotonicity question; the post-revision data answer the recoverable-belief question.
 
-### 7.7 Two-stage separated (coarse first, then fine-grained around the coarse crossing)
+### 7.7 Two-stage SEPARATED (coarse separated → fine separated)
 
 - Stage 1: 10-20 coarse rows, one per screen, random order.
 - Stage 2: 10 fine rows around the coarse crossing, still one per screen.
@@ -281,6 +286,20 @@ If Brown & Healy transfers, list format for belief MPL violates the IC assumptio
 - **H2 vulnerability:** the row-selection IC concern needs care (Healy & Leo 6.1.3).
 
 **Verdict:** most theoretically defensible; highest burden among separated variants; probably worth it.
+
+### 7.8 Instruction format is a separable decision
+
+Presentation format (list vs. separated, coarse vs. fine) and *instruction format* (how the mechanism is explained to subjects) are orthogonal choices. Burfurd & Wilkening (2018) compare three instruction formats — HS (Holt-Smith, 936 words, 6 screens, formal case enumeration), HH (Hao-Houser, 397 words, 2 screens, "chips-in-a-bag" analogy), and TK (Trautmann-van de Kuilen, 391 words, 4 screens, two-stage titration with "Bucket Game vs. Lottery Game" visual).
+
+Key findings:
+
+- **Accuracy does not differ across the three instruction formats** (KW p = 0.546) once a comprehension quiz is included.
+- **HH is the easiest and fastest to implement**: 850s total completion vs. 1089s (HS) and 1212s (TK); 305s on instructions alone vs. 480s (HS) (KW p < 0.001).
+- **B&W's own recommendation:** use HH with a comprehension quiz and electronic delivery.
+
+Implication for our design: whatever presentation format we choose in Sections 7.1-7.7, we should pair it with HH-style instructions (chips-in-a-bag analogy) rather than HS-style enumerated-case instructions. This is effectively free — same IC properties, much lower cognitive and time burden. The TK instructions are bundled with the TK presentation format (two-stage list), so not relevant for a separated-format arm.
+
+This also means some of the per-format burden numbers in Section 2 are lower than stated if we adopt HH instructions — the coarse separated option (7.5) looks even more attractive once we assume HH-style instructions are used for each row.
 
 ---
 
@@ -314,9 +333,27 @@ Decision: include or not? Depends on budget. Note as Open Question #6.
 
 Before choosing a format, Christina should commit to each of the following:
 
-1. **Multi-switching tolerance.** What rate of multi-switching in the MPL arm would invalidate H2? (Suggested threshold: >25%.)
-2. **Accuracy metric.** Option M1, M2, or M3 from Section 5? (Suggested: M3 with M2-style primary.)
-3. **ε tolerance for "success."** How close to π counts as a successful identification? (Suggested: 5-10pp, aligned with Danz et al.)
+1. **Multi-switching reporting (positive, not normative).** Do not set an ex ante invalidation threshold. Treat multi-switching rate as a primary descriptive outcome in its own right, following Chakraborty & Kendall (2025) — who report multi-switching rates of 29.7% among attentive subjects and 43.7% in the full sample alongside their mechanism comparison.
+
+    **Within the MPL arm, report:** (a) % single-crossers, (b) % single-crossers with crossing within ε of induced π, (c) % multi-switchers. Benchmark the multi-switching rate against C&K 2025.
+
+    **For the H2 test (MPL vs. BDM):** compare only on the *comparable margin* — success rate, defined as % of subjects within ε of π (|report − π| < ε for BDM; single-cross within ε of π for MPL). There is no "multi-switching" analog in single-report BDM, since BDM yields one report per subject. We do not try to force an artificial analog.
+
+    **Closest BDM-internal diagnostic** (reported descriptively, not compared to MPL multi-switching): focal and boundary reports (0, 50, 100), echoing B&W 2018's finding of 26% boundary reports without a comprehension quiz. Both multi-switching in MPL and focal/boundary reports in BDM are "coherent belief identification failed," but they are not structurally the same object and we do not claim they are. A tight analog would require repeated BDM elicitations at the same π within subject, which we are not currently planning.
+2. **Accuracy metric. RESOLVED via criterion 1.** No separate metric choice needed. The framing is:
+    - *For MPL:* report (a) multi-switching rate descriptively (C&K 2025 benchmark), (b) % single-crossers with crossing within ε of π, and (c) conditional accuracy among single-crossers (mean |crossing − π|, continuous).
+    - *For BDM:* report (a) % within ε of π and (b) mean |report − π|. Also report focal/boundary-report rate as a parallel-in-spirit diagnostic (per B&W 2018).
+    - *For H2:* compare on the comparable margin (% within ε of π) as the primary test, and on conditional accuracy (continuous) as secondary. Multi-switching and focal-report rates are reported descriptively but not directly compared (see criterion 1).
+
+    This is close to the M3 hybrid proposed in Section 5, but with the asymmetry between MPL (three categories) and BDM (two categories + focal-report diagnostic) handled explicitly rather than forced into a symmetric coding. Section 5 is now effectively superseded by this combined criterion 1+2 framing; treat Section 5 as historical context for the reasoning.
+
+3. **ε tolerance. ADOPT Danz et al. 2022's dual-metric approach.** Report two accuracy measures in parallel:
+    - **False reports:** any report differing from the induced belief (ε = 0 — strict).
+    - **Distant reports:** reports more than 5pp from the induced belief (ε = 5pp — substantial deviation).
+
+    Both are direct adoptions from Danz, Vesterlund & Wilson (2022). The dual structure is informative: the false-report rate captures the full distribution of deviation (including small noise); the distant-report rate focuses on substantively meaningful errors. H2 is tested on both margins — MPL should dominate BDM on at least one (probably distant reports, if the story is about comprehension-driven large errors).
+
+    **For MPL single-crossers:** map the crossing point into the same metric. False report = crossing ≠ π exactly; distant report = |crossing − π| > 5pp. Multi-switchers remain a separate descriptive category (criterion 1).
 4. **Brown & Healy auxiliary test — include?** Adds 100-150 subjects; settles a literature question.
 5. **Revise screen — include?** Must be pre-registered as primary or secondary analysis.
 6. **Burden budget.** How many total screens across the experiment are we willing to impose? (Affects coarse vs. two-stage vs. fine decisions.)
@@ -350,21 +387,65 @@ Reasoning:
 
 - Tight comparison to the Holt & Smith LC literature.
 - 1pp precision.
-- Insurance against a high (>25%) multi-switching rate. If that happens, H2 is weakened regardless of format choice.
+
+Note: multi-switching is no longer framed as an invalidation threat (see Section 4 framing note and Section 10 criterion 1). Whatever rate we observe becomes a primary reported outcome, with C&K 2025's rates (29.7% attentive, 43.7% full sample) as the natural benchmark.
 
 ---
 
-## 12. Open Items Needing Christina's Judgment
+## 12. Related Design Note: p-BDM Incentive-Only Test
+
+Although the incentive-only test (Condition 2 in the Danz-Vesterlund-Wilson framework) is logically distinct from the MPL format decision analyzed here, it is a parallel part of the same project (H1b) and interacts with the format choice. This section records what the JEP 2024 article tells us, and flags the gap our own design must fill.
+
+### 12.1 What the JEP 2024 Article Does and Does Not Say About p-BDM
+
+The JEP (Danz, Vesterlund, Wilson 2024, JEP 38(4), pp. 144-149) describes the incentives-only methodology *in detail for the Binarized Scoring Rule*. Table 1 (p. 145) shows an 11-option menu (A through K) corresponding to implied reports q ∈ {0.0, 0.1, ..., 1.0}. Each option is displayed as a pair of event-contingent winning probabilities (e.g., option B: 19% chance of \$8 if red, 99% if blue). Subjects pick an option; the implied q column is not shown. For induced belief θ, the maximizer is the option with q = θ.
+
+For the p-BDM, the JEP reports only two substantive sentences (pp. 148-149):
+
+1. *"Danz, Vesterlund, and Wilson (2024) show in an incentives-only test of the probabilistic Becker-DeGroot-Marschak mechanism that the vast majority of participants prefer choices that differ from the intended maximizer, indeed 69 percent of participants opt for the event-independent choice corresponding to reporting q = 0.0."*
+2. At induced belief θ = 0.2, the no-info treatment has 7% of reports that are both distant and toward zero; the info treatment has 21%.
+
+The full methodology for the p-BDM incentive-only test — menu structure, payoff display, induced-θ values beyond 0.2, sample details — is not in the JEP. The underlying working paper ("The Pure-Incentives Test: Applications to Proper Scoring Rules, Auctions, and Matching Markets") is listed on David Danz's website in a "Work in Progress" section with no draft attached and no public URL (as of 2026-04-14). A deep search across authors' pages, SSRN, NBER, RePEc, and citation trails turned up nothing beyond the JEP summary.
+
+### 12.2 Why the Headline Finding Matters
+
+The 69% result for p-BDM is the direct analog of DVW 2022's center-bias finding for BSR: under both mechanisms, subjects prefer the option whose winning probability is *event-independent*.
+
+- BSR: event-independent payoff at q = 0.5 (centered report). Win probability 75% irrespective of event.
+- p-BDM: event-independent payoff at q = 0.0 (extreme report). Win probability 50% irrespective of event.
+
+The mechanism of failure is the same, but manifests at opposite ends of the report space — center for BSR, extreme for p-BDM. This is evidence that the underlying failure is preference for event-independent payoffs per se, not "center bias" or "extremeness aversion" as specific report-space phenomena.
+
+### 12.3 What Our Project Needs to Design
+
+Because DVW's p-BDM methodology is not publicly available, our own p-BDM incentive-only test must be designed from scratch. Open design questions for dedicated follow-up work:
+
+- **Menu structure:** discrete (11 options à la BSR Table 1) or continuous (slider)? Discrete menus are concrete and interpretable; sliders match the p-BDM report format but lose the menu-choice framing.
+- **Payoff display:** event-contingent winning-probability pairs (Table 1 style) or the p-BDM's native lottery structure (event bet vs. objective lottery with explicit r)? Different cognitive implications.
+- **Induced θ values:** DVW reports only θ = 0.2. Covering 0.2, 0.4, 0.6, 0.8 (matching B&W 2018) is a natural and novel extension.
+- **Integration with main arm:** within-subject (same subjects do both BDM elicitation and incentive-only test) or between-subject (separate arms)?
+- **MPL counterpart:** whether to also run an incentive-only test for the MPL mechanism, creating a parallel-structure comparison. This is potentially the most novel contribution if DVW's WP does not already include it.
+- **Sample size:** depends on expected effect size; DVW's 69% at θ = 0.2 is an anchor.
+
+Deep design work on these questions is flagged as a separate TODO item — this section is only a placeholder record of the state of public knowledge.
+
+---
+
+## 13. Open Items Needing Christina's Judgment
 
 1. All seven items in Section 10.
 2. Whether to pilot the coarse separated format at small N (50-100) before committing.
 3. Whether the revise-screen option (7.6) is worth the added complexity.
 4. Whether the two-stage separated (7.7) is worth the extra burden for the precision gain.
 5. Whether to include the Brown & Healy auxiliary arm (Section 8).
+6. **Repeated BDM elicitations at the same induced π** — would enable a tight BDM analog to multi-switching (within-subject consistency across repetitions). Not decided. Two possible placements:
+    - *Inside the main experiment* — cleanest comparison but significantly increases subject burden; may confound learning effects.
+    - *As a post-main diagnostic treatment* — after the primary elicitation is complete, add a short repeated-measures module on a subset of subjects. Lower main-experiment burden, but results are on a different sample and not directly integrated with the primary H2 test.
+    - Decision deferred; revisit once we've committed to the main-arm format and know how much burden budget remains.
 
 ---
 
-## 13. Cross-References
+## 14. Cross-References
 
 - Research direction discussion: `quality_reports/research_direction_discussion_2026-04-07.md` (Points 2 and 3)
 - Azrieli-Karni intuition: `master_supporting_docs/literature/reading_notes/intuition_azrieli_karni_connection.md`

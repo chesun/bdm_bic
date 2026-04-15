@@ -10,7 +10,12 @@
       "WebFetch(domain:gregcleo.com)",
       "WebFetch(domain:events.bse.eu)",
       "WebFetch(domain:www.andreasdrichoutis.com)",
-      "Read(//Users/christinasun/github_repos/bdm_bic_paper/paper/**)"
+      "Read(//Users/christinasun/github_repos/bdm_bic_paper/paper/**)",
+      "WebFetch(domain:sites.pitt.edu)",
+      "WebFetch(domain:www.pitt.edu)",
+      "WebFetch(domain:alistair.xyz)",
+      "Bash(pdftotext -layout /Users/christinasun/github_repos/bdm_bic/master_supporting_docs/literature/papers/Chapter-3-healy_leo_belief_elicitation_guide.pdf -)",
+      "WebFetch(domain:spaces-cdn.owlstown.com)"
     ]
   }
 }

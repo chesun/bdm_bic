@@ -1,13 +1,15 @@
 # TODO — BDM Incentive Compatibility
 
-Last updated: 2026-04-13 (evening)
+Last updated: 2026-04-14
 
 ## Active (doing now)
 - [ ] Resolve MPL format decision — review `quality_reports/mpl_format_decision_analysis.md` and commit to Section 10 criteria (seven items: multi-switching tolerance, accuracy metric, ε, B&H auxiliary, revise screen, burden budget, precision)
 - [ ] Add CS Comments to librarian-filled entries (papers 3, 4, 5, 7, 9, 11, 12)
 
 ## Up Next
-- [ ] Operationalize Condition 2 for BDM (Point 6 of April 7 discussion) — pick from options A-E
+- [ ] **Design the p-BDM incentive-only test from scratch** — DVW 2024 JEP reports only headline result (69% choose q=0); their working paper methodology is not publicly available (confirmed via deep search 2026-04-14). See Section 12 of `mpl_format_decision_analysis.md` for design questions (menu structure, payoff display, induced θ values, integration with main arm, MPL counterpart, sample size). Email to David Danz scheduled for 2026-04-15; regardless, we must design our own version.
+- [ ] Read Trautmann & van de Kuilen (2015, *Economic Journal*, "Belief Elicitation: A Horse Race among Truth Serums") — origin of the two-stage list ("TK") format used by Burfurd & Wilkening 2018; directly informs Section 7.3 format option
+- [ ] Operationalize Condition 2 for BDM (Point 6 of April 7 discussion) — subsumed by the p-BDM incentive-only test design task above
 - [ ] Pressure-test research directions via `/discover interview`
 - [ ] Finalize research direction and write research spec
 
