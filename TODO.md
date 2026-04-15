@@ -1,9 +1,10 @@
 # TODO — BDM Incentive Compatibility
 
-Last updated: 2026-04-14
+Last updated: 2026-04-15
 
 ## Active (doing now)
-- [ ] Resolve MPL format decision — review `quality_reports/mpl_format_decision_analysis.md` and commit to Section 10 criteria (seven items: multi-switching tolerance, accuracy metric, ε, B&H auxiliary, revise screen, burden budget, precision)
+- [ ] **Review backfilled ADRs 0001–0011** in `experiments/designs/decisions/` — flag any corrections, especially on the three Proposed/Reconstructed entries (0005, 0006, 0011)
+- [ ] Resolve MPL format decision — review `quality_reports/mpl_format_decision_analysis.md` and commit to Section 10 criteria 4–7 (B&H auxiliary, revise screen, burden budget, precision); criteria 1–3 now captured in ADR-0008 / ADR-0009
 - [ ] Add CS Comments to librarian-filled entries (papers 3, 4, 5, 7, 9, 11, 12)
 
 ## Up Next
@@ -26,6 +27,8 @@ Last updated: 2026-04-14
 - [ ] Update Qualtrics survey for new design
 
 ## Done (recent)
+- [x] Split ADR-0004 into IC foundation (ADR-0012, Azrieli monotonicity) and behavioral theory (ADR-0013, UJS); added Scope field to template (2026-04-15)
+- [x] Scaffolded ADR decision log at `experiments/designs/decisions/`; backfilled 11 entries from prior records; added `.claude/rules/decision-log.md` + CLAUDE.md pointer (2026-04-15)
 - [x] Cross-paper themes updated to 5 themes + 7 implications, incorporating all 23 papers. Critic scored 88/100, all fixes applied (2026-04-06)
 - [x] Read Brown & Healy (2018), Tsakas (2019), Holt & Smith (2009), Grether (1981) — papers 20-23 added, critic scored 90/100 (2026-04-06)
 - [x] Final critical review of all 19 reading notes + taxonomy — 3 critics scored 90/89/88. All fixes applied (2026-04-06)

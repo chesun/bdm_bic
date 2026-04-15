@@ -1,0 +1,34 @@
+# 0005: Brown & Healy monotonicity — belief transfer is an unverified assumption
+
+- **Date:** 2026-04-07
+- **Status:** Proposed
+- **Data quality:** Reconstructed — partial context
+
+> **Reconstructed entry.** Date, decision, and high-level reasoning are sourced from `research_direction_discussion_2026-04-07.md` Point 3 and `mpl_format_decision_analysis.md` §6. Some framing in the Consequences section is retrofitted from the later mechanism-invariance framing decided on 2026-04-13 (ADR-0007). The core claim — that we proceed as if B&H transfers to beliefs while flagging the unverified assumption — is directly sourced.
+
+## Context
+
+Brown & Healy (2018) show that monotonicity — the identifying assumption for Random Problem Selection (RPS) payment — is violated in list-format MPL (p = 0.041) but not in separated format (p = 0.697). Their experiment used risk-preference elicitation (lottery comparisons across 20 rows). Our MPL arm is belief elicitation (event bet vs. r-lottery across rows).
+
+Christina raised: does Brown & Healy's finding transfer from risk to beliefs? The formal structure is identical — both are RPS with binary rows per Azrieli et al. (2018) monotonicity — but belief elicitation has one feature risk does not: the event bet's winning probability is subjective to the subject even if induced (urn-drawn) from the experimenter's view. A subject uncertain about their own belief might look across rows to "figure out" π from the list structure, violating the independence that monotonicity requires. This is a belief-specific path to non-monotone behavior that risk MPL does not have.
+
+## Decision
+
+Treat "Brown & Healy's finding transfers to belief MPL" as an **assumption worth flagging**, not a tested claim. We proceed on the assumption, and we design *conservatively* to avoid the issue empirically:
+
+- Use separated (or coarse-separated) format for the MPL arm rather than a full list, so the monotonicity violation cannot be expressed in observed behavior regardless of whether it would hold at the preference level.
+- Acknowledge the assumption in the paper's IC defense.
+- Do not run a dedicated test of the risk-to-beliefs transfer in this project. That would be a separate research question.
+
+## Consequences
+
+- **Commits us to:** separated or coarse-separated MPL format (see ADR-0007 for the framing that anchors this choice to mechanism invariance). A list-format MPL would inherit the B&H concern without resolution.
+- **Commits us to:** a paragraph in the IC-assumptions section acknowledging the transfer assumption and citing B&H 2018 as the open question.
+- **Rules out:** a clean replication of the Holt & Smith (2016) LC format for beliefs, since that format is list-based. Any comparison to H&S remains loose rather than tight.
+- **Open question:** whether to include a B&H-style auxiliary arm (list vs. separated belief MPL) to directly test the transfer — this is Section 10 criterion 4 of `mpl_format_decision_analysis.md`, unresolved.
+
+## Sources
+
+- `quality_reports/research_direction_discussion_2026-04-07.md` :: Point 3 (lines 43–61)
+- `quality_reports/mpl_format_decision_analysis.md` :: §6 "Does Brown & Healy Transfer to Beliefs?" (lines 183–200)
+- Git commit: `01b0f3a` ("Research direction reformulation...")

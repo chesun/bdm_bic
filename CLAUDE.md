@@ -25,6 +25,7 @@
 - **Quality gates** -- weighted aggregate score; nothing ships below 80/100; see `quality.md`
 - **Worker-critic pairs** -- every creator has a paired critic; critics never edit files
 - **Inference first** -- design experiments with inference in mind from the start; tests and treatments co-evolve (see inference-first checklist)
+- **Log decisions** -- every substantive design decision gets an ADR in `experiments/designs/decisions/`; append-only, supersede don't edit (see `.claude/rules/decision-log.md`)
 - **Auto-memory** -- corrections and preferences are saved automatically via Claude Code's built-in memory system
 
 ---
@@ -48,6 +49,7 @@ bdm_bic/                         # Git repo (this project)
 ├── theory/                      # Empty — IC conditions from Karni (2009) are in the paper draft
 ├── experiments/                 # Experiment materials
 │   ├── designs/                 # Design docs, checklists
+│   │   └── decisions/           # ADR log — append-only design decision record
 │   ├── protocols/               # IRB, consent forms
 │   ├── instructions/            # Subject instructions
 │   ├── qualtrics/               # QSF exports
