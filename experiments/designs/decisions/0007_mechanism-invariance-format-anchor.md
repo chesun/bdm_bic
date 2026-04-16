@@ -1,8 +1,10 @@
 # 0007: Mechanism invariance is the anchor for MPL format choice
 
 - **Date:** 2026-04-13
-- **Status:** Decided
+- **Status:** Superseded by #0014
 - **Data quality:** Full context
+
+> **Superseded 2026-04-15 by ADR-0014.** This entry's Consequences section claimed "Commits us to: separated or coarse-separated MPL format." That was a backfill overreach — the 2026-04-13 session log records that format as *tentative*, not decided. ADR-0014 narrows this decision to the framing only (mechanism invariance + acts-vs-outcomes exposition); format selection is an open Pending decision. All reasoning in the body below about the mechanism-invariance framing remains valid; disregard only the format-commitment claim. Body preserved for history.
 
 ## Context
 

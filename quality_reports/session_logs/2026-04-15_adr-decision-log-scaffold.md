@@ -67,9 +67,32 @@ Centralize substantive design and research decisions into an append-only ADR (Ar
 - [ ] Whether the retro-tagged Scopes on 0001–0011 are correct (especially 0007 tagged IC foundation — it sits near the line between IC foundation and methodology)
 - [ ] Section 10 criteria 4–7 of `mpl_format_decision_analysis.md` (B&H auxiliary arm, revise screen, burden budget, precision) — still unresolved; each will produce one or more new ADRs when decided
 
+## Post-Commit Work (Same Session)
+
+After the initial commit (`c495116`), Christina raised two issues during ADR review:
+
+### ADR-0004 scope too broad: "primary theoretical framework" conflated IC foundation with behavioral theory
+
+- Resolved by writing ADR-0012 (Azrieli monotonicity as IC foundation) and ADR-0013 (UJS scoped to behavioral failure). 0004 marked `Superseded by #0013`. Added Scope field to template with five-category taxonomy. Committed as `c495116`.
+
+### ADRs 0005 and 0007 committed to separated-format MPL — but that decision was never made
+
+- Christina flagged: she did not decide on separated lists. Checked source: 2026-04-13 session log says "Tentative format: coarse separated" — explicitly tentative. I had promoted this tentative lean into format commitments in ADR-0005 and ADR-0007.
+- Audit of all 11 backfilled ADRs found: two definite overreaches (0005, 0007), two minor forward-looking wordings (0001, 0009 — flagged, not changed).
+- Fixes: superseded 0007 with ADR-0014 (framing-only, format commitment removed); edited 0005 in place (Proposed, direct edit permitted).
+- README Pending decisions now lists all seven format options as open.
+- Wrote `quality_reports/strategy_space_restriction_intuition.md` — conceptual deep-dive on why separated format restricts the strategy space (13 sections, worked example, five loopholes, open questions). For Christina to interrogate tomorrow.
+
+## Learnings & Corrections (Addendum)
+
+- [LEARN:process] Backfilling ADRs from session logs risks promoting *tentative preferences* into *committed decisions*. The word "tentative" in a session log Design Decisions table means "under consideration" — NOT "decided." Always verify the exact status markers.
+- [LEARN:process] "Commits us to X" in an ADR Consequences section is a strong claim. If the source says "tentative" or "leaning," the ADR should say "implication for the pending X decision" — not "commits us to X."
+- [LEARN:theory] The strategy-space restriction argument for separated format is about *feasible sets*, not *preferences*. The honest defense: "it prevents the IC assumption's violation from expressing in observable behavior." NOT: "it makes the IC assumption hold."
+
 ## Next Steps
 
-- [ ] Christina reviews ADRs 0001–0013
-- [ ] Resolve Section 10 criteria 4–7; produce ADRs as each is committed
-- [ ] Design the p-BDM incentive-only test from scratch (ADR-0011 is the commitment; individual design decisions will produce new ADRs)
-- [ ] Read Trautmann & van de Kuilen (2015, *EJ*) — informs Section 7.3 of MPL format analysis
+- [ ] Christina reviews strategy-space deep-dive (`quality_reports/strategy_space_restriction_intuition.md`)
+- [ ] Commit to MPL format selection across all seven options in §7 of MPL analysis doc — this is the biggest pending design decision
+- [ ] Resolve Section 10 criteria 4–7 (B&H auxiliary, revise screen, burden budget, precision); each narrows the format space and produces an ADR
+- [ ] Design the p-BDM incentive-only test from scratch (ADR-0011)
+- [ ] Read Trautmann & van de Kuilen (2015, *EJ*) — informs §7.3 format option

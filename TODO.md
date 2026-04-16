@@ -3,8 +3,10 @@
 Last updated: 2026-04-15
 
 ## Active (doing now)
-- [ ] **Review backfilled ADRs 0001–0011** in `experiments/designs/decisions/` — flag any corrections, especially on the three Proposed/Reconstructed entries (0005, 0006, 0011)
-- [ ] Resolve MPL format decision — review `quality_reports/mpl_format_decision_analysis.md` and commit to Section 10 criteria 4–7 (B&H auxiliary, revise screen, burden budget, precision); criteria 1–3 now captured in ADR-0008 / ADR-0009
+- [ ] **Review backfilled ADRs** (post-audit state: 0001–0011 plus 0013/0014 supersessions) — two overreaches fixed (0004→0013, 0007→0014); minor forward-looking wording on 0001 and 0009 flagged but unchanged
+- [ ] **Commit to MPL format selection** across all seven options in §7 of `mpl_format_decision_analysis.md` (full list / HS two-stage list / TK two-stage list / full separated / coarse separated / coarse separated + revise / two-stage separated). Tentative lean to 7.5 is *not* a commitment. Produces a new ADR when resolved.
+- [ ] Resolve §10 criteria 4–7 (B&H auxiliary arm, revise screen, burden budget, precision) — these narrow the format selection space; each produces its own ADR. Criteria 1–3 already captured in ADR-0008 / ADR-0009.
+- [ ] **Review strategy-space restriction deep-dive** at `quality_reports/strategy_space_restriction_intuition.md` — 13 sections; key question: does the argument hold for belief elicitation's within-row ambiguity (§9c, §12)?
 - [ ] Add CS Comments to librarian-filled entries (papers 3, 4, 5, 7, 9, 11, 12)
 
 ## Up Next
@@ -27,7 +29,8 @@ Last updated: 2026-04-15
 - [ ] Update Qualtrics survey for new design
 
 ## Done (recent)
-- [x] Split ADR-0004 into IC foundation (ADR-0012, Azrieli monotonicity) and behavioral theory (ADR-0013, UJS); added Scope field to template (2026-04-15)
+- [x] Audited backfilled ADRs for overreach; superseded 0007→0014 (framing-only); edited 0005; wrote strategy-space deep-dive (2026-04-15)
+- [x] Split ADR-0004→0012+0013 (IC foundation vs behavioral theory); added Scope field (2026-04-15)
 - [x] Scaffolded ADR decision log at `experiments/designs/decisions/`; backfilled 11 entries from prior records; added `.claude/rules/decision-log.md` + CLAUDE.md pointer (2026-04-15)
 - [x] Cross-paper themes updated to 5 themes + 7 implications, incorporating all 23 papers. Critic scored 88/100, all fixes applied (2026-04-06)
 - [x] Read Brown & Healy (2018), Tsakas (2019), Holt & Smith (2009), Grether (1981) — papers 20-23 added, critic scored 90/100 (2026-04-06)

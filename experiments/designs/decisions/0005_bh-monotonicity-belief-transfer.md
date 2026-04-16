@@ -4,7 +4,9 @@
 - **Status:** Proposed
 - **Data quality:** Reconstructed — partial context
 
-> **Reconstructed entry.** Date, decision, and high-level reasoning are sourced from `research_direction_discussion_2026-04-07.md` Point 3 and `mpl_format_decision_analysis.md` §6. Some framing in the Consequences section is retrofitted from the later mechanism-invariance framing decided on 2026-04-13 (ADR-0007). The core claim — that we proceed as if B&H transfers to beliefs while flagging the unverified assumption — is directly sourced.
+> **Reconstructed entry.** Date, decision, and high-level reasoning are sourced from `research_direction_discussion_2026-04-07.md` Point 3 and `mpl_format_decision_analysis.md` §6. The core claim — that we proceed as if B&H transfers to beliefs while flagging the unverified assumption — is directly sourced.
+>
+> **Edited 2026-04-15** (permissible: entry is Proposed). Removed earlier claim that this decision "commits us to separated or coarse-separated MPL format." That was a backfill overreach; format selection is an open Pending decision. See ADR-0014 for the narrowed framing decision and the README Pending list for format selection.
 
 ## Context
 
@@ -14,17 +16,15 @@ Christina raised: does Brown & Healy's finding transfer from risk to beliefs? Th
 
 ## Decision
 
-Treat "Brown & Healy's finding transfers to belief MPL" as an **assumption worth flagging**, not a tested claim. We proceed on the assumption, and we design *conservatively* to avoid the issue empirically:
+Treat "Brown & Healy's finding transfers to belief MPL" as an **assumption worth flagging**, not a tested claim. We proceed on the assumption and acknowledge it in the paper's IC defense. No dedicated risk-to-beliefs transfer test in this project — that would be a separate research question.
 
-- Use separated (or coarse-separated) format for the MPL arm rather than a full list, so the monotonicity violation cannot be expressed in observed behavior regardless of whether it would hold at the preference level.
-- Acknowledge the assumption in the paper's IC defense.
-- Do not run a dedicated test of the risk-to-beliefs transfer in this project. That would be a separate research question.
+Whether the transfer question affects format selection is an *implication* of this ADR, not a decision contained in it: a list-format MPL inherits the B&H concern without resolution, while a separated-format MPL would neutralize it via the strategy-space-restriction argument (ADR-0014). The format selection itself remains an open Pending decision.
 
 ## Consequences
 
-- **Commits us to:** separated or coarse-separated MPL format (see ADR-0007 for the framing that anchors this choice to mechanism invariance). A list-format MPL would inherit the B&H concern without resolution.
 - **Commits us to:** a paragraph in the IC-assumptions section acknowledging the transfer assumption and citing B&H 2018 as the open question.
-- **Rules out:** a clean replication of the Holt & Smith (2016) LC format for beliefs, since that format is list-based. Any comparison to H&S remains loose rather than tight.
+- **Implication for the pending format decision:** a list-format MPL inherits the B&H concern; a separated variant neutralizes it by construction. This is a consideration for the format ADR when it lands, not a commitment embedded here.
+- **Does NOT commit us to:** any particular MPL format. That selection is tracked separately as a Pending decision in the README.
 - **Open question:** whether to include a B&H-style auxiliary arm (list vs. separated belief MPL) to directly test the transfer — this is Section 10 criterion 4 of `mpl_format_decision_analysis.md`, unresolved.
 
 ## Sources

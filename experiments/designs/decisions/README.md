@@ -83,13 +83,14 @@ What this commits us to. What it rules out. Open questions it creates.
 | [0004](0004_adopt-ujs-framework.md) | Adopt UJS as primary theoretical framework | 2026-04-07 | Superseded by [#0013](0013_ujs-scoped-to-behavioral-failure.md) | — |
 | [0005](0005_bh-monotonicity-belief-transfer.md) | Brown & Healy monotonicity: belief transfer is an unverified assumption | 2026-04-07 | Proposed | IC foundation |
 | [0006](0006_condition2-prioritize-options-a-d.md) | Condition 2 operationalization: prioritize Options A and D; defer B/C/E | 2026-04-07 | Proposed | Methodology |
-| [0007](0007_mechanism-invariance-format-anchor.md) | Mechanism invariance is the anchor for MPL format choice | 2026-04-13 | Decided | IC foundation |
+| [0007](0007_mechanism-invariance-format-anchor.md) | Mechanism invariance is the anchor for MPL format choice | 2026-04-13 | Superseded by [#0014](0014_mechanism-invariance-framing-only.md) | — |
 | [0008](0008_multi-switching-descriptive-not-threshold.md) | Multi-switching is a descriptive outcome, not an invalidation threshold | 2026-04-14 | Decided | Methodology |
 | [0009](0009_dual-metric-accuracy-and-epsilon.md) | Dual-metric accuracy: success rate + conditional distance; dual ε \{0, 5pp\} | 2026-04-14 | Decided | Methodology |
 | [0010](0010_hh-instructions-across-formats.md) | Hao-Houser instruction format for all MPL variants | 2026-04-14 | Decided | Experimental design |
 | [0011](0011_p-bdm-incentive-only-design-from-scratch.md) | p-BDM incentive-only test: design from scratch (DVW methodology not public) | 2026-04-14 | Proposed | Experimental design |
 | [0012](0012_azrieli-monotonicity-ic-foundation.md) | Azrieli et al. (2018) monotonicity as theoretical IC foundation | 2026-04-15 | Decided | IC foundation |
 | [0013](0013_ujs-scoped-to-behavioral-failure.md) | UJS as primary framework for behavioral failure (supersedes #0004) | 2026-04-15 | Decided | Behavioral theory |
+| [0014](0014_mechanism-invariance-framing-only.md) | Mechanism invariance framing (supersedes #0007; format commitment removed) | 2026-04-15 | Decided | IC foundation |
 
 ---
 
@@ -97,7 +98,7 @@ What this commits us to. What it rules out. Open questions it creates.
 
 These are decisions that need to happen but aren't resolved. They get an ADR when resolved, not before.
 
-- **MPL format selection** among {full list, H&S two-stage list, full separated, coarse separated}. Leaning coarse separated per `quality_reports/mpl_format_decision_analysis.md` §11, but criteria 4–7 (B&H auxiliary arm, revise screen, burden budget, precision requirement) in §10 are open.
+- **MPL format selection** across all seven options in `quality_reports/mpl_format_decision_analysis.md` §7: (7.1) full list, (7.2) Holt & Smith two-stage list, (7.3) Trautmann–van de Kuilen two-stage list, (7.4) full separated, (7.5) coarse separated, (7.6) coarse separated + revise, (7.7) two-stage separated. Section 11 records a *tentative* lean toward 7.5; that is not a committed decision. ADR-0014 establishes mechanism invariance as the theoretical framing for whichever format is selected; it does not select a format. Criteria 4–7 in §10 (B&H auxiliary arm, revise screen, burden budget, precision requirement) narrow the space when resolved.
 - **Flat-fee control arm** — open question in `quality_reports/research_direction_discussion_2026-04-07.md` Remaining Open Questions #4.
 - **Final sample size** (600 vs. 450 minimal) — proposed in `quality_reports/research_ideas_bdm_bic.md` §3 Direction 1, not locked.
 - **Belief elicitations per subject** — power vs. fatigue trade-off, open in `research_direction_discussion_2026-04-07.md` Open Q #5.
