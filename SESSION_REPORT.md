@@ -61,3 +61,67 @@
 
 - Done: Section 10 criteria 1-3 resolved; p-BDM incentive-only test gap flagged; Danz email drafted
 - Pending: Section 10 criteria 4-7 (B&H auxiliary, revise screen, burden budget, precision); p-BDM incentive-only test design work (new); Danz email reply; TvdK 2015 read; CS Comments backlog
+
+## 2026-04-17 — Advisor Meeting Prep + ROCL Canonical Framing Correction
+
+**Operations:**
+
+- Created `quality_reports/advisor_meeting_2026-04-17/` with three artifacts: p-BDM design-space synthesis (3 concrete proposals), questions-for-Anujit list (4 tiers), live walkthrough doc
+- Renamed `quality_reports/strategy_space_restriction_intuition.md` → `quality_reports/bh_rocl_intuition.md` via `git mv`
+- Rewrote the intuition doc with B&H's verbatim conjecture, ROCL + theorem preliminaries, two worked examples (list ⇒ ROCL triggered; separated ⇒ not triggered)
+- Created ADR-0015 (canonical B&H ROCL-triggering mechanism; supersedes #0014); updated ADR-0014 Status to Superseded; edited ADR-0005 Proposed body to point at ADR-0015
+- Revised `quality_reports/mpl_format_decision_analysis.md` §3.3 (certainty-effect worked example), §3.4 (6-step causal chain), §3.5 (canonical "Why Format Matters"), §6.1–§6.3 (cross-row vs. within-row channels), §4.3 (multi-switching table corrected)
+- Updated README index for ADR log; updated TODO.md active task; updated meeting materials with renamed-file references
+
+**Decisions:**
+
+- Retire the "strategy-space restriction" framing project-wide; adopt canonical B&H ROCL-triggering mechanism as the sole framing — Christina flagged the discrepancy by comparing the intuition doc against B&H's verbatim text
+- Meeting strategy: lead with p-BDM incentive-only test design (primary); MPL format as secondary; Anujit has UJS expertise (he co-authored C&K 2025), so Proposal C (parallel MPL incentive-only test) is the highest-leverage novel contribution
+- ADR-0015 structure: mechanism invariance remains the IA; B&H ROCL-triggering is the cited mechanism; format selection remains open Pending decision
+
+**Results:**
+
+- All current-facing docs now use the canonical ROCL framing; historical records (session logs, SESSION_REPORT.md, superseded ADR bodies) preserved
+- Advisor meeting prep complete: three artifacts ready to screen-share during today's meeting
+
+**Commits:** To be created after this session (rename + ADR log + MPL doc revision + meeting materials).
+
+**Status:**
+
+- Done: Meeting prep artifacts; ROCL framing correction cascade (rename, ADR-0015, MPL doc §3/§4/§6 revision, cross-refs, session log, research journal)
+- Pending: Anujit meeting today; review of bh_rocl_intuition §8 (belief wrinkle); paper draft check for stale strategy-space references
+
+## 2026-04-20 — Slide Revisions and Hypothesis Restructure
+
+**Operations:**
+
+- Two rewrite passes on `quality_reports/advisor_meeting_2026-04-17/04_slides.tex`: (i) stripped implementation details (ADR references, internal process language, theory-stack taxonomy, meta-commentary); (ii) stripped residual AI language patterns (overhyping adjectives, labelized transitions, rule-of-three headers, fragment-bullet style)
+- Added "Proposal B: Example at θ = 0.2" (native p-BDM framing, subject reasons through contingencies)
+- Added "Proposal C: Example at θ = 0.2 (MPL side)" (binary-choice rows, correct pattern, format-level UJS prediction)
+- Appended CR-demand note to Proposal A example for parallel structure across all three proposal examples
+- Moved Brown & Healy discussion from Literature slide to Q3 MPL-format section where it motivates the choice
+- Split Q3 into three slides: "MPL format: what the literature says," "MPL format: options and tradeoffs" (5-option comparison table), "Question 3: MPL format"
+- Applied three edits to H2a (tightened antecedent, nested under H2, "per UJS" → "(UJS)")
+- Collapsed H2 + H2a into single UJS-framed H2; removed H2a entirely
+- Added Q1 bullet: "Is UJS the right framing for H2, or should the mechanism claim be contingent reasoning? UJS is cleanly identified by the design; CR would need a direct manipulation."
+- Recompiled after each edit; final deck 15 pages, 169 KB
+
+**Decisions:**
+
+- Frame H2's mechanism claim around UJS formal property (unique vs. multiple justifiable actions), not contingent reasoning — the 4-arm design changes 6 things simultaneously, so CR as cognitive channel is not identified; UJS-as-formal-property is what the design actually identifies
+- Collapse H2 + H2a into single claim rather than keep H2a as sub-hypothesis — once the mechanism claim is at the formal-property level, H2 and H2a restate the same thing
+- Flag UJS-vs-CR framing as open question for Anujit — he authored UJS, strongest prior on whether direct CR identification is needed
+- Split Q3 into three slides for natural flow (literature → options/tradeoffs → lean + question) rather than keeping as one dense frame
+
+**Results:**
+
+- Deck now Anujit-facing: 15 pages, no internal artifacts, natural academic voice, three concrete Ask moments
+- Hypothesis count: H1 (a, b), H2, H3 — tighter than before, and H2's mechanism claim matches what the design identifies
+- Three open meta-questions surfaced for Anujit: overall design critique (Q1), which p-BDM proposal (Q2), which MPL format / auxiliary B&H arm (Q3), plus the UJS-vs-CR framing sub-question
+
+**Commits:** None this session — pending explicit commit trigger.
+
+**Status:**
+
+- Done: slide revisions, hypothesis restructure, session log, research journal entry
+- Pending: meeting with Anujit (if not already held); subsequent ADRs for H2 collapse and UJS framing commitment; H3 (complexity) identification power check; p-BDM proposal commit; MPL format commit

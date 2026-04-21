@@ -60,32 +60,48 @@ Mechanism invariance is deliberately weak. It allows the optimal *action* at a g
 
 Consider the contrast:
 
-- **Framed Control:** row 14 is the only payment-relevant row. The subject's action at row 14 fully determines their payoff. Choosing is simple — pick the option you prefer at row 14.
-- **RPS:** row 14 is one of 20 payment candidates. The subject's action at row 14 determines their payoff *only with probability 1/20*. With probability 19/20 a different row's action determines it. The row-14 choice is now one component of a portfolio.
+- **Framed Control:** row 14 is the only payment-relevant row. The subject's action at row 14 fully determines their payoff. The compound-lottery structure has a single component, so there is no cross-row compound to reason about.
+- **RPS:** row 14 is one of 20 payment candidates. The subject's action at row 14 determines their payoff *only with probability 1/20*. The full payoff distribution depends on the subject's choices across all 20 rows, and the cross-row structure forms a compound lottery that the subject may or may not reason about.
 
 Outcome-preferences are identical in both cases: \$15 > \$10 > \$5. The decision problem is different.
 
 Under monotonicity, the difference in decision problem is neutralized — improving row 14's outcome while holding other rows fixed is always weakly good, so the row-14 choice can be made in isolation, and Framed Control and RPS produce the same action.
 
-Under non-monotone preferences it is not. Concrete example: an ambiguity-averse subject who dislikes compound-lottery variance. Under RPS, choosing risky everywhere gives a high-variance compound lottery. The subject prefers a hedged pattern — risky at some rows, safe at others — to smooth out variance. At row 14 specifically, they might now pick safe, *even though their outcome-preferences have not changed at all*. The row-14 action differs because row 14 is now embedded in a different decision problem, not because tastes over money changed.
+Under non-monotone act-preferences it is not. B&H's 2018 conjecture identifies a specific mechanism that produces this non-monotonicity: subjects treating the list as "one large decision" apply **reduction of compound lotteries (ROCL)** to the compound RPS structure. If their preferences over simple lotteries are non-EU, the theorem (Segal 1990 and related results) forces ROCL-reduced act-preferences to violate monotonicity.
+
+**Concrete example.** Consider a subject with prospect-theoretic preferences exhibiting the certainty effect — they strictly prefer certain \$10 to a (55% \$20, 45% \$0) lottery despite the latter's higher expected value. Let row 14 offer `L₁ = certain $10` vs. `L₂ = (55% $20, 45% $0)`. Row-locally, they prefer L₁. Under RPS in list format, the subject — seeing the full compound structure and applying ROCL — evaluates the *reduced* compound lottery across all rows. At the reduced level, *neither compound has a certain outcome* (the mixing across rows dilutes the certainty), so the certainty effect does not pivot the evaluation. The subject may now prefer the reduced lottery that picking L₂ at row 14 produces — flipping their row-14 choice from L₁ (Framed Control) to L₂ (list RPS). The row-14 action differs not because outcome-preferences changed, but because the subject applied a different cognitive procedure (ROCL) when the compound structure was salient.
+
+Deeper exposition with both list and separated worked examples lives in `bh_rocl_intuition.md` §3–§4.
 
 ### 3.4 The Causal Chain in B&H's List-Format Violation
 
 1. Outcome-preferences are stable across RPS and Framed Control (mechanism invariance, assumed).
-2. The decision problem at row 14 is different under RPS than under Framed Control (mechanical fact, not an assumption).
-3. For some preferences (non-EU, non-ROCL, ambiguity-averse, prospect-theoretic, or simply subject to bounded-rationality errors), the optimal row-14 action differs across those two problems.
-4. That difference is what B&H's row-14 choice comparison detects.
+2. List format makes the compound RPS structure salient → subjects treat the list as one large decision (B&H's conjectured cognitive step).
+3. "One large decision" framing → subjects apply ROCL to evaluate their choice (the cognitive trigger).
+4. ROCL + non-EU preferences over simple lotteries ⇒ monotonicity violation at the act level (theorem).
+5. Monotonicity violation ⇒ the optimal row-14 action under RPS differs from the row-local preference observed in Framed Control.
+6. That difference is what B&H's row-14 choice comparison detects (p = 0.041 for list; p = 0.697 for separated).
 
-What B&H's test rejects is not an outcome-preference but a *restriction on how act-preferences relate to outcome-preferences* (monotonicity). Reduction of compound lotteries is one route to monotonicity violation, but so are ambiguity aversion, source preference, preference reversals, and straight cognitive mistakes. B&H's test does not distinguish among them and does not need to — the test is robust to why monotonicity fails, which is why reduction does not need to appear as an identifying assumption.
+What B&H's test rejects is not an outcome-preference but a *restriction on how act-preferences relate to outcome-preferences* (monotonicity). And the mechanism producing the violation is specifically the ROCL-triggering path, not a generic "non-monotone preferences exist" primitive. Any non-EU preferences — Allais-type (certainty effect), ambiguity-averse, source-preferring, prospect-theoretic — interact with ROCL to produce the observed violation. The theorem is agnostic about *which* non-EU structure the subject has; what it requires is *both* non-EU preferences *and* ROCL application. Format determines whether the ROCL step is triggered.
+
+Note: "ambiguity aversion" and "source preference" are kinds of non-EU preference structures. They produce monotonicity violation only through the ROCL channel. At the single-row level they may produce *within-row* non-monotonicity (e.g., systematically preferring the unambiguous r-lottery over an ambiguous event bet regardless of π) — but that is a separate phenomenon from the cross-row ROCL-driven violation B&H identify, and format does not address it (see §6.3 below).
 
 ### 3.5 Why Format Matters
 
-The role of presentation format now has a clean reading:
+The role of presentation format now has a clean reading under B&H's canonical conjecture:
 
-- In **list format**, the subject sees all 20 rows simultaneously. The compound structure of RPS is visible. Subjects with non-monotone preferences can identify and pursue portfolio-level strategies (such as hedging across rows). Non-monotone row-14 choices appear because the subject is actually optimizing at the portfolio level.
-- In **separated format**, each row is shown in isolation in random order. The subject cannot see other rows and cannot form a portfolio-level strategy. Each row's choice is made as if it were the only one that mattered. This effectively collapses each row's decision problem into the Framed Control problem. Whatever non-monotone preferences the subject holds, they cannot be expressed in a separated-format choice — the observed pattern looks monotone.
+- In **list format**, the subject sees all 20 rows simultaneously. The compound RPS structure is visible and salient. The cognitive framing "I am picking across all 20 rows as one decision" is natural. The subject applies ROCL to evaluate the compound act. If their simple-lottery preferences are non-EU, the ROCL step converts those preferences into non-monotone act-level preferences, and their row-14 choice can differ from the Framed Control row-local preference. Observed monotonicity violation follows.
 
-Separated format does not change the subject's preferences. It restricts the subject's *strategy space* in a way that forces observed behavior to be consistent with monotonicity, even if the underlying preferences are not. We are not trying to make subjects' preferences satisfy monotonicity; we are building a decision problem in which they behave *as if* they did. This is the design principle the format recommendation rests on.
+- In **separated format**, each row is shown in isolation in random order. The compound structure is not visible; the subject does not know which other rows exist or what comes next. The cognitive framing "I am picking across 20 rows as one decision" is not natural — the subject defaults to evaluating each row on its own terms. ROCL is not applied because there is no visible compound lottery to reduce. The subject's non-EU preferences over simple lotteries drive each row-level choice directly, producing monotone patterns across rows.
+
+**The design principle** we rest the separated-format recommendation on is therefore: **format determines whether the ROCL step is triggered; separated format prevents ROCL triggering, which prevents non-EU preferences from producing mechanism-level monotonicity violations**. This is B&H's conjecture and it is supported by their empirical result (list p = 0.041, separated p = 0.697).
+
+Two things this principle does *not* claim:
+
+1. **Separated format does not change subjects' preferences.** They have the same non-EU preferences in both formats. Only the cognitive procedure for evaluating compound structures is triggered or not.
+2. **Separated format does not restrict the feasible act set.** Subjects can pick any pattern of row-choices in either format. What differs is whether they mentally construct and evaluate the compound lottery.
+
+An earlier draft of this section framed separated format as "restricting the subject's strategy space" — a feasibility-set argument that treated non-monotone act-preferences as primitive. That framing was retired on 2026-04-17 when it was flagged as inconsistent with B&H's verbatim conjecture. The canonical ROCL-triggering framing adopted here is recorded in ADR-0015 (which supersedes ADR-0014).
 
 ---
 
@@ -110,12 +126,12 @@ Planning number: assume 15-25% multi-switching in a belief MPL with induced prob
 
 ### 4.3 Four mechanisms that produce multi-switching
 
-Each has different implications for what multi-switching "means" for our hypotheses:
+Each has different implications for what multi-switching "means" for our hypotheses. Note that separated format suppresses the cross-row ROCL channel per B&H's conjecture (ADR-0015); mechanism (b) below is therefore primarily relevant in list formats, while (a), (c), and (d) remain live in any format:
 
 | Mechanism | What it is | Implies for H2 | Implies for H3 |
 |---|---|---|---|
-| **(a) Within-row comprehension failure** | Subject does not understand the single binary comparison on its own | H2 weakened — MPL fails for a reason unrelated to BDM's contingent reasoning problem | Not evidence for H3; this is a different bottleneck |
-| **(b) Monotonicity violation (preference-level)** | Genuine Brown & Healy-style violation — subject's preferences are non-monotone across rows | H2 weakened — the IC assumption itself fails | Not H3; this is about preferences, not reasoning |
+| **(a) Within-row non-monotonicity (comprehension or ambiguity)** | Subject does not understand the single binary comparison on its own, *or* has source-preference / ambiguity aversion that makes the event bet vs. r-lottery choice non-monotone within a row | H2 weakened — MPL fails for a reason unrelated to BDM's contingent reasoning problem; format does not close this channel (see §6.3) | Not evidence for H3; this is a different bottleneck |
+| **(b) Cross-row ROCL + non-EU (list-format only)** | B&H 2018 mechanism — subject treats the list as one large decision, applies ROCL, and has non-EU preferences over simple lotteries. Theorem: produces monotonicity violation at the act level. | H2 weakened under list format — the IC assumption fails via the ROCL channel. Separated format should suppress this per B&H's empirical result (p = 0.697) | Not H3; this is about cognitive triggering of ROCL, not about contingent reasoning |
 | **(c) Random error / inattention** | Subject clicks through without engaging; error rate constant per row compounds across rows | H2 weakened — MPL noise cancels its advantage | Not H3; orthogonal to the comprehension mechanism |
 | **(d) Residual aggregation reasoning** | Subject *tries* to reason across rows — wonders "what is my overall belief?" — and second-guesses individual rows | H2 weakened — the MPL decomposition failed to stop subjects from aggregating | *Is* a flavor of H3 (contingent reasoning persists even when format decomposes), but not the form H3 predicts |
 
@@ -186,19 +202,21 @@ This was Point 3 from April 7 — open question. The deeper reading now:
 
 ### 6.1 What Brown & Healy actually showed
 
-For risk preferences (lottery comparisons across 20 rows), list format exhibits monotonicity violations (p = 0.041) and separated format does not (p = 0.697). Their interpretation: the list format reveals the structure of the mechanism in a way that enables hedging, compound-lottery manipulation, or preference reversals across rows.
+For risk preferences (lottery comparisons across 20 rows), list format exhibits monotonicity violations (p = 0.041) and separated format does not (p = 0.697). Their conjectured mechanism: list format induces subjects to treat the list as one large decision and to apply reduction of compound lotteries (ROCL) when evaluating their choices; under non-EU preferences over simple lotteries, ROCL forces monotonicity violation at the act level (by the theorem — Segal 1990 and related). Separated format does not trigger ROCL, so non-EU preferences have no mechanism-level consequences.
 
-### 6.2 Why it might transfer to beliefs
+### 6.2 Why it might transfer to beliefs (cross-row ROCL channel)
 
-The formal structure is identical. Both are RPS mechanisms with one binary choice per row and random-round payment. Azrieli et al.'s (2018) monotonicity is defined at the act level and does not depend on whether the outcomes are monetary (risk) or probability-based (belief). If monotonicity is a property of preferences, and if that property fails in list format for reasons about format-induced reasoning (compound lottery, hedging), nothing about the outcome type should matter.
+The formal structure is identical. Both are RPS mechanisms with one binary choice per row and random-round payment. Azrieli et al.'s (2018) monotonicity is defined at the act level and does not depend on whether the outcomes are monetary (risk) or probability-based (belief). The ROCL-triggering mechanism should transfer: list-format belief MPL should make the compound structure salient, trigger ROCL, and convert non-EU preferences into observable monotonicity violations. Separated-format belief MPL should not trigger ROCL and should restore observed monotonicity. The transfer is plausible at the cross-row level, but has not been tested empirically.
 
-### 6.3 Why it might *not* transfer
+### 6.3 Why transfer is not automatic (two belief-specific wrinkles)
 
-Belief elicitation has one feature risk preference elicitation does not: **the event bet's winning probability is subjective (to the agent) even if induced (from the experimenter's view).** In Brown & Healy's risk setup, both options in a row have known probabilities. In belief MPL, one option's probability is π — the agent's belief. Even with induced π (urn draw), the agent may harbor some residual uncertainty about what the right answer "should" be.
+**(a) Within-row ambiguity channel (not addressed by format).** Belief elicitation has one feature risk preference elicitation does not: **the event bet's winning probability is subjective (to the agent) even if induced (from the experimenter's view).** In Brown & Healy's risk setup, both options in a row have known probabilities. In belief MPL, one option's probability is π — the agent's belief. Even with induced π (urn draw), the agent may treat the event bet as ambiguous in a way the r-lottery is not.
 
-This changes the hedging calculus: in risk MPL, hedging across rows only helps if you have specific preferences over compound lotteries (ambiguity, non-reduction). In belief MPL, a subject uncertain about their own belief might look at the list and try to "figure out" π from the structure (e.g., "if I say event bet for rows 1-7 and r-lottery for rows 8-20, that implies my belief is 35-40%, so do I actually believe 37%?"). This is a belief-specific path to non-monotone behavior.
+This creates a *within-row* path to non-monotone observed behavior — e.g., an ambiguity-averse subject who systematically picks the r-lottery over the event bet regardless of r, or a source-preferring subject whose row-level preferences depend on source (objective lottery vs. event bet) rather than on probability alone. Neither is addressed by the ROCL-triggering mechanism, which operates at the cross-row level. Format does not close this channel. It is a separate design concern that must be handled through instruction design (emphasizing the objective basis of induced π via urn transparency), ambiguity controls, or comprehension checks.
 
-The direction is ambiguous. A priori, I would guess the effect *at minimum* carries over and possibly *is stronger* for beliefs.
+**(b) Belief-specific cross-row cognitive path (may amplify or substitute for ROCL).** A subject uncertain about their own belief might look at the list and try to "figure out" π from the structure (e.g., "if I say event bet for rows 1–7 and r-lottery for rows 8–20, that implies my belief is 35–40%, so do I actually believe 37%?"). This is not strictly ROCL (which reduces compound lotteries to simple-lottery equivalents), but it is a cross-row cognitive operation that format visibility enables and random-order separation suppresses — analogous in effect but specific to belief elicitation. Separated format should suppress this path for the same reason it suppresses ROCL: the subject cannot see the full list and cannot reason back-and-forth across rows.
+
+The direction of the net effect is ambiguous. A priori, I would guess the ROCL channel carries over from risk to beliefs (supporting the cross-row transfer), and the within-row ambiguity channel adds a belief-specific source of observed non-monotonicity that format cannot resolve.
 
 ### 6.4 Implication
 

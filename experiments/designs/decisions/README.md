@@ -90,7 +90,8 @@ What this commits us to. What it rules out. Open questions it creates.
 | [0011](0011_p-bdm-incentive-only-design-from-scratch.md) | p-BDM incentive-only test: design from scratch (DVW methodology not public) | 2026-04-14 | Proposed | Experimental design |
 | [0012](0012_azrieli-monotonicity-ic-foundation.md) | Azrieli et al. (2018) monotonicity as theoretical IC foundation | 2026-04-15 | Decided | IC foundation |
 | [0013](0013_ujs-scoped-to-behavioral-failure.md) | UJS as primary framework for behavioral failure (supersedes #0004) | 2026-04-15 | Decided | Behavioral theory |
-| [0014](0014_mechanism-invariance-framing-only.md) | Mechanism invariance framing (supersedes #0007; format commitment removed) | 2026-04-15 | Decided | IC foundation |
+| [0014](0014_mechanism-invariance-framing-only.md) | Mechanism invariance framing (supersedes #0007; format commitment removed) | 2026-04-15 | Superseded by [#0015](0015_bh-rocl-triggering-canonical-mechanism.md) | — |
+| [0015](0015_bh-rocl-triggering-canonical-mechanism.md) | Canonical Brown & Healy ROCL-triggering mechanism for list/separated (supersedes #0014) | 2026-04-17 | Decided | IC foundation |
 
 ---
 

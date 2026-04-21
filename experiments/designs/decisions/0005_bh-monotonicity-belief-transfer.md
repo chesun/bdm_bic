@@ -6,7 +6,9 @@
 
 > **Reconstructed entry.** Date, decision, and high-level reasoning are sourced from `research_direction_discussion_2026-04-07.md` Point 3 and `mpl_format_decision_analysis.md` §6. The core claim — that we proceed as if B&H transfers to beliefs while flagging the unverified assumption — is directly sourced.
 >
-> **Edited 2026-04-15** (permissible: entry is Proposed). Removed earlier claim that this decision "commits us to separated or coarse-separated MPL format." That was a backfill overreach; format selection is an open Pending decision. See ADR-0014 for the narrowed framing decision and the README Pending list for format selection.
+> **Edited 2026-04-15** (permissible: entry is Proposed). Removed earlier claim that this decision "commits us to separated or coarse-separated MPL format." That was a backfill overreach; format selection is an open Pending decision. See ADR-0015 (supersedes #0014) for the canonical B&H ROCL-triggering framing and the README Pending list for format selection.
+>
+> **Edited 2026-04-17** (permissible: entry is Proposed). Updated the cross-reference in the Decision section from "strategy-space-restriction argument (ADR-0014)" to "ROCL-triggering argument (ADR-0015)" following the adoption of the canonical B&H mechanism. The substantive decision — "B&H transfer to beliefs is an unverified assumption we flag and proceed on" — is unchanged. Only the framing cross-reference is updated.
 
 ## Context
 
@@ -18,7 +20,7 @@ Christina raised: does Brown & Healy's finding transfer from risk to beliefs? Th
 
 Treat "Brown & Healy's finding transfers to belief MPL" as an **assumption worth flagging**, not a tested claim. We proceed on the assumption and acknowledge it in the paper's IC defense. No dedicated risk-to-beliefs transfer test in this project — that would be a separate research question.
 
-Whether the transfer question affects format selection is an *implication* of this ADR, not a decision contained in it: a list-format MPL inherits the B&H concern without resolution, while a separated-format MPL would neutralize it via the strategy-space-restriction argument (ADR-0014). The format selection itself remains an open Pending decision.
+Whether the transfer question affects format selection is an *implication* of this ADR, not a decision contained in it: a list-format MPL inherits the B&H concern without resolution, while a separated-format MPL would neutralize it via the ROCL-triggering argument (ADR-0015, supersedes #0014) — specifically, by failing to trigger ROCL and thus leaving non-EU preferences without mechanism-level consequences. The format selection itself remains an open Pending decision.
 
 ## Consequences
 

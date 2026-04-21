@@ -1,0 +1,264 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+
+\definecolor{qblue}{RGB}{30,80,160}
+\definecolor{qlight}{RGB}{235,242,252}
+\setbeamercolor{block title}{bg=qblue,fg=white}
+\setbeamercolor{block body}{bg=qlight,fg=black}
+
+\title{BDM Belief Incentive Compatibility}
+\subtitle{Design review}
+\author{Christina Sun}
+\date{April 2026}
+
+\begin{document}
+
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+\begin{frame}{Literature}
+Danz, Vesterlund, and Wilson (JEP 2024 and forthcoming WP) find that BDM fails behavioral incentive compatibility: 69\% of subjects pick $q = 0$ under p-BDM at induced $\theta = 0.2$. Their p-BDM methodology is not public.
+
+\vspace{0.6em}
+Chakraborty and Kendall (2025) formalize UJS. BDM admits many justifiable non-truthful reports; MPL admits one, may be better BIC.
+
+\end{frame}
+
+\begin{frame}{Research questions and contribution}
+Research questions:
+\begin{enumerate}
+\item Why does BDM belief elicitation fail behavioral IC?
+\item Does MPL perform better, despite theoretical equivalence?
+\item Does the presentation format interact with task complexity for belief elicitation?
+\end{enumerate}
+
+\vspace{0.8em}
+Contribution: identify the mechanism behind BDM's failure, test UJS's design implication empirically in belief elicitation, and measure the complexity-by-mechanism interaction. The replication also extends DVW's p-BDM finding to four values of $\theta$.
+\end{frame}
+
+\begin{frame}{Hypotheses}
+\begin{description}
+\item[H1.] BDM fails behavioral IC, via two weak conditions:
+\begin{itemize}
+\item[H1a.] Explaining BDM's incentives does not increase accuracy.
+\item[H1b.] Subjects do not choose the payoff-maximizer under pure incentives.
+\end{itemize}
+\item[H2.] Belief MPL achieves better behavioral IC than single-report BDM, despite theoretical equivalence, because MPL admits a unique justifiable action per row (UJS) while BDM admits many.
+\item[H3.] The BDM-MPL truthful reporting gap increases with task complexity.
+\end{description}
+\end{frame}
+
+\begin{frame}{Experimental design}
+Ball and urn paradigm.
+\vspace{0.7em}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.03\linewidth} p{0.22\linewidth} p{0.32\linewidth} p{0.33\linewidth}@{}}
+\toprule
+T\# & Mechanism & Instructions & Identifies \\
+\midrule
+1 & Single-report BDM & Full info + quiz & H1 baseline \\
+2 & Belief MPL & Full info + quiz & H2, format matters \\
+3 & Single-report BDM & No info & H1a Info/no info test, condition 1 \\
+4 & Pure incentive test & --- & H1b pure incentive test, condition 2 \\
+5 & Flat fee & Accuracy encouragement & No-mechanism benchmark \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.7em}
+\small
+Within-subject: priors (easy) and posteriors after signals (hard). Identifies H4.
+
+Outcomes: Accuracy at $\varepsilon = 0$ and $\varepsilon = 5$pp (DVW 2022). Also multi-switching, response time, comprehension.
+
+\end{frame}
+
+\begin{frame}{Question 1: the overall design}
+\begin{block}{}
+Is there anything I am missing before we move forward?
+\end{block}
+
+\vspace{1em}
+\begin{itemize}
+\item Is the current design sufficient to identify H1 through H3?
+\item Is UJS the right framing for H2, or should the mechanism claim be contingent reasoning? UJS is cleanly identified by the design; CR would need a direct manipulation.
+\item How to design p-BDM pure incentive test? (coming up next)
+\item Is the within-subject easy/hard manipulation enough for H3?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{p-BDM pure-incentives test (H1b)}
+DVW report one p-BDM pure incentive test result: 69\% of subjects pick $q = 0$ at $\theta = 0.2$. WP is not available.
+
+\vspace{0.7em}
+\begin{itemize}
+\item $q = 0$ pays with probability $0.5$ regardless of event.
+\item $q = \theta = 0.2$ (the maximizer) pays with probability $0.68$ if $E$, $0.48$ otherwise, for an expected $0.52$.
+\item The EV gap between the maximizer and the event-independent option is 2 percentage points.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Proposal A: Example at $\theta = 0.2$}
+\small
+$P(\text{win} \mid E, q) = q + (1 - q^2)/2$, \quad $P(\text{win} \mid \lnot E, q) = (1 - q^2)/2$.
+
+\vspace{0.5em}
+\footnotesize
+\begin{tabular}{@{}c c c c l@{}}
+\toprule
+Report $q$ & $P(\text{win} \mid E)$ & $P(\text{win} \mid \lnot E)$ & EV & \\
+\midrule
+0.0 & 0.500 & 0.500 & 0.500 & event-independent \\
+0.1 & 0.595 & 0.495 & 0.515 & \\
+0.2 & 0.680 & 0.480 & 0.520 & maximizer, $q^* = \theta$ \\
+0.3 & 0.755 & 0.455 & 0.515 & \\
+0.4 & 0.820 & 0.420 & 0.500 & \\
+0.5 & 0.875 & 0.375 & 0.475 & \\
+0.6 & 0.920 & 0.320 & 0.440 & \\
+0.7 & 0.955 & 0.255 & 0.395 & \\
+0.8 & 0.980 & 0.180 & 0.340 & \\
+0.9 & 0.995 & 0.095 & 0.275 & \\
+1.0 & 1.000 & 0.000 & 0.200 & \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\footnotesize
+Mechanism and $q$ values hidden. Subject compares event-contingent payoff pairs directly --- no contingent reasoning across $r$ is required.
+\end{frame}
+
+\begin{frame}{Proposal B: Example at $\theta = 0.2$}
+Urn: 20 red balls, 80 blue. Event $E$ = red drawn. $P(E) = 0.2 = \theta$.
+
+\vspace{0.6em}
+Subject sees:
+
+\vspace{0.3em}
+\begin{quote}
+You will report a number $q$ from $\{0.0, 0.1, 0.2, \ldots, 1.0\}$. A random $r$ is drawn uniformly from $[0, 1]$.
+\begin{itemize}
+\item If $q \geq r$: you win \$$H$ if red.
+\item If $q < r$: you win \$$H$ with probability $r$.
+\end{itemize}
+Which $q$ do you pick?
+\end{quote}
+
+\vspace{0.3em}
+\footnotesize
+No payoff pairs shown. To find the maximizer, the subject must reason through what happens at each $r$ given each candidate $q$ --- full contingent reasoning demand preserved.
+\end{frame}
+
+\begin{frame}{Proposal C: Example at $\theta = 0.2$ (MPL side)}
+p-BDM side: same as Proposal A.
+
+\vspace{0.6em}
+MPL side: 10 binary choices, one per screen, random order. One row:
+
+\vspace{0.3em}
+\begin{quote}
+Urn: 20 red, 80 blue. $P(\text{red}) = 0.2$. Pick one:
+\begin{itemize}
+\item[(A)] Event bet: win \$$H$ if red.
+\item[(B)] 40\% lottery: win \$$H$ with probability $0.4$.
+\end{itemize}
+\end{quote}
+
+\vspace{0.3em}
+\footnotesize
+Rows span $r \in \{0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.7, 1.0\}$. Correct: event bet if $r < \theta$, $r$-lottery if $r > \theta$. Single crossing at $\theta$.
+
+\vspace{0.3em}
+If MPL pure-incentives pass rate $\gg$ p-BDM pure-incentives pass rate, the format-level UJS effect is isolated from belief formation.
+\end{frame}
+
+\begin{frame}{Three ways to run the test}
+\small
+\begin{tabular}{@{}p{0.12\linewidth} p{0.25\linewidth} p{0.25\linewidth} p{0.28\linewidth}@{}}
+\toprule
+ & A & B & C \\
+\midrule
+Menu & 11 options & 11 options & 11 opts + 10 rows \\[0.3em]
+Display & event-contingent pairs; mechanism hidden & native p-BDM framing & A-style + MPL rows \\[0.3em]
+$\theta$ & $\{0.2, 0.4, 0.6, 0.8\}$ & same & same \\[0.3em]
+Integration & within-subject & within-subject & between-subject \\[0.3em]
+MPL side & no & no & yes \\[0.3em]
+$N$ & 300 & 300 & 600 \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Question 2: which proposal?}
+Three competing accounts of the 69\% result:
+\begin{enumerate}
+\item EV-calculation failure.
+\item Ambiguity aversion or non-EU.
+\item UJS.
+\end{enumerate}
+
+\vspace{0.7em}
+Proposal A rules out (1) only weakly and is silent on UJS. Proposal B preserves the contingent reasoning demand and provides a direct UJS test. Proposal C also runs the MPL mechanism as a pure-incentives test; if MPL passes where p-BDM fails, UJS is the clear explanation.
+
+\vspace{0.8em}
+\begin{block}{}
+Which of A, B, or C identifies UJS most sharply against the alternatives? Is there a fourth design we should consider?
+\end{block}
+\end{frame}
+
+\begin{frame}{MPL format: what the literature says}
+Brown and Healy (2018) show that presentation format determines whether the MPL's IC survives subjects' behavior.
+
+\vspace{0.7em}
+List format induces subjects to treat the RPS list as one large decision and apply reduction of compound lotteries. ROCL combined with non-EU preferences forces a monotonicity violation (Segal 1990). Separated format (one row per screen, random order) does not trigger ROCL, so non-EU preferences have no mechanism-level consequence.
+
+\vspace{0.7em}
+Empirical result for risk elicitation: $p = 0.041$ (list) versus $p = 0.697$ (separated).
+\end{frame}
+
+\begin{frame}{MPL format: options and tradeoffs}
+The MPL arm is the backbone of H2 (MPL $>$ BDM). For that test to be clean, the format has to preserve IC, yield interpretable responses, and keep burden tolerable.
+
+\vspace{0.6em}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.36\linewidth} p{0.13\linewidth} p{0.18\linewidth} p{0.18\linewidth}@{}}
+\toprule
+Format & Screens & IC defense & Burden \\
+\midrule
+Full list (all rows on 1 screen) & 1 & Weak & Low \\
+Two-stage list (Holt \& Smith) & 2 & Weak & Moderate \\
+Full separated (100 rows) & 100 & Strong & High \\
+Coarse separated & 15--20 & Strong & Moderate \\
+Two-stage separated & 20--30 & Strong & High \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.7em}
+\footnotesize
+List formats give precision at low burden but inherit the ROCL concern. Separated formats preserve IC but raise burden and can produce multi-switching. Two-stage variants trade extra screens for finer precision.
+\end{frame}
+
+\begin{frame}{Question 3: MPL format}
+We are leaning toward coarse separated: 15 to 20 rows, one per screen, random order.
+
+\vspace{0.7em}
+This preserves IC per B\&H, keeps burden moderate, and gives 5pp precision, which is sufficient for our accuracy tests.
+
+\vspace{0.8em}
+\begin{block}{}
+B\&H tested risk preferences with known lotteries in each row. Our event bet is ambiguous (subjective $\pi$). ROCL operates across rows; ambiguity operates within a row, and format does not close it. Does the cross-row transfer hold cleanly enough to commit, or do we need an auxiliary B\&H transfer arm (100--150 additional subjects)?
+\end{block}
+\end{frame}
+
+\end{document}

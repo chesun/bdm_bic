@@ -1,10 +1,12 @@
 # 0014: Mechanism invariance is the correct framing for B&H's IA (framing-only, no format commitment)
 
 - **Date:** 2026-04-15
-- **Status:** Decided
+- **Status:** Superseded by #0015
 - **Scope:** IC foundation
 - **Supersedes:** #0007
 - **Data quality:** Full context
+
+> **Superseded 2026-04-17 by ADR-0015.** Christina reviewed `strategy_space_restriction_intuition.md` against Brown & Healy's verbatim conjecture and flagged that the "mechanism invariance + strategy-space restriction" framing in this ADR does not match B&H's actual argument. The canonical B&H story is about ROCL triggering, not strategy-space restriction. ADR-0015 supersedes this entry and adopts the canonical framing. Body preserved below per the append-only rule (only the Status field was edited).
 
 ## Context
 
