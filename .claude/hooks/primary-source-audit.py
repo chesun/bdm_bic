@@ -75,7 +75,11 @@ def main() -> None:
     if not citations:
         sys.exit(0)
 
+    # Scan escape hatches from prose AND from tool-use inputs. An escape
+    # hatch placed inside a file edit is valid evidence that the citation
+    # was intentionally ungrounded; no need to repeat in prose.
     escaped = lib.extract_escaped_stems(assistant_text)
+    escaped |= lib.extract_escaped_stems(lib.extract_tool_use_inputs(transcript_path))
 
     reading_notes_dir = project_root / "master_supporting_docs" / "literature" / "reading_notes"
     papers_dir = project_root / "master_supporting_docs" / "literature" / "papers"

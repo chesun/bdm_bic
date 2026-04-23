@@ -338,6 +338,37 @@ def extract_assistant_text(transcript_path: Path) -> str:
     return "\n".join(texts)
 
 
+def extract_tool_use_inputs(transcript_path: Path) -> str:
+    """Concatenate the string-valued fields of all tool_use inputs in the transcript.
+
+    Escape-hatch comments placed inside a file edit (Edit's new_string,
+    Write's content) appear in the transcript as part of a tool_use block,
+    not an assistant text block. Scanning here makes them visible to the
+    audit hook, so a user who scoped the escape hatch to the edit does not
+    also have to repeat it in prose.
+    """
+    texts: list[str] = []
+    for event in iter_transcript_events(transcript_path):
+        if event.get("type") != "assistant":
+            continue
+        msg = event.get("message", {}) or {}
+        content = msg.get("content", [])
+        if not isinstance(content, list):
+            continue
+        for block in content:
+            if not isinstance(block, dict):
+                continue
+            if block.get("type") != "tool_use":
+                continue
+            tool_input = block.get("input", {}) or {}
+            if not isinstance(tool_input, dict):
+                continue
+            for value in tool_input.values():
+                if isinstance(value, str):
+                    texts.append(value)
+    return "\n".join(texts)
+
+
 # ---------------------------------------------------------------------------
 # Block-message construction
 # ---------------------------------------------------------------------------
