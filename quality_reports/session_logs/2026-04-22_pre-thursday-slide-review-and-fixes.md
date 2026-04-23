@@ -306,6 +306,24 @@ Christina also flagged that coarse separated is the **belief analog of C&K 2025'
 1. Does the B&H belief-transfer hold cleanly enough to commit (existing question), or do we need the auxiliary B&H-transfer arm?
 2. Does the MS/Stage-2 ruling-out reasoning hold (new question)?
 
+## Addendum — ADR-0019 superseded by ADR-0020; MPL format re-opened
+
+Within a few hours of committing ADR-0019, Christina surfaced a concern that re-opened the decision: coarse separated gives 5pp precision, which works for our BIC test but does not constitute a general-purpose format recommendation for belief elicitation when precision is required. Locking in the decision forces us either to narrow our paper's contribution to "a format that works at 5pp" or to defend 5pp as always sufficient (hard to defend for applications needing point-belief recovery at higher precision).
+
+Cleaner: defer to Anujit. He has the strongest prior on (a) whether the MS/Stage-2 dilemma is actually fatal for two-stage formats, (b) whether there is a format we have not considered, (c) how the precision-vs-interpretability tradeoff should be presented in a format recommendation.
+
+**Per the append-only ADR rule, ADR-0019 cannot be demoted in place. Instead:**
+
+- **ADR-0020** (Decided) supersedes ADR-0019. Withdraws the commitment; restores the "MPL format selection" Pending decision in the README. ADR-0019's body (MS/Stage-2 dilemma argument, UJS-E belief-analog mapping, ruling-out reasoning) stands as analysis and will be cited by the post-meeting ADR that re-commits to a format.
+- **ADR-0019 Status** changed from Decided → Superseded by #0020. Body untouched.
+- **ADR README** — index updated (0019 shown as superseded); "MPL format selection" restored to the Pending-decisions list with a note describing the working lean.
+- **`mpl_format_decision_analysis.md`** — §11 reverted from "Recommendation (decided)" to "Recommendation (working lean; awaiting Anujit)". §7.5 verdict reverted from "adopted" to "working lean, not committed."
+- **Slide deck** — Q3 rewritten again. Opens with "Working lean: coarse separated..." rather than "We commit to coarse separated." Both open questions remain — the precision-vs-interpretability tradeoff (new; asks Anujit for his MPL-format view) and the B&H belief-transfer question (existing).
+
+**Net effect for tomorrow's meeting.** Q3 is now genuinely an open advisor question. Anujit's answer determines whether a post-meeting ADR re-commits to coarse separated (citing ADR-0019's analysis), commits to an alternative he surfaces, or leaves the format as a hedged recommendation in the paper.
+
+**Methodological note for the record.** ADR-0019 → ADR-0020 supersession within the same day may look like thrashing, but the append-only ADR structure handles it cleanly: the analysis is preserved, the commitment is withdrawn, and the next commitment will cite both as context. Preferable to either (a) editing ADR-0019 in place (forbidden by the append-only rule) or (b) pretending the commitment did not happen.
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed

@@ -212,15 +212,18 @@ List formats give precision at low burden but inherit the ROCL concern. Two-stag
 \end{frame}
 
 \begin{frame}{Question 3: MPL format}
-Coarse separated: 15 to 20 rows, one per screen, random order. This is the belief analog of C\&K's UJS-E mechanism (they run it as a descending-price clock; same game structure per their characterization).
+Working lean: coarse separated (15--20 rows, one per screen, random order) --- the belief analog of C\&K's UJS-E mechanism. Works for our BIC test at 5pp precision, but does not generalize to precision-sensitive belief elicitation.
+
+\vspace{0.4em}
+Two-stage formats (list or separated) hit an MS/Stage-2 dilemma: force SS censors behavior, crossing rules break IC, skip-Stage-2 is asymmetric. Full separated is 100 screens.
 
 \vspace{0.5em}
 \begin{block}{}
-B\&H tested risk preferences with known lotteries in each row. Our event bet is ambiguous (subjective $\pi$). ROCL operates across rows; ambiguity operates within a row, and format does not close it. Does the cross-row transfer hold, or do we need an auxiliary B\&H transfer arm (100--150 subjects)?
+What is your view on MPL format for belief elicitation, given the precision-vs-interpretability tradeoff?
 \end{block}
 
 \begin{block}{}
-Two-stage formats (list or separated) are ruled out: MS in Stage 1 has no implementable resolution (force SS censors; crossing rules break IC; skip-Stage-2 is asymmetric). Does this reasoning hold?
+B\&H's IC-preservation result used risk preferences with known lotteries. Our event bet is subjective. Does the cross-row transfer hold, or do we need an auxiliary B\&H arm?
 \end{block}
 \end{frame}
 

@@ -1,7 +1,7 @@
 # 0019: MPL format is coarse separated (15–20 rows, one per screen, random order)
 
 - **Date:** 2026-04-22
-- **Status:** Decided
+- **Status:** Superseded by #0020
 - **Scope:** Methodology
 - **Data quality:** Full context
 

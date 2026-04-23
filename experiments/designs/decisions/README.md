@@ -95,7 +95,8 @@ What this commits us to. What it rules out. Open questions it creates.
 | [0016](0016_scope-pure-incentives-to-pbdm-only.md) | Scope pure-incentives test to p-BDM only; MPL-side pure-incentives is future work | 2026-04-22 | Decided | Experimental design |
 | [0017](0017_pure-incentives-between-subject-theta-within.md) | Pure-incentives test: between-subject arm, within-subject θ; θ values open | 2026-04-22 | Decided | Experimental design |
 | [0018](0018_retire-three-accounts-trichotomy.md) | Retire "three competing accounts" framing for pure-incentives failure | 2026-04-22 | Decided | Research framing |
-| [0019](0019_mpl-format-coarse-separated.md) | MPL format: coarse separated (15–20 rows, one per screen, random order) | 2026-04-22 | Decided | Methodology |
+| [0019](0019_mpl-format-coarse-separated.md) | MPL format: coarse separated (15–20 rows, one per screen, random order) | 2026-04-22 | Superseded by [#0020](0020_mpl-format-reopened-pending-advisor.md) | — |
+| [0020](0020_mpl-format-reopened-pending-advisor.md) | MPL format selection re-opened as Pending; ADR-0019 commitment withdrawn | 2026-04-22 | Decided | Methodology |
 
 ---
 
@@ -103,7 +104,7 @@ What this commits us to. What it rules out. Open questions it creates.
 
 These are decisions that need to happen but aren't resolved. They get an ADR when resolved, not before.
 
-- ~~**MPL format selection**~~ — resolved by ADR-0019 (2026-04-22): coarse separated, 15–20 rows, one per screen, random order. §11 of `mpl_format_decision_analysis.md` updated from tentative to decided. §7.6 revise-screen-as-secondary remains open as a robustness design question.
+- **MPL format selection** — re-opened by ADR-0020 (2026-04-22) after ADR-0019's brief-lived commitment was withdrawn. Coarse separated (§7.5 of `mpl_format_decision_analysis.md`) remains the working lean for our BIC test, but is not committed as a general format recommendation — the 5pp precision does not extend to precision-sensitive belief elicitation settings. Deferred to Anujit on Q3 of the advisor meeting. Post-meeting ADR will either re-commit to coarse separated on his endorsement or commit to an alternative he surfaces.
 - **Flat-fee control arm** — open question in `quality_reports/research_direction_discussion_2026-04-07.md` Remaining Open Questions #4.
 - **Final sample size** (600 vs. 450 minimal) — proposed in `quality_reports/research_ideas_bdm_bic.md` §3 Direction 1, not locked.
 - **Belief elicitations per subject** — power vs. fatigue trade-off, open in `research_direction_discussion_2026-04-07.md` Open Q #5.

@@ -292,7 +292,7 @@ Originated in Trautmann & van de Kuilen (2015, *Economic Journal*, "Belief Elici
 
 Same game structure. Presentation differences: C&K use descending order (clock metaphor natural for WTA); we use random order (per B&H 2018 ROCL-suppression rationale, ADR-0015); C&K run it as a dynamic clock, we as a static list with one row per screen. Both are UJS per the characterization theorem — the order and dynamic/static presentation are implementation choices, not structural requirements of UJS.
 
-**Verdict:** adopted as the MPL format. See ADR-0019. The IC/burden trade-off is the best of the viable options after 7.1, 7.2, 7.3, 7.4, 7.7 are ruled out, and the UJS-E analog gives a positive theoretical anchor (not just "the option that survives process of elimination").
+**Verdict (2026-04-22, post ADR-0020):** working lean for our BIC test, not committed. ADR-0019 briefly committed to coarse separated but was superseded by ADR-0020 the same day when Christina flagged that 5pp precision does not generalize as a recommendation for precision-sensitive belief elicitation. The IC/burden trade-off remains the best among viable options for *our* test (after 7.1, 7.2, 7.3, 7.4, 7.7 are ruled out or disfavored per the MS/Stage-2 dilemma and burden constraints), and the UJS-E analog remains a positive theoretical anchor. But whether this is also a *general* belief-MPL recommendation depends on Anujit's view — deferred to Q3 of the advisor meeting.
 
 ### 7.6 Hybrid: coarse separated with consistency-check revise screen
 
@@ -397,9 +397,9 @@ Before choosing a format, Christina should commit to each of the following:
 
 ---
 
-## 11. Recommendation (decided 2026-04-22)
+## 11. Recommendation (working lean; awaiting Anujit — 2026-04-22)
 
-**Primary MPL arm: coarse separated (15-20 rows, one per screen, random order), without revise screen.** Committed in ADR-0019.
+**Primary MPL arm: coarse separated (15-20 rows, one per screen, random order), without revise screen.** This is the working lean for our BIC test specifically. ADR-0019 briefly committed to it; ADR-0020 the same day re-opened the decision pending Anujit's input, because 5pp precision does not extend as a general belief-MPL recommendation for precision-sensitive settings.
 
 Reasoning:
 
