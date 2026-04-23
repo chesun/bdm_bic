@@ -115,12 +115,76 @@ Pick up the advisor-meeting prep after the 2026-04-20 session. The meeting with 
 
 | Check | Result | Status |
 |---|---|---|
-| Hook blocks Edit/Write on enforceable path with citation lacking notes (Li 2017 test) | Block message printed correctly with remediation path | PASS |
+| Hook blocks Edit/Write on enforceable path with citation lacking notes (test case using Li 2017) | Block message printed correctly with remediation path | PASS |
 | Hook allows Edit/Write when dedicated or compiled notes exist (C&K 2025 test) | Exit 0, no output | PASS |
 | Hook allows silently on non-enforceable path | Exit 0, no output | PASS |
 | Hook honors escape hatch comment | Exit 0, no output | PASS |
 | `04_slides.tex` still compiles after bullet drop | 15 pages, two pre-existing hbox warnings, no new warnings | PASS |
 | Primary-source-first rule file + hook + reading-notes README + C&K notes all present and readable | `ls` confirms all five files | PASS |
+
+<!-- primary-source-ok: li_2017, koszegi_2030 -->
+
+## Enhancement — Three gap closures (2026-04-22 late evening)
+
+Christina identified three gaps in the initial enforcement design:
+
+1. Claims in conversation prose that never become a tool call (PreToolUse hooks can't see them).
+2. Claims that pass existence-check but don't actually reflect consulting the notes.
+3. Papers not in the repo at all — the initial design exited green; Christina wants this blocking.
+
+All three closed in one commit.
+
+**Library refactor.** Shared logic extracted to `.claude/hooks/primary_source_lib.py` so the PreToolUse hook and the new Stop hook reuse citation detection, notes-match resolution, session-transcript inspection, and block-message construction. The library exposes `describe_missing_status(stem, notes_dir, papers_dir, transcript_path)` which returns one of four values: `None` (satisfied), `MISSING_NOTES_PDF_EXISTS`, `MISSING_NOTES_NO_PDF`, `NOTES_NOT_READ_IN_SESSION`.
+
+**PreToolUse enhancement (`primary-source-check.py`).** Now rejects in all three failure-mode classes. Differentiated block messages per status. Pulls `transcript_path` from the hook input and verifies notes were touched (Read/Write/Edit) in-session.
+
+**New Stop hook (`primary-source-audit.py`).** Scans all assistant text blocks in the session transcript at Stop. For each citation found in prose, runs the same check. Blocks the turn-end if any citation lacks evidence. Respects `stop_hook_active` to avoid loops.
+
+**Two library bugs found during testing, both fixed.**
+
+- *PDF match failure.* The initial regex `\bchakraborty.*\bkendall\b` did not match filenames like `Chakraborty_Kendall_2025_UJS_elicitation.pdf`, because `_` is a regex word character — no `\b` boundary between underscore-separated name tokens. Replaced with tokenization: split filename on non-alphanumeric, check surnames and year are distinct tokens. Now robust to the project's filename convention.
+- *Notes-match false positives.* The initial matcher accepted any markdown section header mentioning the paper's authors and year. This flagged `README.md` (which quotes "Chakraborty & Kendall (2025)" as an example in the template) and `mechanism_taxonomy.md` (which uses C&K in a perspective header) as if they were reading notes for the paper. Fix: only accept `**Citation:** Author ... Year` metadata lines, not section headers. A `**Citation:**` line is the reliable signal for "this section is reading notes for this paper."
+
+**Session-touch semantics.** "Consulted the notes" = Read, Write, or Edit on the notes file during the session. Writing or editing the notes file counts because the author knows its contents as well as a reader does. Only Read is required for pure consultation.
+
+**End-to-end tests (all pass).**
+
+| Scenario | Hook | Expected | Observed |
+|---|---|---|---|
+| Scoped edit, citation with notes + compiled-file touched in session | PreToolUse | allow | allow |
+| Scoped edit, citation with PDF but no notes (Li 2017 test case) | PreToolUse | block MISSING_NOTES_PDF_EXISTS | block ✓ |
+| Scoped edit, citation with notes but empty session transcript | PreToolUse | block NOTES_NOT_READ_IN_SESSION | block ✓ |
+| Scoped edit, citation with neither PDF nor notes (Koszegi 2030 test case) | PreToolUse | block MISSING_NOTES_NO_PDF | block ✓ |
+| Scoped edit, citation with escape hatch in delta | PreToolUse | allow | allow |
+| Prose mention of Li 2017 in transcript, stop_hook_active=false | Stop | block | block ✓ |
+| Prose mention of Li 2017 with escape hatch in same message | Stop | allow | allow |
+| Prose mention, stop_hook_active=true (loop prevention) | Stop | allow | allow |
+
+## Additional Design Decisions (late evening)
+
+| Decision | Alternatives considered | Rationale |
+|---|---|---|
+| Session-scoped rather than persistent "read" evidence | Persistent flag that once a paper is read in ANY session, it's satisfied; reset on paper update | Session-scoped is the stronger discipline — matches the "don't work from cached context" principle. The original UJS failure was exactly the cached-context failure mode. Cost: re-touching notes at session start. Benefit: deterministic prevention. |
+| Stop-hook block scoped to entire session prose, not last N messages | Stop-hook checks only the most recent assistant message | Citations in earlier messages that never got challenged should still surface. Cost: longer transcript scan; acceptable at 15s timeout. |
+| Drop section-header matching for notes discovery | Keep section-header matching, add exclusion list for non-notes files | Section headers are not a reliable signal — conceptual memos and templates may mention papers in headers without being notes about them. `**Citation:**` metadata lines are a clean signal. Pre-existing compiled file uses them consistently. |
+| Broaden "touched in session" to include Write/Edit, not just Read | Require only Read | Writing a notes file in-session is equivalent to having read it (same author knowledge). Forcing a Read after Write would be busywork. |
+| Block MISSING_NOTES_NO_PDF instead of exiting green | Keep the "paper not in repo → can't enforce, allow" path | User directive: papers not yet in the repo should be blocking until added. Prevents citing papers that nobody has access to. Remediation message tells Claude to add the PDF first. |
+
+## Additional Changes (late evening)
+
+| File | Change | Reason |
+|---|---|---|
+| `.claude/hooks/primary_source_lib.py` (new) | Shared library — citation detection, notes resolution, transcript inspection, block-message building. Python module name with underscores (not dashes) to allow imports. | Eliminates duplication between the two hooks. |
+| `.claude/hooks/primary-source-check.py` (rewritten) | Thin wrapper over the library. Pulls transcript_path from hook input. Uses `describe_missing_status` for each citation. | Refactor for new three-way logic. |
+| `.claude/hooks/primary-source-audit.py` (new) | New Stop hook. Scans assistant prose in the transcript for citations. Blocks turn-end on un-grounded claims. Respects `stop_hook_active`. | Closes Gap 1 (prose claims outside tool calls). |
+| `.claude/settings.json` | Audit hook registered in the Stop block alongside the existing log-reminder. | Enable the Stop audit. |
+| `.claude/rules/primary-source-first.md` | Rewritten to describe the three failure modes, the dual-hook enforcement, the escape-hatch scope, and the `**Citation:**`-line-only matching rule. | Document the expanded design. |
+
+## Open Questions / Blockers (updated)
+
+- FRAMING-1 / TWEAK-1 / other tweaks: unchanged from earlier this session.
+- **Backfill load.** With the strict session-scope rule, every session that makes framing claims must Read the compiled notes file (or dedicated per-paper files). This is mild discipline but worth flagging — Christina may want a one-line shortcut like "Read the compiled notes first thing in every session" as an habit.
+- **Li 2017 and Koszegi 2030 references in this session.** Used as test-case labels, not framing claims. Escape-hatched at the top of this addendum block so the Stop audit does not block on them. If Li 2017 becomes a real citation in the paper, it needs its own reading-notes file (its PDF is already in `literature/papers/`).
 
 ## Cross-References
 

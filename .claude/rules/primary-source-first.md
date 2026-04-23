@@ -1,28 +1,38 @@
 # Primary-Source-First
 
-**Scope:** `experiments/designs/decisions/**`, `bdm_bic_paper/paper/**`, `quality_reports/advisor_meeting_*/**`, `quality_reports/session_logs/**`, `quality_reports/plans/**`, `quality_reports/*_analysis.md`
-**Enforcement:** PreToolUse hook at `.claude/hooks/primary-source-check.py` (blocks Edit/Write)
+**Scope (file-level):** `experiments/designs/decisions/**`, `bdm_bic_paper/paper/**`, `quality_reports/advisor_meeting_*/**`, `quality_reports/session_logs/**`, `quality_reports/plans/**`, `quality_reports/*_analysis.md`
+**Scope (prose):** all assistant conversation text in the session
+**Enforcement:**
+- `.claude/hooks/primary-source-check.py` (PreToolUse, Edit|Write) — blocks edits to scoped files
+- `.claude/hooks/primary-source-audit.py` (Stop) — blocks turn-end when session prose makes un-grounded claims
 
-Before making a framing claim about an external paper in any of the scoped files, read the primary source. Derivative docs (ADRs, session logs, analysis memos, other reading notes) can compress or misstate the original — downstream claims then propagate the error silently.
+Before making a framing claim about an external paper — in a file edit OR in conversation text — consult the primary source. Derivative docs and paraphrases lose precision; downstream claims propagate the error silently.
 
-## Mechanism
+## Three enforced failure modes
 
-A PreToolUse hook watches Edit/Write to the scoped file patterns. It scans the delta (the new content being written) for Author–Year citation patterns. For each citation:
+1. **Notes don't exist AND the PDF is in the repo.** Blocks with "read the PDF, write notes." The remediation is to use the `pdf-learnings` skill on long papers or the `Read` tool with `pages=` on short ones, then produce a notes file per `master_supporting_docs/literature/reading_notes/README.md`.
 
-- If a reading-notes file exists for the paper in `master_supporting_docs/literature/reading_notes/` → allow.
-- If no reading-notes file AND the PDF is NOT in `master_supporting_docs/literature/papers/` → allow (paper not yet in the repo; nothing to enforce).
-- If no reading-notes file AND the PDF IS in `master_supporting_docs/literature/papers/` → **block**.
+2. **Notes don't exist AND the PDF is NOT in the repo.** Blocks with "add the PDF first." A citation you cannot ground in a primary source does not belong in a load-bearing artifact. The remediation is to add the PDF to `master_supporting_docs/literature/papers/` (naming it with the surname-year convention so the hook can find it), then produce notes.
 
-The remediation on a block: open the PDF (use the `pdf-learnings` skill for token-efficient extraction on long papers), produce a notes file following the template in `master_supporting_docs/literature/reading_notes/README.md`, then re-run the edit.
+3. **Notes exist but were not touched in this session.** Blocks with "Read the notes file before citing." This is the guard against working from cached context. Touching (Read / Write / Edit) a notes file in the current session is the evidence; a prior session's Read does not persist — sessions are fresh contexts.
+
+## Where the two hooks apply
+
+- **PreToolUse hook** — scans the *delta* (new_string for Edit, content for Write) of every Edit/Write to a scoped file path. Fires on each tool call; blocks the call.
+- **Stop hook** — scans *all assistant prose* in the session transcript at turn-end. Fires on Stop; blocks the turn-end. Catches claims made in conversation that never went to a tool call. Respects `stop_hook_active` to avoid loops (blocks at most once per turn).
+
+Both hooks share citation-detection and notes-verification logic in `.claude/hooks/primary_source_lib.py`.
 
 ## What counts as a reading-notes file
 
 Either form is accepted by the hook:
 
 1. A **per-paper file** named with the citation stem: `chakraborty_kendall_2025.md`, `danz_vesterlund_wilson_2024.md`, etc.
-2. A **section inside a compiled reading-notes file** where a line matches the paper's author–year pattern (existing `bdm_bic_2026-03.md` uses this form with `## N. Author Year — Title` headers).
+2. A **section inside a compiled reading-notes file** that includes a `**Citation:** ...` metadata line naming the paper's authors and year. Existing `bdm_bic_2026-03.md` uses this form — each paper has a section header *and* a citation-metadata line; the hook matches on the citation line specifically.
 
 Per-paper files are preferred for load-bearing references. Compiled files are acceptable for batch reading sprints.
+
+**Why citation-line-only (not section-header) matching:** documents like the reading-notes README or conceptual memos may mention a paper in a header without being notes about it. The `**Citation:** Author (Year)...` line is the reliable signal that "this section is reading notes for this paper."
 
 ## Required sections in a reading-notes file
 
@@ -34,13 +44,16 @@ Use this section to head off future conflation errors. For UJS specifically: "UJ
 
 ## Escape hatch
 
-If you need to edit a file that references a cited paper *without* making a new framing claim (e.g., fixing a typo in an existing sentence that happens to cite the paper), include an override in the delta:
+If you need to cite a paper *without* making a new framing claim (e.g., fixing a typo in an existing sentence that happens to cite the paper; referring to a paper as a test case or example without claiming anything about its content), include an override comment:
 
 ```
 <!-- primary-source-ok: chakraborty_kendall_2025, danz_vesterlund_wilson_2024 -->
 ```
 
-The hook parses this comment and skips the named citation stems for this call only. Abuse is auditable: grep `master_supporting_docs/` and `quality_reports/` for `primary-source-ok` to see where the hatch has been used.
+- For PreToolUse (file edits): include the comment in the delta.
+- For the Stop audit (conversation prose): include the comment in the same assistant message as the citation.
+
+The comment only applies to the scope where it appears — it is not session-wide. Abuse is auditable: `grep -R "primary-source-ok" master_supporting_docs/ quality_reports/ bdm_bic_paper/` surfaces every use.
 
 ## Why this exists
 
@@ -48,9 +61,13 @@ The hook parses this comment and skips the named citation stems for this call on
 
 ## Intended behavior
 
-When I am about to write or edit content in a scoped file and the content makes a claim about a cited paper, the hook either:
+When content cites a paper — whether in a file edit or in conversation prose — the hooks either:
 
-- Allows the edit (reading notes exist; paper has been engaged with).
-- Blocks the edit with a clear remediation path (read the PDF, produce notes, re-run).
+- Allow (notes exist AND were consulted this session).
+- Block with a clear remediation path: read the PDF (or add it first if missing), produce notes, touch the notes file in this session, re-run.
 
-The rule is not a suggestion. It fires on the tool call; the only way through without notes is the escape hatch, which is auditable.
+The rule is not a suggestion. It fires deterministically. The only way through without notes is the escape hatch, which is auditable.
+
+## Why this exists (expanded)
+
+On 2026-04-22, Claude propagated the claim "UJS is a formal property distinct from contingent reasoning" through ADR-0013, a session log, the 2026-04-20 identification analysis, and the 2026-04-22 slide review — never opening `Chakraborty_Kendall_2025_UJS_elicitation.pdf` despite it being in the repo, and never opening the existing compiled reading notes at `bdm_bic_2026-03.md#9` despite those notes having the framing correct. The error originated in a paraphrase and got amplified across four docs. The three failure modes above — missing notes with PDF present, missing notes with no PDF, and existing notes not consulted in-session — are each paths the original failure could have been caught; the hooks make all three deterministically blocking.
