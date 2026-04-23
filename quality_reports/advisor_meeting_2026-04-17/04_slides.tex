@@ -178,7 +178,7 @@ A, B, or something else?
 \end{block}
 \end{frame}
 
-\begin{frame}{MPL format: what the literature says}
+\begin{frame}{MPL format: the problem}
 Brown and Healy (2018) show that presentation format determines whether the MPL's IC survives subjects' behavior.
 
 \vspace{0.7em}
@@ -208,14 +208,29 @@ Two-stage separated & 20--30 & Strong & High \\
 
 \vspace{0.7em}
 \footnotesize
-List formats give precision at low burden but inherit the ROCL concern. Two-stage variants (list or separated) hit an MS/Stage-2 dilemma: enforcing single-switching in Stage 1 censors MS, while allowing MS breaks Stage-2 implementability. Coarse separated sidesteps both: MS is observable and reported descriptively per C\&K 2025; format preserves IC per B\&H 2018.
+List formats inherit the B\&H ROCL concern (previous slide). Two-stage formats (list or separated) hit a structural dilemma --- next slide.
+\end{frame}
+
+\begin{frame}{Two-stage formats: the MS/Stage-2 dilemma}
+Any two-stage design narrows Stage 2's probability range based on Stage 1's crossing. If Stage 1 multi-switches (MS), there is no clean resolution:
+
+\vspace{0.5em}
+\begin{itemize}
+\item \textbf{Force single-switching in Stage 1.} Stage 2 implementable, but censors MS behavior. C\&K 2025 benchmark: 29.7--43.7\% MS rates; forcing SS throws that data away and silently pushes subjects into patterns they would not have chosen.
+\item \textbf{Allow MS, pick a crossing rule} (first, median, etc.). Arbitrary and breaks IC --- subject does not know ex ante which row determines payment, so the random-incentive guarantee fails.
+\item \textbf{Skip Stage 2 for MS subjects.} Asymmetric rounds across subjects; precision gain lost precisely for the subjects whose data is most informative about inconsistency.
+\end{itemize}
+
+\vspace{0.4em}
+Stage 2 MS within $\sim$1pp spacing is harder still: likely indifference or noise, but operationally still no crossing.
+
+\vspace{0.4em}
+\footnotesize
+Applies equally to two-stage list (Holt \& Smith) and two-stage separated --- structural property of any design that narrows based on Stage-1 behavior, not list-specific.
 \end{frame}
 
 \begin{frame}{Question 3: MPL format}
 Working lean: coarse separated (15--20 rows, one per screen, random order) --- the belief analog of C\&K's UJS-E mechanism. Works for our BIC test at 5pp precision, but does not generalize to precision-sensitive belief elicitation.
-
-\vspace{0.4em}
-Two-stage formats (list or separated) hit an MS/Stage-2 dilemma: force SS censors behavior, crossing rules break IC, skip-Stage-2 is asymmetric. Full separated is 100 screens.
 
 \vspace{0.5em}
 \begin{block}{}
