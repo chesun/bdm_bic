@@ -238,6 +238,27 @@ Our Proposal A's working description ("within-subject, immediately after main BD
 
 **Hook interaction.** The PreToolUse hook allowed all three edits (slide, ADR, notes) because C&K 2025 notes had been touched this session and because I wrote the DVW 2022 notes file *first* before editing the ADR that cites it. Intended order-of-operations for primary-source-first compliance.
 
+## Addendum — Slide 10 dropped; Q2 reframed away from DVW 69% anchor (late evening)
+
+Christina flagged two concerns with the post-ADR-0017 deck state:
+
+1. The "Two ways to run the test" summary table (post-ADR-0017 slide 10) duplicates what the Proposal A and Proposal B example slides already convey.
+2. Q2 (slide 11) was still framed around "three competing accounts of the 69% result" — a construct Christina is not convinced by. The framing also over-anchored on the single DVW 2022 p-BDM result as the motivating puzzle, which makes the design sound derivative rather than diagnostic.
+
+**Edits applied:**
+
+- Removed the "Two ways to run the test" summary table slide entirely. Proposal A and Proposal B example slides stand on their own; the integration and sample-structure details from ADR-0017 are now carried verbally rather than in a table.
+- Rewrote Q2 (slide 11). Dropped the three-accounts enumeration (EV-calc failure / ambiguity aversion / UJS). Dropped the "69% result" reference. Reframed around the general pure-incentives-test diagnostic: "The pure-incentives test diagnoses BIC failure by asking whether subjects identify the payoff-maximizer with beliefs stripped from the task." Kept the A-vs-B-vs-both structure as the design choice and inlined the between-subject/within-subject θ structure from ADR-0017.
+
+Deck now 13 pages (down from 14). Recompiled clean.
+
+**Residual 69% anchors not touched this edit** (flagged to Christina for possible follow-up):
+
+- Literature slide still reads "69% of subjects pick q=0 under p-BDM at induced θ=0.2."
+- p-BDM pure-incentives setup slide still reads "DVW report one p-BDM pure incentive test result: 69% of subjects pick q=0 at θ=0.2."
+
+If the broader goal is to frame as general pure-incentives-test failure rather than "replicate/explain the 69%," those two slides may also warrant revision. Not done this turn; awaiting Christina's call.
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed
