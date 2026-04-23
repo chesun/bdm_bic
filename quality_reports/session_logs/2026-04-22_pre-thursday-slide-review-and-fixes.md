@@ -324,6 +324,18 @@ Cleaner: defer to Anujit. He has the strongest prior on (a) whether the MS/Stage
 
 **Methodological note for the record.** ADR-0019 → ADR-0020 supersession within the same day may look like thrashing, but the append-only ADR structure handles it cleanly: the analysis is preserved, the commitment is withdrawn, and the next commitment will cite both as context. Preferable to either (a) editing ADR-0019 in place (forbidden by the append-only rule) or (b) pretending the commitment did not happen.
 
+## Addendum — MS/Stage-2 dilemma promoted to its own slide; slide 11 bulletized
+
+Two final deck refinements this session:
+
+1. **MS/Stage-2 dilemma on its own slide.** Christina asked to break the dilemma discussion out of the options-and-tradeoffs table footnote into a dedicated slide. Done: new slide "Two-stage formats: the MS/Stage-2 dilemma" sits between the options table and Q3, covering the three response options (force SS censors; crossing rule breaks IC; skip-Stage-2 is asymmetric) with bulleted formatting for easier verbal walk-through. Q3's own recap of the dilemma is removed since it now has its own slide.
+
+2. **Slide 11 ("MPL format: the problem") bulletized.** The slide previously read as a dense paragraph covering ROCL, monotonicity, Segal's theorem, and Azrieli's IC result in one flow. Rewritten as a four-step enumerate showing the causal chain that breaks IC in list format, then a single paragraph explaining how separated format breaks step 1. Empirical result moved to a small-font footnote at the bottom. Logic is now visible step-by-step; Anujit can push on any link.
+
+**Segal 1990 handling.** The four-step chain cites Segal 1990 for the "ROCL + non-EU → monotonicity violation" theorem. The paper's PDF is not in `literature/papers/` and there are no reading notes for it; Segal is referenced as a theoretical result rather than as a paper whose content we engage with. Escape-hatched via a LaTeX comment `% <!-- primary-source-ok: segal_1990 -->` at the top of the frame — invisible in the PDF, readable by the hook. Future work: if we want to engage with Segal's paper in the manuscript, add the PDF and produce notes.
+
+**Deck state:** 14 pages, compiles clean.
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed
