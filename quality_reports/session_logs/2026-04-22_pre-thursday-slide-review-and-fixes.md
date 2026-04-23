@@ -357,6 +357,97 @@ Christina ran a sweep across the MPL format slides to strip AI patterns:
 
 Deck now 15 pages, compiles clean.
 
+## End-of-session Summary (2026-04-22 late evening)
+
+### Headline
+
+Meeting with Anujit originally scheduled 2026-04-17 moved to 2026-04-23. Today's session ran deep: started as a slide review, surfaced the UJS-vs-CR conflation error in derivative docs, led to building enforceable primary-source-first infrastructure, then iterated through four MPL-format design decisions and a full simplification pass on the advisor deck. Six ADRs were written today (0016–0021, with 0019 superseded by 0020). The deck ended at 15 pages.
+
+### What the deck looks like now (commit `dbe679d`)
+
+| # | Slide | Purpose |
+|---|---|---|
+| 1 | Title | — |
+| 2 | Literature | DVW (69% at θ=0.2) + C&K (UJS) intro |
+| 3 | Research questions and contribution | RQs + contribution |
+| 4 | **Theoretical IC: 2 Approaches** (new today) | Karni dominance + prob sophistication; Azrieli et al. monotonicity (strictly weaker) |
+| 5 | Hypotheses | H1(a,b), H2, H3 |
+| 6 | Experimental design | 5-arm table + within-subject note |
+| 7 | Q1: overall design | Gate question |
+| 8 | p-BDM pure-incentives test (H1b) | Setup + EV math |
+| 9 | Proposal A example | Menu hidden |
+| 10 | Proposal B example | Native framing |
+| 11 | Q2: A, B, or both? | Advisor question |
+| 12 | MPL format: the problem | Four-step IC-breaking chain (bulletized) |
+| 13 | MPL format: options and tradeoffs | 5-option table with ROCL concern / Precision columns |
+| 14 | Two-stage formats: the Multiple Switching dilemma | Three response options, each with a distinct cost |
+| 15 | Q3: MPL format | Proposal + Pro/Con + open advisor question |
+
+### ADRs written today
+
+1. **ADR-0016** (Experimental design): scope the pure-incentives test to p-BDM only; MPL-side pure-incentives test is future work. Resolves the "MPL counterpart" open dimension in ADR-0011.
+2. **ADR-0017** (Experimental design): pure-incentives test is a between-subject arm relative to main BDM; θ varies within-subject; exact θ values open. Matches DVW 2022's methodology (verified against Online Appendix §C.4). Resolves two more of ADR-0011's open dimensions.
+3. **ADR-0018** (Research framing): retire the "three competing accounts" trichotomy (EV-calc / ambiguity / UJS-CR) for pure-incentives failure. The trichotomy was reverse-engineered from the A/B/C design space; when C was dropped, it collapsed. A pure-incentives failure *is* the BIC failure per DVW's Condition 2. Paired feedback memory `feedback_no_post_hoc_trichotomies.md`.
+4. **ADR-0019** (Methodology, brief-lived): commit to coarse separated MPL format based on MS/Stage-2 dilemma + UJS-E belief-analog arguments. **Superseded by 0020 the same day.**
+5. **ADR-0020** (Methodology, supersedes 0019): re-open MPL format as Pending. Coarse separated remains working lean; 5pp precision doesn't generalize as a recommendation; defer to Anujit on Q3.
+6. **ADR-0021** (IC foundation): ball-and-urn probabilities are objective, not Ellsberg-ambiguous. Narrows ADR-0005: within-row ambiguity channel from MPL analysis §6.3 does not apply to our design. The only B&H transfer concern remaining is cross-row ROCL, blocked by ADR-0015's separated format. Scoped to ball-and-urn setups.
+
+### Framing corrections propagated
+
+Two substantive framing errors were corrected today and memorialized to prevent recurrence:
+
+- **UJS is a CR formalization, not a distinct framework.** C&K 2025 defines UJS *through* contingent-reasoning paths. Error had propagated through ADR-0013, the 2026-04-20 identification analysis, and the 2026-04-22 initial slide review because Claude had never read `Chakraborty_Kendall_2025_UJS_elicitation.pdf` (or the existing compiled notes at `bdm_bic_2026-03.md#9`). Corrected via `project_ujs_is_cr_formalization.md` (project memory); Q1 CR-vs-UJS bullet dropped from deck; derivative docs audited (`01_p-bdm-design-space-synthesis.md` line 71 fixed; 2026-04-20 session log addendum added).
+- **Three-accounts trichotomy for pure-incentives failure was reverse-engineered.** Retired via ADR-0018; methodological lesson captured in `feedback_no_post_hoc_trichotomies.md`.
+
+### Infrastructure built
+
+Primary-source-first enforcement, in response to the UJS-CR propagation failure:
+
+- **Rule:** `.claude/rules/primary-source-first.md` states the principle and the reading-notes contract.
+- **PreToolUse hook:** `.claude/hooks/primary-source-check.py` blocks edits to load-bearing files (ADRs, paper main.tex, advisor materials, session logs, plans, analysis memos) when cited papers lack reading-notes evidence. Three failure modes: notes missing + PDF in repo; notes missing + no PDF (add PDF first); notes exist but not touched in session.
+- **Stop audit hook:** `.claude/hooks/primary-source-audit.py` scans assistant prose in the transcript at turn-end. Catches citations in chat text that never went through a tool call.
+- **Shared library:** `.claude/hooks/primary_source_lib.py` (citation detection, notes resolution, session-transcript inspection, block-message construction).
+- **Reading-notes README:** `master_supporting_docs/literature/reading_notes/README.md` defines the canonical structure with a required "What this paper is NOT claiming" section designed to prevent the UJS-class failure mode.
+- **First dedicated notes file:** `chakraborty_kendall_2025.md` with verbatim definitions and five anticipated misreadings.
+- **Second dedicated notes file:** `danz_vesterlund_wilson_2022.md` written after Christina asked about DVW's integration structure; captures verbatim §C.4 instructions from the Online Appendix and Table A.1/A.2 numerics.
+
+Two bugs surfaced during hook testing and fixed:
+- PDF filename match was failing on underscore-separated names because `_` is a regex word character (defeats `\b`); replaced with tokenization on non-alphanumeric.
+- Notes-match false-positived on README / mechanism_taxonomy headers mentioning papers in section titles; tightened to require `**Citation:**` metadata lines.
+- Audit hook wasn't seeing escape hatches placed inside tool-use inputs (e.g., in an Edit's `new_string`); extended to scan tool_use input string fields.
+
+### Simplifications (by Christina) accepted
+
+Christina ran a sweep across the MPL-format slides to strip AI patterns:
+
+- Opening sentences on slides 12 and others shortened or removed.
+- "IC defense / Weak / Strong" replaced with "ROCL concern / Yes / No" (clearer and matches the vocabulary of slide 12's four-step chain).
+- Slide 13 title changed to "Multiple Switching dilemma"; three-bullet structure tightened.
+- Slide 14 reduced to Proposal + Pro/Con + single broad block question.
+- B&H belief-transfer question dropped (formalized by ADR-0021).
+- Rule-of-three framings removed from multiple slides.
+
+### Open items for Anujit tomorrow
+
+1. **Q1 (overall design)** — is anything missing? design sufficient for H1–H3? easy/hard manipulation enough for H3?
+2. **Q2 (pure-incentives test)** — A, B, or both? (or something else?)
+3. **Q3 (MPL format)** — working lean is coarse separated. Pro: works for our BIC test at 5pp. Con: does not generalize to precision-sensitive belief elicitation. How to approach the MPL format choice?
+
+Open design parameters still pending:
+- θ values for pure-incentives test (2 values {0.2, 0.3} strict DVW vs. 4 values {0.2, 0.4, 0.6, 0.8} B&W vs. other) — ADR-0017.
+- MPL format selection (coarse separated working lean vs. alternatives Anujit may surface) — ADR-0020.
+
+### Git state at session close
+
+- **bdm_bic:** main at `dbe679d` (local only, push pending). Commit chain today: 967f6a5, f427b72, de1bdcc, db11eec, b5a23aa, e801677, 5f4f238, 87339e8, ba2bd14, 3a10972, 0eb2c17, e4d91b5, 3a42e58, dbe679d (14 commits).
+- **claude-config:** main at `74c88f6` (pushed). Three memory-sync commits today: 85c5cba, 9b7aabb, 74c88f6.
+
+### Decisions to capture after the meeting
+
+- Anujit's answers to Q1/Q2/Q3 become ADRs. Q2 → pure-incentives-test-design ADR (A / B / both / something else). Q3 → post-meeting MPL-format ADR (re-commit to coarse separated on Anujit's endorsement, or to an alternative he surfaces).
+- Hypothesis-renumber drift in `mpl_format_decision_analysis.md` §4.3 and `01_p-bdm-design-space-synthesis.md` §4 — old H3 references (CR) should be updated to reflect current hypothesis numbering (H3 = complexity; H2 carries the UJS-via-CR claim). Not urgent.
+- §6.3 of MPL analysis doc retired as design concern per ADR-0021 but remains unedited (could add a retirement note if desired).
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed
