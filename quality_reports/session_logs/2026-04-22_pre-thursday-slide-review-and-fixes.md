@@ -336,6 +336,14 @@ Two final deck refinements this session:
 
 **Deck state:** 14 pages, compiles clean.
 
+## Addendum — Slide 11 opening tightened; B&H empirical footnote removed
+
+Christina iterated on slide 11 further:
+- Opening sentence tightened to "Brown and Healy (2018): MPL is theoretically IC, but presentation format determines whether it holds in practice." This names the theory-vs-practice distinction explicitly, which is the whole point of the chain that follows. Replaces the earlier "presentation format matters for IC" (which Christina flagged as too vague) and the still-earlier "determines whether IC survives subjects' behavior" (odd phrasing).
+- B&H empirical footnote (list p = 0.041 / separated p = 0.697) removed — Anujit is familiar with the result. Trimming reduces slide density without losing substance.
+
+Four-step chain preserved verbatim; separated-format Fix line preserved. Deck stable at 14 pages, compiles clean.
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed
