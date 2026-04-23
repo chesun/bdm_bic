@@ -242,22 +242,30 @@ If Brown & Healy transfers, list format for belief MPL violates the IC assumptio
 ### 7.2 Holt & Smith two-stage LIST (coarse list → fine list)
 
 - **IC:** list-style; Brown & Healy transfer concern applies to both stages; additional concern from Healy & Leo (2025, Section 6.1.3) that IC on row selection requires randomizing from the full grid, not just the coarse grid.
-- **Interpretability:** enforced single crossing at each stage; precise (1pp).
+- **Interpretability:** *appears* to enforce single crossing at each stage, but this is a hidden problem — see MS/Stage-2 dilemma below.
 - **Burden:** about 20 choices; proven in value domain; modest fatigue.
-- **H2 vulnerability:** same as 7.1 plus the row-selection concern.
+- **H2 vulnerability:** same as 7.1 plus the row-selection concern, plus the MS/Stage-2 dilemma.
 
-**Verdict:** practical but inherits IC concerns. Would need auxiliary monotonicity test to defend.
+**MS/Stage-2 dilemma (added 2026-04-22, ADR-0019 rationale).** Any two-stage design that narrows based on Stage-1 behavior faces a structural problem: Stage 2's probability range is determined by the Stage-1 crossing point, so Stage-1 multi-switching (MS) has no implementable resolution.
+
+- *Force single-switching in Stage 1 (the Holt-Smith default).* UI enforces SS → Stage 2 implementable. But this **censors MS behavior**. Per ADR-0008, MS is a primary descriptive outcome (C&K 2025 benchmark: 29.7–43.7% MS). Forcing SS throws that data away and silently pushes subjects into patterns they would not have chosen. Some subjects whose behavioral tendency is MS are effectively forced into an artificial SS response.
+- *Allow MS, pick a crossing rule* (first, median, etc.). Rule is arbitrary and **breaks IC**: subject does not know ex ante which row determines payment, so the random-incentive guarantee fails.
+- *Skip Stage 2 for MS subjects.* Asymmetric number of rounds across subjects; precision gain lost precisely for the subjects whose data is most informative about inconsistency.
+
+Stage 2 MS is harder still. Within ~1pp row spacing, MS likely reflects indifference or noise rather than genuine inconsistency — but operationally you still have no crossing and no clean interpretation.
+
+**Verdict:** ruled out. The IC concerns alone would have required an auxiliary monotonicity test to defend; the MS/Stage-2 dilemma is a second independent strike. No version of 7.2 cleanly addresses both.
 
 ### 7.3 Trautmann-van de Kuilen two-stage list (a.k.a. "TK"; used by Burfurd & Wilkening 2018)
 
 Originated in Trautmann & van de Kuilen (2015, *Economic Journal*, "Belief Elicitation: A Horse Race among Truth Serums"). Burfurd & Wilkening (2018) adapt it as their "TK" treatment alongside HS and HH formats. Two-stage titration: stage 1 picks a 10-point range; stage 2 refines within it. Both stages use list format.
 
 - **IC:** similar list-style concerns to Holt & Smith LC (7.2).
-- **Interpretability:** Burfurd & Wilkening report 17% reverse reports under this format — substantial uninterpretable fraction.
+- **Interpretability:** Burfurd & Wilkening report 17% reverse reports under this format — substantial uninterpretable fraction. Also inherits the MS/Stage-2 dilemma from §7.2.
 - **Burden:** 40s per period is slow in B&W's implementation; only tested for short protocols.
-- **H2 vulnerability:** the 17% reverse rate from the literature is a warning; may be a property of the TK visual framing specifically rather than the two-stage list structure per se.
+- **H2 vulnerability:** the 17% reverse rate from the literature is a warning; compounded by the MS/Stage-2 dilemma.
 
-**Verdict:** not an advance over Holt & Smith LC on any margin.
+**Verdict:** ruled out. Not an advance over Holt & Smith LC on any margin, and inherits the MS/Stage-2 dilemma.
 
 ### 7.4 Full separated format (100 rows, one per screen, random order)
 
@@ -271,12 +279,20 @@ Originated in Trautmann & van de Kuilen (2015, *Economic Journal*, "Belief Elici
 ### 7.5 Coarse separated (10-20 rows, one per screen, random order)
 
 - **IC:** preserved per Brown & Healy.
-- **Interpretability:** multi-switching possible, but with 20 rows the rate should be lower than 100 rows (fewer opportunities); could still be 10-20%.
+- **Interpretability:** multi-switching possible, but with 20 rows the rate should be lower than 100 rows (fewer opportunities); could still be 10-20%. MS is observable and reported descriptively per ADR-0008, not censored.
 - **Burden:** 10-20 screens is tolerable.
 - **Precision:** 5pp if 20 rows spanning 0-100%.
-- **H2 vulnerability:** multi-switching must be handled with a pre-registered rule.
+- **H2 vulnerability:** multi-switching is handled by the pre-registered dual-metric per ADR-0009, not by format design.
 
-**Verdict:** best candidate on the IC/burden trade-off; precision loss is manageable.
+**Belief analog of UJS-E (added 2026-04-22, ADR-0019).** C&K 2025 introduce two UJS mechanisms: UJS-E (for value/WTA elicitation) and its characterization theorem (§3 of their paper) showing that UJS mechanisms for binary allocation take the form of a generalized MPL. Structural mapping from UJS-E to our coarse separated belief MPL:
+
+- UJS-E fixed-value item (\$1.00) ↔ our event bet (wins \$H if event)
+- UJS-E decreasing clock-price ↔ our r-lottery (wins \$H with probability r)
+- UJS-E random-period termination + subject gets that period's choice ↔ our random-row payment
+
+Same game structure. Presentation differences: C&K use descending order (clock metaphor natural for WTA); we use random order (per B&H 2018 ROCL-suppression rationale, ADR-0015); C&K run it as a dynamic clock, we as a static list with one row per screen. Both are UJS per the characterization theorem — the order and dynamic/static presentation are implementation choices, not structural requirements of UJS.
+
+**Verdict:** adopted as the MPL format. See ADR-0019. The IC/burden trade-off is the best of the viable options after 7.1, 7.2, 7.3, 7.4, 7.7 are ruled out, and the UJS-E analog gives a positive theoretical anchor (not just "the option that survives process of elimination").
 
 ### 7.6 Hybrid: coarse separated with consistency-check revise screen
 
@@ -298,12 +314,14 @@ Originated in Trautmann & van de Kuilen (2015, *Economic Journal*, "Belief Elici
 - Analogous to Holt & Smith LC but in separated format.
 
 - **IC:** separated format preserves monotonicity per stage; Healy & Leo row-selection concern must be addressed by randomizing from the full grid.
-- **Interpretability:** stage-1 inconsistency flags subject as multi-switcher; stage-2 refines if stage 1 was consistent.
+- **Interpretability:** stage-1 inconsistency flags subject as multi-switcher; stage-2 refines if stage 1 was consistent. **But:** see MS/Stage-2 dilemma below.
 - **Burden:** about 20-30 screens total.
 - **Precision:** 1pp in stage 2.
-- **H2 vulnerability:** the row-selection IC concern needs care (Healy & Leo 6.1.3).
+- **H2 vulnerability:** the row-selection IC concern needs care (Healy & Leo 6.1.3), plus the MS/Stage-2 dilemma.
 
-**Verdict:** most theoretically defensible; highest burden among separated variants; probably worth it.
+**MS/Stage-2 dilemma also applies here (added 2026-04-22).** The MS/Stage-2 dilemma detailed in §7.2 is not specific to list format — it is a structural property of any two-stage design that narrows based on Stage-1 behavior. Stage 1 must produce a clean single crossing to anchor Stage 2, regardless of whether Stage 1 is presented as a list or as separated screens. The three response options (force SS in Stage 1 / arbitrary crossing rule / skip Stage 2 for MS subjects) each have the same costs as in 7.2 — censoring, IC violation, or asymmetric treatment respectively. The separated-format advantage of 7.7 (no ROCL concern in Stage 1) is preserved but insufficient to defend the two-stage structure against the MS dilemma.
+
+**Verdict:** ruled out. Appeared theoretically most defensible on IC grounds, but the MS/Stage-2 dilemma applies equally here as in 7.2 and is independent of list-vs-separated presentation. The burden cost (20-30 screens) is no longer purchasing a cleaner interpretability story, because Stage 2 is not cleanly implementable.
 
 ### 7.8 Instruction format is a separable decision
 
@@ -379,34 +397,33 @@ Before choosing a format, Christina should commit to each of the following:
 
 ---
 
-## 11. Tentative Recommendation
+## 11. Recommendation (decided 2026-04-22)
 
-Pending Christina's resolution of Section 10, a preliminary leaning:
-
-**Primary MPL arm: coarse separated (15-20 rows, one per screen, random order), without revise screen.**
+**Primary MPL arm: coarse separated (15-20 rows, one per screen, random order), without revise screen.** Committed in ADR-0019.
 
 Reasoning:
 
-- Preserves monotonicity per Brown & Healy (and side-steps the ambiguous transfer question).
-- Closest to UJS ideal in spirit.
-- Burden of 15-20 screens is tolerable given subjects are doing belief elicitation tasks that are already cognitively demanding.
-- 5pp precision is sufficient for the BIC test (we are not trying to recover a point belief; we are testing whether subjects can identify the UJS-justifiable action).
-- Multi-switching rate will tell us something real about H2, whichever direction it goes.
-- Pre-registered accuracy metric: success = single-crosser within 5pp of induced π. Multi-switch = failure (same category as BDM subjects who report far from π).
+- Preserves monotonicity per Brown & Healy (and side-steps the ambiguous belief-transfer question).
+- The **belief analog of C&K 2025's UJS-E mechanism** per the C&K characterization theorem (§3 of their paper). Not just "closest to the UJS ideal in spirit" — literally the static-MPL implementation of the same game structure C&K use for value elicitation. See §7.5 for the structural mapping.
+- The only remaining viable option after §7.1 (full list, IC concerns), §7.2 and §7.7 (two-stage formats, MS/Stage-2 dilemma), §7.3 (TK, no advantage), §7.4 (full separated, 100-screen burden) are ruled out.
+- Burden of 15-20 screens is tolerable.
+- 5pp precision is sufficient for the BIC test (we are not recovering a point belief; we are testing whether subjects can identify the UJS-justifiable action).
+- Multi-switching is handled descriptively per ADR-0008 (no censoring, no invalidation threshold). Observable MS in a single-stage format is a feature, not a bug — it provides a direct benchmark against C&K 2025's 29.7–43.7% rates.
+- Pre-registered accuracy metric per ADR-0009: success = within ε of π (ε = 0 strict, ε = 5pp distant reports — DVW 2022 dual metric). MS coded as failure on the comparable margin.
 
 **What this commits us to in the paper:**
 
-- Clean IC defense (monotonicity preserved).
-- An honest handling of multi-switching (not thrown out; counted as failure).
-- No precision loss claim needed, because the BIC test does not require point-belief recovery.
-- One short robustness section: "if multi-switchers are excluded rather than coded as failure, results are X" — to address the selection-on-success concern.
+- Clean IC defense (monotonicity preserved via separated format per ADR-0015).
+- Honest handling of multi-switching (descriptive per ADR-0008; coded as failure for H2 comparability per ADR-0009).
+- A positive theoretical anchor: our MPL is the belief analog of C&K's UJS-E, which grounds H2's prediction in their framework rather than framing coarse separated merely as a "process of elimination" pick.
+- One short robustness section: "if multi-switchers are excluded rather than coded as failure, results are X" — addresses the selection-on-success concern.
 
 **What this does not give us:**
 
-- Tight comparison to the Holt & Smith LC literature.
-- 1pp precision.
+- Tight comparison to the Holt & Smith LC literature (list-format MPLs).
+- 1pp precision (we accept 5pp because point-belief recovery is not required for BIC diagnosis).
 
-Note: multi-switching is no longer framed as an invalidation threat (see Section 4 framing note and Section 10 criterion 1). Whatever rate we observe becomes a primary reported outcome, with C&K 2025's rates (29.7% attentive, 43.7% full sample) as the natural benchmark.
+Note: multi-switching is no longer framed as an invalidation threat (see Section 4 framing note and Section 10 criterion 1). Whatever rate we observe becomes a primary reported outcome, with C&K 2025's rates as the natural benchmark.
 
 ---
 

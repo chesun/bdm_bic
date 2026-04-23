@@ -95,6 +95,7 @@ What this commits us to. What it rules out. Open questions it creates.
 | [0016](0016_scope-pure-incentives-to-pbdm-only.md) | Scope pure-incentives test to p-BDM only; MPL-side pure-incentives is future work | 2026-04-22 | Decided | Experimental design |
 | [0017](0017_pure-incentives-between-subject-theta-within.md) | Pure-incentives test: between-subject arm, within-subject θ; θ values open | 2026-04-22 | Decided | Experimental design |
 | [0018](0018_retire-three-accounts-trichotomy.md) | Retire "three competing accounts" framing for pure-incentives failure | 2026-04-22 | Decided | Research framing |
+| [0019](0019_mpl-format-coarse-separated.md) | MPL format: coarse separated (15–20 rows, one per screen, random order) | 2026-04-22 | Decided | Methodology |
 
 ---
 
@@ -102,7 +103,7 @@ What this commits us to. What it rules out. Open questions it creates.
 
 These are decisions that need to happen but aren't resolved. They get an ADR when resolved, not before.
 
-- **MPL format selection** across all seven options in `quality_reports/mpl_format_decision_analysis.md` §7: (7.1) full list, (7.2) Holt & Smith two-stage list, (7.3) Trautmann–van de Kuilen two-stage list, (7.4) full separated, (7.5) coarse separated, (7.6) coarse separated + revise, (7.7) two-stage separated. Section 11 records a *tentative* lean toward 7.5; that is not a committed decision. ADR-0014 establishes mechanism invariance as the theoretical framing for whichever format is selected; it does not select a format. Criteria 4–7 in §10 (B&H auxiliary arm, revise screen, burden budget, precision requirement) narrow the space when resolved.
+- ~~**MPL format selection**~~ — resolved by ADR-0019 (2026-04-22): coarse separated, 15–20 rows, one per screen, random order. §11 of `mpl_format_decision_analysis.md` updated from tentative to decided. §7.6 revise-screen-as-secondary remains open as a robustness design question.
 - **Flat-fee control arm** — open question in `quality_reports/research_direction_discussion_2026-04-07.md` Remaining Open Questions #4.
 - **Final sample size** (600 vs. 450 minimal) — proposed in `quality_reports/research_ideas_bdm_bic.md` §3 Direction 1, not locked.
 - **Belief elicitations per subject** — power vs. fatigue trade-off, open in `research_direction_discussion_2026-04-07.md` Open Q #5.

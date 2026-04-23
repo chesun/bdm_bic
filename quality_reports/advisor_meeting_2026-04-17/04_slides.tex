@@ -85,14 +85,14 @@ Outcomes: Accuracy at $\varepsilon = 0$ and $\varepsilon = 5$pp (DVW 2022). Also
 
 \begin{frame}{Question 1: the overall design}
 \begin{block}{}
-Is there anything I am missing before we move forward?
+Is there anything I am missing?
 \end{block}
 
 \vspace{1em}
 \begin{itemize}
 \item Is the current design sufficient to identify H1 through H3?
 \item How to design p-BDM pure incentive test? (coming up next)
-\item Is the within-subject easy/hard manipulation enough for H3?
+\item Other considerations?
 \end{itemize}
 \end{frame}
 
@@ -146,7 +146,7 @@ Subject sees:
 
 \vspace{0.3em}
 \begin{quote}
-You will report a number $q$ from $\{0.0, 0.1, 0.2, \ldots, 1.0\}$. A random $r$ is drawn uniformly from $[0, 1]$.
+You will choose a number $q$ from $\{0.0, 0.1, 0.2, \ldots, 1.0\}$. A random $r$ is drawn uniformly from $[0, 1]$.
 \begin{itemize}
 \item If $q \geq r$: you win \$$H$ if red.
 \item If $q < r$: you win \$$H$ with probability $r$.
@@ -174,7 +174,7 @@ Both designs are separate between-subject arms, with $\theta$ varying within-sub
 
 \vspace{0.6em}
 \begin{block}{}
-A, B, or both? Or a fourth design?
+A, B, or something else?
 \end{block}
 \end{frame}
 
@@ -208,18 +208,19 @@ Two-stage separated & 20--30 & Strong & High \\
 
 \vspace{0.7em}
 \footnotesize
-List formats give precision at low burden but inherit the ROCL concern. Separated formats preserve IC but raise burden and can produce multi-switching. Two-stage variants trade extra screens for finer precision.
+List formats give precision at low burden but inherit the ROCL concern. Two-stage variants (list or separated) hit an MS/Stage-2 dilemma: enforcing single-switching in Stage 1 censors MS, while allowing MS breaks Stage-2 implementability. Coarse separated sidesteps both: MS is observable and reported descriptively per C\&K 2025; format preserves IC per B\&H 2018.
 \end{frame}
 
 \begin{frame}{Question 3: MPL format}
-We are leaning toward coarse separated: 15 to 20 rows, one per screen, random order.
+Coarse separated: 15 to 20 rows, one per screen, random order. This is the belief analog of C\&K's UJS-E mechanism (they run it as a descending-price clock; same game structure per their characterization).
 
-\vspace{0.7em}
-This preserves IC per B\&H, keeps burden moderate, and gives 5pp precision, which is sufficient for our accuracy tests.
-
-\vspace{0.8em}
+\vspace{0.5em}
 \begin{block}{}
-B\&H tested risk preferences with known lotteries in each row. Our event bet is ambiguous (subjective $\pi$). ROCL operates across rows; ambiguity operates within a row, and format does not close it. Does the cross-row transfer hold cleanly enough to commit, or do we need an auxiliary B\&H transfer arm (100--150 additional subjects)?
+B\&H tested risk preferences with known lotteries in each row. Our event bet is ambiguous (subjective $\pi$). ROCL operates across rows; ambiguity operates within a row, and format does not close it. Does the cross-row transfer hold, or do we need an auxiliary B\&H transfer arm (100--150 subjects)?
+\end{block}
+
+\begin{block}{}
+Two-stage formats (list or separated) are ruled out: MS in Stage 1 has no implementable resolution (force SS censors; crossing rules break IC; skip-Stage-2 is asymmetric). Does this reasoning hold?
 \end{block}
 \end{frame}
 

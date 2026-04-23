@@ -282,6 +282,30 @@ After the Q2 reframe, Christina asked Claude to justify the "three competing acc
 
 **No slide edits required** — the deck's Q2 had already been rewritten without the trichotomy earlier this session. The ADR formalizes that rewrite as a project-level framing decision rather than a one-off slide edit.
 
+## Addendum — MPL format committed: coarse separated (ADR-0019)
+
+Christina raised a substantive concern about two-stage list formats (Holt-Smith §7.2 and, by extension, Trautmann–van de Kuilen §7.3 and two-stage separated §7.7): the **MS/Stage-2 dilemma**. Stage 2's probability range depends on Stage 1's single crossing, so Stage-1 multi-switching has no clean resolution. Three response options each have distinct costs: force SS in Stage 1 (censors MS behavior, contra ADR-0008), pick an arbitrary crossing rule (breaks IC), or skip Stage 2 for MS subjects (asymmetric rounds, precision lost on informative subjects). Stage-2 MS within ~1pp spacing is uninterpretable on its own. This is a structural property of any two-stage design — not list-specific.
+
+Christina also flagged that coarse separated is the **belief analog of C&K 2025's UJS-E mechanism**. Verified against my earlier read of C&K §1 (p. 4): UJS-E is a decreasing clock-price MPL with random-period termination. Mapping to our belief MPL: UJS-E item (fixed \$1.00) → event bet (wins if event); decreasing clock-price → r-lottery; random-period termination + subject gets that period's choice → random-row payment. Same game structure per the characterization theorem (UJS binary-allocation mechanisms are generalized MPLs, §3 of their paper). Presentation differences (C&K descending-order clock; ours random-order static list) are implementation choices; UJS holds in both.
+
+**Artifacts produced:**
+
+- **`mpl_format_decision_analysis.md` updated:**
+    - §7.2: added MS/Stage-2 dilemma, verdict changed from "practical but inherits IC concerns" to "ruled out."
+    - §7.3: noted the same dilemma applies, verdict to "ruled out."
+    - §7.5: added UJS-E belief-analog mapping with structural correspondence.
+    - §7.7: noted the dilemma is structural (not list-specific), verdict from "probably worth it" to "ruled out."
+    - §11: changed from "Tentative Recommendation" to "Recommendation (decided 2026-04-22)"; added UJS-E grounding and cross-reference to ADR-0019.
+- **ADR-0019** (Decided, Methodology). Commits to coarse separated with full reasoning: UJS-E analog as positive theoretical anchor; two-stage formats ruled out via MS/Stage-2 dilemma; full list ruled out by B&H ROCL; full separated ruled out by 100-row burden. README index updated; "MPL format selection" Pending decision marked as resolved in the README.
+- **Slide edits:**
+    - Frame "MPL format: options and tradeoffs" — tradeoff footer rewritten to flag the MS/Stage-2 dilemma explicitly (previously said "two-stage variants trade extra screens for finer precision," which hid the structural problem).
+    - Frame "Question 3: MPL format" — opening line changed from "We are leaning toward" to committed; added UJS-E analog rationale; added a second block question asking Anujit to validate the two-stage-ruling-out reasoning.
+    - Deck now 13 pages, compiles clean.
+
+**What's open for Anujit tomorrow on Q3:**
+1. Does the B&H belief-transfer hold cleanly enough to commit (existing question), or do we need the auxiliary B&H-transfer arm?
+2. Does the MS/Stage-2 ruling-out reasoning hold (new question)?
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed
