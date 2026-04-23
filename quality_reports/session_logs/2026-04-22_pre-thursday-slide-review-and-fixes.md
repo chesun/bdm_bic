@@ -180,11 +180,35 @@ All three closed in one commit.
 | `.claude/settings.json` | Audit hook registered in the Stop block alongside the existing log-reminder. | Enable the Stop audit. |
 | `.claude/rules/primary-source-first.md` | Rewritten to describe the three failure modes, the dual-hook enforcement, the escape-hatch scope, and the `**Citation:**`-line-only matching rule. | Document the expanded design. |
 
+<!-- primary-source-ok: li_2017, koszegi_2030, danz_vesterlund_wilson_2022 -->
+
 ## Open Questions / Blockers (updated)
 
 - FRAMING-1 / TWEAK-1 / other tweaks: unchanged from earlier this session.
 - **Backfill load.** With the strict session-scope rule, every session that makes framing claims must Read the compiled notes file (or dedicated per-paper files). This is mild discipline but worth flagging — Christina may want a one-line shortcut like "Read the compiled notes first thing in every session" as an habit.
 - **Li 2017 and Koszegi 2030 references in this session.** Used as test-case labels, not framing claims. Escape-hatched at the top of this addendum block so the Stop audit does not block on them. If Li 2017 becomes a real citation in the paper, it needs its own reading-notes file (its PDF is already in `literature/papers/`).
+
+<!-- primary-source-ok: li_2017, koszegi_2030, danz_vesterlund_wilson_2022 -->
+
+## Addendum — Proposal C scoped out (2026-04-22 late evening)
+
+Christina reviewed the deck's p-BDM pure-incentives section and concluded that Proposal C (parallel BDM + MPL pure-incentives test, N=600) is out of scope for this project. Reason: the paper's BIC test is for p-BDM; a full BIC test for MPL would require its own info/no-info + pure-incentives arm structure. That is a separate study, future work.
+
+**Slide edits applied:**
+- Former Frame 10 ("Proposal C: Example at θ = 0.2, MPL side") — removed entirely.
+- Former Frame 11 ("Three ways to run the test") — retitled to "Two ways to run the test." Summary table trimmed to columns A and B (dropped MPL-side and N=600 column). Added footer line noting MPL pure-incentives as future work.
+- Former Frame 12 ("Question 2: which proposal?") — retitled to "Question 2: A, B, or both?" Rewrote the discriminator analysis to contrast A vs. B directly: A strips the mechanism (tests EV-calc isolated); B preserves it (tests combined EV-calc + ambiguity + UJS-CR). A + B within-subject gives the sharpest contrast. Block question updated to offer "both within-subject" as the cleanest option.
+- Deck recompiled clean. Now 14 pages (down from 15 with C dropped), 165 KB. Pre-existing chktex style warning at line 185 noted; not fixed (cosmetic only).
+
+**ADR written:** `experiments/designs/decisions/0016_scope-pure-incentives-to-pbdm-only.md`. Decided. Does not supersede ADR-0011 — it resolves the "MPL counterpart" open dimension listed there by scoping it out. README index updated.
+
+**Hook interaction.** The PreToolUse hook blocked the first Write of ADR-0016 because the delta cited DVW's 2022 AER paper and that PDF is not in the repo (only the 2024 JEP review is). Rewrote the ADR to cite DVW 2024 JEP for the BIC-framework description — which is correct anyway, since the 2024 JEP paper summarizes the framework. Exactly the hook's intended behavior: it caught a citation that was being used to ground a framing claim without the primary source being in the repo.
+
+**What this changes for tomorrow's meeting:**
+- Q2 becomes two proposals plus a "run both" option.
+- No MPL pure-incentives prediction to discuss with Anujit.
+- H2 identification is unchanged — tested at the belief-elicitation level by T1 vs. T2 in the main design.
+- Meeting length unchanged; one slide fewer to walk through.
 
 ## Cross-References
 

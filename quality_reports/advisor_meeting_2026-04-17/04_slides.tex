@@ -48,7 +48,7 @@ Contribution: identify the mechanism behind BDM's failure, test UJS's design imp
 
 \begin{frame}{Hypotheses}
 \begin{description}
-\item[H1.] BDM fails behavioral IC, via two weak conditions:
+\item[H1.] BDM fails behavioral IC, via two weak conditions (DVW 2022):
 \begin{itemize}
 \item[H1a.] Explaining BDM's incentives does not increase accuracy.
 \item[H1b.] Subjects do not choose the payoff-maximizer under pure incentives.
@@ -159,59 +159,39 @@ Which $q$ do you pick?
 No payoff pairs shown. To find the maximizer, the subject must reason through what happens at each $r$ given each candidate $q$ --- full contingent reasoning demand preserved.
 \end{frame}
 
-\begin{frame}{Proposal C: Example at $\theta = 0.2$ (MPL side)}
-p-BDM side: same as Proposal A.
-
-\vspace{0.6em}
-MPL side: 10 binary choices, one per screen, random order. One row:
-
-\vspace{0.3em}
-\begin{quote}
-Urn: 20 red, 80 blue. $P(\text{red}) = 0.2$. Pick one:
-\begin{itemize}
-\item[(A)] Event bet: win \$$H$ if red.
-\item[(B)] 40\% lottery: win \$$H$ with probability $0.4$.
-\end{itemize}
-\end{quote}
-
-\vspace{0.3em}
-\footnotesize
-Rows span $r \in \{0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.7, 1.0\}$. Correct: event bet if $r < \theta$, $r$-lottery if $r > \theta$. Single crossing at $\theta$.
-
-\vspace{0.3em}
-If MPL pure-incentives pass rate $\gg$ p-BDM pure-incentives pass rate, the format-level UJS effect is isolated from belief formation.
-\end{frame}
-
-\begin{frame}{Three ways to run the test}
+\begin{frame}{Two ways to run the test}
 \small
-\begin{tabular}{@{}p{0.12\linewidth} p{0.25\linewidth} p{0.25\linewidth} p{0.28\linewidth}@{}}
+\begin{tabular}{@{}p{0.18\linewidth} p{0.36\linewidth} p{0.36\linewidth}@{}}
 \toprule
- & A & B & C \\
+ & A & B \\
 \midrule
-Menu & 11 options & 11 options & 11 opts + 10 rows \\[0.3em]
-Display & event-contingent pairs; mechanism hidden & native p-BDM framing & A-style + MPL rows \\[0.3em]
-$\theta$ & $\{0.2, 0.4, 0.6, 0.8\}$ & same & same \\[0.3em]
-Integration & within-subject & within-subject & between-subject \\[0.3em]
-MPL side & no & no & yes \\[0.3em]
-$N$ & 300 & 300 & 600 \\
+Menu & 11 options & 11 options \\[0.3em]
+Display & event-contingent pairs; mechanism hidden & native p-BDM framing \\[0.3em]
+$\theta$ & $\{0.2, 0.4, 0.6, 0.8\}$ & same \\[0.3em]
+Integration & within-subject & within-subject \\[0.3em]
+$N$ & 300 & 300 \\
 \bottomrule
 \end{tabular}
+
+\vspace{0.8em}
+\footnotesize
+Scope: BIC test for p-BDM only. A parallel pure-incentives test for MPL would require its own info/no-info and pure-incentives arms --- a separate study, not this one.
 \end{frame}
 
-\begin{frame}{Question 2: which proposal?}
+\begin{frame}{Question 2: A, B, or both?}
 Three competing accounts of the 69\% result:
 \begin{enumerate}
 \item EV-calculation failure.
 \item Ambiguity aversion or non-EU.
-\item UJS.
+\item UJS (CR over justifiable actions).
 \end{enumerate}
 
 \vspace{0.7em}
-Proposal A rules out (1) only weakly and is silent on UJS. Proposal B preserves the contingent reasoning demand and provides a direct UJS test. Proposal C also runs the MPL mechanism as a pure-incentives test; if MPL passes where p-BDM fails, UJS is the clear explanation.
+A strips the mechanism: pass A rules out (1). B preserves the p-BDM mechanism: fail B after pass A points to (3) or (2). Running both within-subject gives the sharpest A-vs-B contrast.
 
 \vspace{0.8em}
 \begin{block}{}
-Which of A, B, or C identifies UJS most sharply against the alternatives? Is there a fourth design we should consider?
+A, B, or both (within-subject)? Is there a fourth design we should consider?
 \end{block}
 \end{frame}
 
