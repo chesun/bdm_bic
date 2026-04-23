@@ -344,6 +344,19 @@ Christina iterated on slide 11 further:
 
 Four-step chain preserved verbatim; separated-format Fix line preserved. Deck stable at 14 pages, compiles clean.
 
+## Addendum — Christina simplified slides 12/13/14; added slide 4 (Theoretical IC); ADR-0021 (late evening)
+
+Christina ran a sweep across the MPL format slides to strip AI patterns:
+
+- **Slide 4 (new):** "Theoretical IC: 2 Approaches" — Karni (2009) dominance + prob sophistication; Azrieli et al. (2018) monotonicity. Adds structure before the Hypotheses slide. I added a one-line note that Azrieli's monotonicity is strictly weaker — the minimal sufficient assumption for IC — per the same scoping as ADR-0012.
+- **Slide 12:** opening sentence and footnote removed; "IC defense / Weak / Strong" column replaced with "ROCL concern / Yes / No"; Precision column added (1pp / 5pp) to make the coarse-separated trade-off visible in the table.
+- **Slide 13:** title changed to "Multiple Switching dilemma"; three-bullet structure tightened. Added a one-line footnote noting the dilemma applies to both two-stage list and two-stage separated.
+- **Slide 14:** simplified to Proposal + Pro/Con + a single broad block question ("How to approach MPL format choice?"). B&H belief-transfer question dropped — Christina noted that the event bet is not genuinely subjective in a ball-and-urn setup with stated composition.
+
+**ADR-0021 (Decided, IC foundation)** formalizes the ball-and-urn reasoning. In our setup, the event bet's probability is stated objectively via urn composition — Ellsberg-style ambiguity requires unknown probabilities, which our setup doesn't have. The within-row ambiguity channel raised in `mpl_format_decision_analysis.md` §6.3 therefore does not apply to our design. The only B&H transfer question that remains is the cross-row ROCL path, already addressed by separated format (ADR-0015). Narrows ADR-0005's live concern; retires §6.3 as a design constraint for this project. Scoped to ball-and-urn setups — a future project with subjective beliefs (self-performance, real-world events) would need to revisit.
+
+Deck now 15 pages, compiles clean.
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed

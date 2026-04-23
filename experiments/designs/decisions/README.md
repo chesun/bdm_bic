@@ -97,6 +97,7 @@ What this commits us to. What it rules out. Open questions it creates.
 | [0018](0018_retire-three-accounts-trichotomy.md) | Retire "three competing accounts" framing for pure-incentives failure | 2026-04-22 | Decided | Research framing |
 | [0019](0019_mpl-format-coarse-separated.md) | MPL format: coarse separated (15–20 rows, one per screen, random order) | 2026-04-22 | Superseded by [#0020](0020_mpl-format-reopened-pending-advisor.md) | — |
 | [0020](0020_mpl-format-reopened-pending-advisor.md) | MPL format selection re-opened as Pending; ADR-0019 commitment withdrawn | 2026-04-22 | Decided | Methodology |
+| [0021](0021_ball-urn-objective-probability-no-within-row-ambiguity.md) | Ball-and-urn probabilities are objective; no within-row ambiguity concern | 2026-04-22 | Decided | IC foundation |
 
 ---
 

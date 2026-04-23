@@ -46,6 +46,16 @@ Research questions:
 Contribution: identify the mechanism behind BDM's failure, test UJS's design implication empirically in belief elicitation, and measure the complexity-by-mechanism interaction. 
 \end{frame}
 
+\begin{frame}{Theoretical IC: 2 Approaches}
+    \begin{itemize}
+        \item Karni (2009): Dominance + Probabilistic Sophistication
+        \item Azrieli et al.\ (2018): Monotonicity
+    \end{itemize}
+
+    \vspace{0.5em}
+    Azrieli's monotonicity is strictly weaker --- the minimal sufficient assumption for IC.
+\end{frame}
+
 \begin{frame}{Hypotheses}
 \begin{description}
 \item[H1.] BDM fails behavioral IC, via two weak conditions (DVW 2022):
@@ -196,57 +206,52 @@ Fix: Separated format (one row per screen, random order): ROCL not triggered.
 \end{frame}
 
 \begin{frame}{MPL format: options and tradeoffs}
-The MPL arm is the backbone of H2 (MPL $>$ BDM). For that test to be clean, the format has to preserve IC, yield interpretable responses, and keep burden tolerable.
 
 \vspace{0.6em}
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}p{0.36\linewidth} p{0.13\linewidth} p{0.18\linewidth} p{0.18\linewidth}@{}}
+\begin{tabular}{@{}p{0.30\linewidth} p{0.10\linewidth} p{0.17\linewidth} p{0.14\linewidth} p{0.12\linewidth}@{}}
 \toprule
-Format & Screens & IC defense & Burden \\
+Format & Screens & ROCL concern & Burden & Precision \\
 \midrule
-Full list (all rows on 1 screen) & 1 & Weak & High \\
-Two-stage list (Holt \& Smith) & 2 & Weak & Moderate \\
-Full separated (100 rows) & 100 & Strong & High \\
-Coarse separated & 15--20 & Strong & Moderate \\
-Two-stage separated & 20--30 & Strong & High \\
+Full list (all rows on 1 screen) & 1 & Yes & High & 1pp \\
+Two-stage list (Holt \& Smith) & 2 & Yes & Moderate & 1pp \\
+Full separated (100 rows) & 100 & No & High & 1pp \\
+Coarse separated & 15--20 & No & Moderate & 5pp \\
+Two-stage separated & 20--30 & No & High & 1pp \\
 \bottomrule
 \end{tabular}
 
-\vspace{0.7em}
-\footnotesize
-List formats inherit the B\&H ROCL concern (previous slide). Two-stage formats (list or separated) hit a structural dilemma --- next slide.
+
 \end{frame}
 
-\begin{frame}{Two-stage formats: the MS/Stage-2 dilemma}
-Any two-stage design narrows Stage 2's probability range based on Stage 1's crossing. If Stage 1 multi-switches (MS), there is no clean resolution:
+\begin{frame}{Two-stage formats: the Multiple Switching dilemma}
+Two-stage MPL encounters a problem with how to handle multiple switching (MS):
 
 \vspace{0.5em}
 \begin{itemize}
-\item \textbf{Force single-switching in Stage 1.} Stage 2 implementable, but censors MS behavior. C\&K 2025 benchmark: 29.7--43.7\% MS rates; forcing SS throws that data away and silently pushes subjects into patterns they would not have chosen.
-\item \textbf{Allow MS, pick a crossing rule} (first, median, etc.). Arbitrary and breaks IC --- subject does not know ex ante which row determines payment, so the random-incentive guarantee fails.
-\item \textbf{Skip Stage 2 for MS subjects.} Asymmetric rounds across subjects; precision gain lost precisely for the subjects whose data is most informative about inconsistency.
+\item \textbf{Force single-switching in Stage 1.} Stage 2 implementable, but censors MS behavior.
+\item \textbf{Allow MS in Stage 1.} Stage 2 not implementable.
+\item \textbf{Skip Stage 2 for MS subjects.} Asymmetric rounds across subjects.
 \end{itemize}
 
-\vspace{0.4em}
-Stage 2 MS within $\sim$1pp spacing is harder still: likely indifference or noise, but operationally still no crossing.
-
-\vspace{0.4em}
+\vspace{0.5em}
 \footnotesize
-Applies equally to two-stage list (Holt \& Smith) and two-stage separated --- structural property of any design that narrows based on Stage-1 behavior, not list-specific.
+Applies to two-stage list and two-stage separated.
 \end{frame}
 
 \begin{frame}{Question 3: MPL format}
-Working lean: coarse separated (15--20 rows, one per screen, random order) --- the belief analog of C\&K's UJS-E mechanism. Works for our BIC test at 5pp precision, but does not generalize to precision-sensitive belief elicitation.
+Proposal: coarse separated (15--20 rows, one per screen, random order) --- the belief analog of UJS-E. 
+
+Pro: Works for our BIC test at 5pp precision
+
+Con: does not generalize to precision-sensitive belief elicitation.
 
 \vspace{0.5em}
 \begin{block}{}
-What is your view on MPL format for belief elicitation, given the precision-vs-interpretability tradeoff?
+How to approach MPL format choice?
 \end{block}
 
-\begin{block}{}
-B\&H's IC-preservation result used risk preferences with known lotteries. Our event bet is subjective. Does the cross-row transfer hold, or do we need an auxiliary B\&H arm?
-\end{block}
 \end{frame}
 
 \end{document}
