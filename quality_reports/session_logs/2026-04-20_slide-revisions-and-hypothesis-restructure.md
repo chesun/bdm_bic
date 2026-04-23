@@ -104,7 +104,40 @@ Refine the advisor-meeting slide deck (`quality_reports/advisor_meeting_2026-04-
 - `quality_reports/advisor_meeting_2026-04-17/01_p-bdm-design-space-synthesis.md` — fuller design memo; the concrete example slides mirror its §5
 - `quality_reports/session_logs/2026-04-17_rocl-canonical-framing-correction.md` — prior session log including initial meeting prep and the ROCL framing correction
 - `experiments/designs/decisions/0013_ujs-scoped-to-behavioral-failure.md` — current UJS-as-behavioral-framework ADR (may need update based on H2 collapse)
+<!-- primary-source-ok: brown_2025 -->
+
 - Chakraborty & Kendall (2025) — UJS framework (Anujit is the "C")
 - Brown, Healy (2018) — format × IC finding
 - Brown et al. (2025) — CBC comprehension-intervention null result (cited as empirical prior against direct CR identification)
 - Burfurd & Wilkening (2022) — no mechanism × ability interaction (cited as empirical prior)
+
+---
+
+## 2026-04-22 correction: UJS and CR are not distinct concepts
+
+The `[LEARN:theory]` note above (and the `[LEARN:design]` example that pairs "UJS formal property" with "cognitive CR" as alternatives; and the "UJS property" / "CR demand" double-count in the Design Decisions table; and the three-paths framing in Sequence-of-events item 9) all rest on the premise that UJS and contingent reasoning are distinct frameworks. This premise is wrong.
+
+C&K 2025 define UJS *through* contingent-reasoning paths. From the paper (abstract and §1):
+
+> UJS mechanisms [are] mechanisms in which the dominant strategy is also uniquely justifiable, so that boundedly rational players do not have to perform contingent reasoning.
+
+> A strategy is *uniquely justifiable* if, at each decision, it prescribes the only action that can be justified as a best response to *any* payoff-relevant contingency.
+
+> We introduce the concept of *Uniquely Justifiable Strategy (UJS)* mechanisms which take a novel approach to **eliminating the need for contingent reasoning**.
+
+UJS is the formalization of which CR paths can justify each action. A mechanism is UJS iff the set of CR paths that rationalize a non-dominant action is empty. They are not alternative framings.
+
+**What this changes about this session log's conclusions:**
+
+- The H2 collapse (H2 + H2a → single H2 on UJS formal property) survives the correction. H2 and H2a were saying the same thing in different registers; collapsing was correct — just for a different reason than stated here. "MPL admits a unique justifiable action per row (UJS) while BDM admits many" *is* a CR claim once "justifiable" is unpacked.
+- The Q1 CR-vs-UJS framing bullet added to the slides on 2026-04-20 was based on a false dichotomy. It was dropped from the deck on 2026-04-22.
+- The "six confounds" identification analysis overcounts: "UJS formal property" and "CR demand" collapse into one confound. Actual count is five: output format, task framing, per-decision complexity, presentation, UJS-via-CR structure.
+
+**Source error.** Claude had never opened `Chakraborty_Kendall_2025_UJS_elicitation.pdf` (which has been in `master_supporting_docs/literature/papers/` the whole time) nor the existing reading notes at `bdm_bic_2026-03.md#9` (which had the framing correct). The framing in this session log was inferred from ADR-0013's paraphrase, which was in turn conservative enough to avoid the explicit error — this session log then propagated the more explicit distinction downstream into the 2026-04-22 slide review.
+
+**Cross-references:**
+
+- `master_supporting_docs/literature/reading_notes/chakraborty_kendall_2025.md` — dedicated C&K notes with verbatim definitions and anticipated misreadings.
+- `~/.claude/projects/-Users-christinasun-github-repos-bdm-bic/memory/project_ujs_is_cr_formalization.md` — project memory capturing the C&K definitions and the derivative docs to audit.
+- `quality_reports/advisor_meeting_2026-04-17/06_ujs-cr-derivative-audit_2026-04-22.md` — audit covering this session log and three other derivative docs.
+- `.claude/rules/primary-source-first.md` + `.claude/hooks/primary-source-check.py` + `.claude/hooks/primary-source-audit.py` — enforcement to prevent re-occurrence.

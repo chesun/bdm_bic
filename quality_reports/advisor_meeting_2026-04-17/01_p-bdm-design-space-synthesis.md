@@ -67,8 +67,8 @@ Each proposal makes a consistent set of choices across the dimensions above. The
 - Clean dependent variable.
 
 **Weaknesses:**
-- Does not test contingent reasoning specifically — only pure choice. So a pass on this test doesn't rule out that H3 (contingent reasoning failure) drives the H1 result; it just rules out EV-calculation failure as the story.
-- Because the mechanism is stripped, it doesn't speak directly to UJS (which is a mechanism-level property).
+- Does not test contingent reasoning specifically — only pure choice. So a pass on this test doesn't rule out that CR failure (which UJS formalizes) drives the H1 result; it just rules out EV-calculation failure as the story.
+- Because the mechanism is stripped, the contingent-reasoning demand that UJS formalizes (C&K 2025) is absent in A. A tests EV-calculation specifically, not the UJS-style failure.
 - Doesn't engage Anujit's framework directly.
 
 ---
