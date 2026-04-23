@@ -259,6 +259,29 @@ Deck now 13 pages (down from 14). Recompiled clean.
 
 If the broader goal is to frame as general pure-incentives-test failure rather than "replicate/explain the 69%," those two slides may also warrant revision. Not done this turn; awaiting Christina's call.
 
+**2026-04-22 follow-up.** Christina confirmed: keep the 69% references on the Literature slide and the p-BDM setup slide — they are *references* to the cited literature, not anchors for the project's framing. Do not edit those slides. No further action on them.
+
+## Addendum — Three-accounts trichotomy retired (ADR-0018)
+
+After the Q2 reframe, Christina asked Claude to justify the "three competing accounts" framing (EV-calculation failure / ambiguity aversion or non-EU / UJS-CR) that had been used in prior materials to motivate Proposals A/B/C. Claude's honest analysis:
+
+- The accounts overlap. UJS (per C&K 2025) formalizes which CR paths justify each action; "EV-calculation failure" is plausibly a sub-case of CR failure. Treating them as competing is not theoretically supported.
+- "Ambiguity aversion" at known θ is misapplied. Under induced θ with a concrete urn, the event bet's probability is stated; classical Ellsberg-style ambiguity requires unknown probabilities.
+- The trichotomy was reverse-engineered to justify Proposals A/B/C. When Proposal C was dropped (ADR-0016), the discrimination logic collapsed — a tell that the trichotomy was scaffolding, not theory.
+- A pure-incentives failure IS the BIC failure by construction (DVW 2022 Condition 2). Decomposing "why" into competing psychological accounts is secondary analysis, not a structural requirement of the test.
+
+**Decision captured as ADR-0018:** retire the three-accounts framing. When comparing proposal designs, describe them in terms of *how much of the p-BDM mechanism remains visible to the subject* (design-level decomposition), not in terms of which psychological account each discriminates.
+
+**Artifacts produced this turn:**
+
+- **ADR-0018** (Decided, Research framing scope). README index updated.
+- **Retirement note** added to `01_p-bdm-design-space-synthesis.md` §7 header, pointing to ADR-0018. Section body preserved below the note as historical context (append-only spirit for reasoning docs that informed committed decisions).
+- **Feedback memory** `feedback_no_post_hoc_trichotomies.md` added to project memory (indexed in `MEMORY.md`). Captures the methodological lesson: don't construct "N competing accounts" enumerations to motivate design decisions when the accounts aren't theoretically derived. Paired with `project_ujs_is_cr_formalization.md`, which covers the specific UJS-vs-CR non-separation that made account (3) and (1) overlap.
+
+**Reasoning preserved** across three artifacts: ADR-0018 (decision record), feedback memory (generalizable lesson), synthesis doc §7 retirement note (historical pointer for anyone who reads the prior reasoning). Cross-references threaded through all three.
+
+**No slide edits required** — the deck's Q2 had already been rewritten without the trichotomy earlier this session. The ADR formalizes that rewrite as a project-level framing decision rather than a one-off slide edit.
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed

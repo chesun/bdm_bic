@@ -281,6 +281,17 @@ At θ = 0.2, the 11 discrete options look like this:
 
 ## 7. The open question Anujit should answer (our lead ask)
 
+> **Section retired 2026-04-22.** The three-competing-accounts framing below (EV-calculation failure / ambiguity aversion / UJS) was reverse-engineered to justify Proposals A/B/C rather than derived from theory. See ADR-0018 for the full reasoning. Summary of the retirement:
+>
+> - The accounts overlap. Per C&K 2025, UJS formalizes which CR paths justify each action; "EV-calculation failure" is plausibly a CR sub-case. They are not competing.
+> - "Ambiguity aversion" at known θ is misapplied. The event bet's probability is stated.
+> - The trichotomy collapsed as scaffolding when Proposal C was dropped (ADR-0016). It was not load-bearing for identification.
+> - A pure-incentives failure IS the BIC failure by construction (DVW 2022 Condition 2). Decomposing "why" is secondary analysis, not a design requirement.
+>
+> **Current framing** (see ADR-0018 and the 2026-04-22 slide deck's Q2): A and B differ in *how much of the p-BDM mechanism is visible to the subject*. A strips it; B preserves it. Running both within-subject isolates menu-level failure from CR-level failure. This is a design-level decomposition, not a claim about psychological causes.
+>
+> Body of §7 preserved below as historical context.
+
 Of the three proposals, **which one most sharply identifies the UJS prediction** against competing accounts of the 69% finding?
 
 - Competing account 1: **General difficulty of EV calculation.** Subjects pick q=0 because computing expected winnings is hard. Predicts failure in ALL pure-incentives tests (BSR, p-BDM, MPL). Proposal C's MPL-side result discriminates: if MPL passes pure incentives and p-BDM fails, general EV-calculation difficulty is ruled out.
