@@ -28,6 +28,16 @@ slides/**/*.log
 slides/**/*.out
 supplementary/**/*.log
 supplementary/**/*.out
+# Advisor meetings, presentations, and plans/reviews sometimes compile
+# beamer decks in-place under quality_reports/. Scope LaTeX artifacts
+# to these subtrees explicitly (bare *.log / *.out remain unscoped
+# to avoid colliding with Stata logs or nohup.out elsewhere).
+quality_reports/advisor_meeting_*/**/*.log
+quality_reports/advisor_meeting_*/**/*.out
+quality_reports/presentations/**/*.log
+quality_reports/presentations/**/*.out
+presentations/**/*.log
+presentations/**/*.out
 
 # --- Python ---
 __pycache__/
