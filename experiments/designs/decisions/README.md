@@ -93,6 +93,7 @@ What this commits us to. What it rules out. Open questions it creates.
 | [0014](0014_mechanism-invariance-framing-only.md) | Mechanism invariance framing (supersedes #0007; format commitment removed) | 2026-04-15 | Superseded by [#0015](0015_bh-rocl-triggering-canonical-mechanism.md) | — |
 | [0015](0015_bh-rocl-triggering-canonical-mechanism.md) | Canonical Brown & Healy ROCL-triggering mechanism for list/separated (supersedes #0014) | 2026-04-17 | Decided | IC foundation |
 | [0016](0016_scope-pure-incentives-to-pbdm-only.md) | Scope pure-incentives test to p-BDM only; MPL-side pure-incentives is future work | 2026-04-22 | Decided | Experimental design |
+| [0017](0017_pure-incentives-between-subject-theta-within.md) | Pure-incentives test: between-subject arm, within-subject θ; θ values open | 2026-04-22 | Decided | Experimental design |
 
 ---
 

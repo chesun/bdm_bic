@@ -210,6 +210,34 @@ Christina reviewed the deck's p-BDM pure-incentives section and concluded that P
 - H2 identification is unchanged — tested at the belief-elicitation level by T1 vs. T2 in the main design.
 - Meeting length unchanged; one slide fewer to walk through.
 
+## Addendum — DVW 2022 integration structure verified; pure-incentives arm committed between-subject (late evening)
+
+Christina asked: did DVW 2022 run the incentives-only test within- or between-subject with the main belief-elicitation treatments? Claude hadn't read the source before — only the 2024 JEP review summary. Read DVW 2022 Online Appendix §C.4 directly (pp. 45–48), which provides the verbatim methodology.
+
+**Finding.** DVW 2022 attached the incentives-only module to a **separate study** (public-good provision), not to the main BSR study. The integration statement (p. 45 verbatim):
+
+> These instructions were attached as module following a strategic study of public-good provision with two previous tasks.
+
+Within the module, two θ values (0.3 and 0.2) — within-subject across θ, with one of the two choices randomly selected for payment. So DVW's structure is: **between-subject relative to the main belief-elicitation study; within-subject across 2 θ values** in the module.
+
+Our Proposal A's working description ("within-subject, immediately after main BDM arm") was therefore a departure from strict DVW replication, not a replication. Flagged to Christina.
+
+**Decision (committed by Christina 2026-04-22).** Match DVW on the integration axis: pure-incentives test is a **between-subject arm** relative to the main BDM/MPL arms. Within-subject variation across θ. The **exact θ set is left as an open design decision** (candidate: {0.2, 0.3} strict DVW replication; {0.2, 0.4, 0.6, 0.8} B&W 2018; other).
+
+**Artifacts produced:**
+
+- **New reading-notes file:** `master_supporting_docs/literature/reading_notes/danz_vesterlund_wilson_2022.md`. Captures the verbatim §C.4 instructions (Decision Task 3 Choices 1 and 2), the integration statement, Table A.1 and A.2 numerics from the online appendix, and a backfill TODO for when the main AER paper PDF is added to the repo.
+- **ADR-0017** (Decided): "Pure-incentives test is between-subject (separate arm); θ variation is within-subject; θ values left open." Resolves two of ADR-0011's open dimensions; does not supersede.
+- **Slide edit** (`04_slides.tex` Frame 11, "Two ways to run the test"): table row "Integration: within-subject" replaced with "Arm: separate (between-subject)" and "θ variation: within-subject; values TBD" replaces the concrete θ set. Other text unchanged. Recompiled clean, 14 pages.
+- **ADR README** index updated.
+
+**What this leaves open for Anujit:**
+
+- A-vs-B choice (or run both within-subject) — unchanged from ADR-0016.
+- Exact θ set — new open question post-ADR-0017. Candidate framings: strict DVW replication ({0.2, 0.3}) vs. θ-pattern design ({0.2, 0.4, 0.6, 0.8}).
+
+**Hook interaction.** The PreToolUse hook allowed all three edits (slide, ADR, notes) because C&K 2025 notes had been touched this session and because I wrote the DVW 2022 notes file *first* before editing the ADR that cites it. Intended order-of-operations for primary-source-first compliance.
+
 ## Cross-References
 
 - `quality_reports/advisor_meeting_2026-04-17/04_slides.tex` — the deck being reviewed
