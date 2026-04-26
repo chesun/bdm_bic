@@ -125,3 +125,38 @@
 
 - Done: slide revisions, hypothesis restructure, session log, research journal entry
 - Pending: meeting with Anujit (if not already held); subsequent ADRs for H2 collapse and UJS framing commitment; H3 (complexity) identification power check; p-BDM proposal commit; MPL format commit
+
+
+---
+
+## 2026-04-26 14:10 — Sync hook fix from workflow
+
+**Operations:**
+
+- Synced `.claude/hooks/context-monitor.py` from `claude-code-my-workflow@3064d9d` (byte-for-byte). Brings in: warnings to stderr (so user actually sees them), 90
+
+---
+
+## 2026-04-26 14:10 — Sync hook fix from workflow
+
+**Operations:**
+
+- Synced `.claude/hooks/context-monitor.py` from `claude-code-my-workflow@3064d9d` (byte-for-byte). Brings in: warnings to stderr (so user actually sees them), 90%-threshold `pre-compact-state.json` snapshot fallback for the auto-compact PreCompact-bypass bug (anthropics/claude-code#14111), and `MAX_TOOL_CALLS=500` (env-overridable) tuned for Opus 4.7 1M context.
+- Wrote `quality_reports/session_logs/2026-04-26_context-monitor-stderr-and-precompact-fallback.md` (sync receipt + diagnosis pointer).
+
+**Decisions:**
+
+- Sync byte-for-byte; no project-local divergence in hook code.
+
+**Results:**
+
+- `diff` against workflow `context-monitor.py` empty post-sync.
+
+**Commits:**
+
+- (this commit) — sync hook fix
+
+**Status:**
+
+- Done: hook synced + session log written.
+- Pending: nothing on this thread.
