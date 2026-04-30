@@ -99,6 +99,11 @@ Review the specified file thoroughly and produce a detailed scored report of all
 | Overfull hbox > 10pt | -10 per |
 | McCloskey anti-pattern (each type) | -3 per type (max -15) |
 | Hedging language | -5 per (max -15) |
+| AEA citation form: `&` between authors in running text (use `and`) — rule § Citation-style convention | -3 per (max -15) |
+| AEA citation form: missing Oxford comma in 3+ author cite (`Smith, Jones and Brown` → `Smith, Jones, and Brown`) | -3 per (max -15) |
+| AEA citation form: comma between author and year in parenthetical (`(Smith, 2020)` → `(Smith 2020)`) | -3 per (max -15) |
+| AEA citation form: `et al.` used at 4 or fewer authors in-text (AER lists 1-4 in full; et al. only at 5+) | -3 per (max -15) |
+| AEA citation form: missing year-suffix on same-author same-year cites (`Smith 2020` repeated for distinct works → must be `Smith 2020a` / `Smith 2020b`) | -5 per |
 | Naked "this" (no following noun) | -2 per (max -10) |
 | Sentence starts with math symbol | -3 per |
 | Consecutive displayed equations without prose | -3 per |
@@ -189,3 +194,29 @@ Verification commands:
 | Major | Paper makes a framing claim about target audience / journal that contradicts `CLAUDE.md` | -10 |
 | Major | Hedging language asserting urgency or stage without a stated deadline ("given the early stage of this work…") | -5 |
 | Minor | Generic AI tells ("It is worth noting", "Interestingly", "We can see that") that fabricate stance | -3 per occurrence (max -15) |
+
+## Anti-AI-prose deductions (per `.claude/rules/anti-ai-prose.md`)
+
+Score against the rule's pattern catalog (~35 patterns, 6 categories: lexical, syntactic, structural, rhetorical, content, communication). Voice profile is `academic` for paper manuscripts. Patterns already deducted under McCloskey or Cochrane checks above (hedging, fancy synonyms, throat-clearing, roadmap signposting) are NOT double-counted here — focus on the AI-specific layer below.
+
+| Severity | Issue | Deduction |
+|----------|-------|-----------|
+| Critical | AI-vocabulary cluster (`delve`, `navigate` as filler verb, `leverage` as filler verb, `tapestry`, `landscape`, `foster`, `garner`, `interplay`, `underscore`) — rule § L1 | -5 per type (max -20) |
+| Critical | Em-dash density >2 per 100 words — rule § S1 | -10 |
+| Critical | Mirror-and-echo openings ("Great question!", echoing the prompt) — rule § M1 | -10 per |
+| Major | Tricolon / rule-of-three overuse (>3 per page) — rule § S2 | -5 |
+| Major | Negative parallelism overuse ("not just X — but Y" as default rhythm) — rule § S3 | -3 per (max -10) |
+| Major | Symmetric sectioning (every section same length + same internal arc) — rule § T1 | -5 |
+| Major | Bullet-point thinking in prose (rote `Furthermore,`/`Additionally,`/`Moreover,` connectives) — rule § T2 | -3 per (max -10) |
+| Major | Significance inflation ("pivotal moment", "watershed", "sea change", generic hyperbole without mechanism) — rule § C1 | -3 per (max -10) |
+| Major | Superficial -ing analyses ("highlighting...", "underscoring...", "demonstrating...") without specific evidence — rule § C2 | -3 per (max -10) |
+| Major | "Comprehensive" / "complete" overview claims — rule § M4 | -3 per (max -10) |
+| Minor | Uniform sentence length (low burstiness — every sentence ±5 words of mean) — rule § S4 | -3 |
+| Minor | Symmetric sentence structure ("While X, Y" as default) — rule § S5 | -2 per (max -8) |
+| Minor | Forced narrative arc (mechanical hook → turn → takeaway in every section) — rule § T3 | -3 |
+| Minor | Over-defined common terms — rule § T4 | -2 per (max -8) |
+| Minor | Decorative emoji / arrows in academic prose — rule § M3 | -3 per (max -10) |
+
+**Cap:** Total anti-AI-prose deduction is capped at -30 per document so this subsection doesn't dominate the writer-critic score (which is primarily assessing structure, claims-evidence alignment, identification fidelity, and grammar). Patterns that overlap with McCloskey item 5 (hedging) or item 10 (throat-clearing) keep their existing deductions in the main General Deductions table; do not double-count here.
+
+Respect `<!-- anti-ai-ok: <reason> -->` escape comments per the rule. Patterns inside a paragraph containing such a comment are not flagged.
