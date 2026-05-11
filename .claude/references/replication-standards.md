@@ -1,67 +1,65 @@
-# Replication Standards for Experimental Economics
+# Replication Package Standards (AEA Data Editor)
 
-Based on AEA Data Editor requirements and Coffman & Dreber (2025).
-
----
-
-## What Must Be Included
-
-### 1. Data
-- **Cleaned de-identified data:** Analysis-ready datasets with PII stripped (no Prolific IDs, MTurk worker IDs, IP addresses). Clean data without PII can typically be shared.
-- **Raw data:** Do NOT include raw platform exports — they contain confidential information. The cleaning code documents the transformation from raw to clean.
-- **Codebook:** Variable definitions, coding, units for all included datasets
-
-### 2. Code
-- **Cleaning code:** Transforms raw → cleaned (every step documented)
-- **Analysis code:** Produces every number, table, and figure in the paper
-- **Master script:** `main.do` or equivalent that runs everything in order
-- **Package dependencies:** List with versions (`requirements.txt`, package install commands)
-
-### 3. Experimental Materials
-- **Instructions:** Full text shown to subjects (PDF or LaTeX source)
-- **Screenshots:** Key decision screens
-- **QSF file:** Qualtrics survey export (if applicable)
-- **oTree code:** Full oTree project (if applicable)
-- **IRB approval:** Protocol number and approval letter
-
-### 4. Documentation
-- **README:** Written with "computational empathy" (Vilhuber) — assume a stranger needs to understand
-  - What software and versions are needed
-  - How to run the code (step by step)
-  - Expected runtime
-  - What outputs are produced and where
-  - Map from code outputs → paper tables/figures
-- **Codebook:** Variable definitions, coding, units
+Reference for replication package requirements. Used by verifier, `/submit audit`, and `/submit package`.
 
 ---
 
-## Code Quality Standards
+## Required Directory Structure
 
-- Extensive comments explaining WHY, not just WHAT
-- No hardcoded absolute paths
-- Relative paths from project root
-- `set seed` for any stochastic operations
-- Code runs end-to-end without manual intervention
-- Output matches paper exactly (within floating-point tolerance)
+```
+replication/
+├── README.md                    # Master documentation
+├── code/
+│   ├── main.do                  # Master script — runs everything
+│   ├── settings.do              # Path configuration
+│   ├── 01_clean.do              # Data cleaning
+│   ├── 02_analysis.do           # Main analysis
+│   ├── 03_tables.do             # Table generation
+│   ├── 04_figures.do            # Figure generation
+│   └── helpers/                 # .doh files and utilities
+├── data/
+│   ├── raw/                     # Original data (or instructions to obtain)
+│   └── cleaned/                 # Processed data (if shareable)
+├── output/
+│   ├── tables/                  # Generated .tex tables
+│   └── figures/                 # Generated .pdf/.png figures
+└── logs/                        # Stata log files from full run
+```
 
----
+## README Must Include
 
-## Pre-Registration Cross-Check
+1. **Data Availability Statement** — where to obtain each dataset, access requirements, licenses
+2. **Computational Requirements** — software versions, packages, hardware, runtime estimate
+3. **Instructions** — exact steps to reproduce all results (ideally: "run main.do")
+4. **Output Map** — which script produces which table/figure in the paper
+5. **Data Citations** — proper citations for all datasets
 
-The replication package must be consistent with the pre-registration:
-- All pre-registered analyses must appear in the paper (main text or appendix)
-- Deviations from pre-registration must be explicitly noted and justified
-- Exploratory analyses must be labeled as such
+## For Confidential/Restricted Data (e.g., TERC, FSRDC)
 
----
+- README explains how to apply for data access
+- Code is fully included and documented
+- Synthetic or simulated data provided if possible
+- Output (tables, figures) included so reviewers can verify format
+- Log files from actual run included
 
-## Journal Requirements (as of 2024)
+## Checklist Before Submission
 
-All top economics journals require data and code deposits. Key specifics:
+- [ ] `main.do` runs start-to-finish without manual intervention
+- [ ] All file paths are relative (via settings.do globals)
+- [ ] All required packages listed with installation commands
+- [ ] `set seed` for any randomization
+- [ ] Output map: every table/figure traced to a script
+- [ ] No absolute paths in code (only in settings.do)
+- [ ] Data availability statement present
+- [ ] Computational requirements documented
+- [ ] Log files demonstrate successful execution
+- [ ] README follows AEA template format
 
-| Journal | Deposit Location | Special Requirements |
-|---------|-----------------|---------------------|
-| AER family | AEA Data & Code Repository (openICPSR) | Automated reproducibility checks |
-| Econometrica | Econometric Society repository | Supplementary materials separate |
-| QJE, JPE, REStud | Journal-specific repositories | Check current guidelines |
-| Experimental Economics | SpringerNature repository | Experimental materials required |
+## Common Rejection Reasons (AEA Data Editor)
+
+- Missing package dependencies
+- Absolute paths in code
+- No master script (reviewer must figure out execution order)
+- Missing data documentation
+- tables/figures don't match paper (wrong version of output)
+- No seed set for stochastic results

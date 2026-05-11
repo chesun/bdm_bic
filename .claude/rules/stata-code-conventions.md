@@ -1,76 +1,49 @@
 # Stata Code Conventions
 
-**Scope:** `**/*.do`, `**/*.doh`
-**Stata version:** 17 (no `dtable`, no `frames` — those require v18)
+**Paths:** `**/*.do`, `**/*.doh`
 
----
+## Version
+- Server may use Stata 18 with older package versions — flag compatibility concerns
+
+## Invocation (local machine)
+- **Always invoke as `stata17` from the command line** — `stata17 -b do file.do` for batch runs.
+- **Never call binaries inside `/Applications/Stata/StataMP.app/...` directly.** That path is the older Stata MP 14 install on this machine; both versions ship a binary literally named `StataMP` / `stata-mp` inside their respective `.app` bundles, so a direct path call to `/Applications/Stata/...` silently picks Stata 14.
+- `stata17` is the version-pinned alias on PATH (typically `~/.local/bin/stata17 → ~/Documents/stata/StataMP.app/Contents/MacOS/stata-mp`). The unqualified `stata-mp` resolves to the same binary on this machine but is ambiguous in principle; prefer `stata17`.
+- See `.claude/skills/stata/SKILL.md` for full Stata reference, including documentation lookup, language essentials, and common pitfalls.
 
 ## Project Structure
+- **Master file:** `mainscript.do` or `main.do` — runs all do files via `do ./do/filename.do`
+- **Settings:** `settings.do` — globals for paths, machine-specific via `c(hostname)` branching
+- **Helpers:** `.doh` extension — included via `include` (preserves local macros)
+- **Naming:** `01_clean.do`, `02_analysis.do`, `03_figures.do` (numbered order)
+- **Subdirs:** `clean/`, `share/`, `learn/`, `helpers/`
 
-- `main.do` or `doall.do` — master file, runs everything in order
-- `settings.do` — global macros for paths, settings, project-wide parameters
-- Numbered scripts: `01_clean.do`, `02_analysis.do`, `03_figures.do`
-- `.doh` files — do helper files, used with `include` to preserve local macros
-- `helpers/` subfolder for reusable `.doh` routines
+## Required Packages
+reghdfe, estout, coefplot, ivreghdfe, palettes, cleanplots, egenmore, regsave, cdfplot, binscatter, binscatter2
 
-## Script Header
-
-Every `.do` file starts with:
-```stata
-* ============================================================
-* [Script name] — [Brief description]
-* Project: [Project name]
-* Author: [Name]
-* Date: [YYYY-MM-DD]
-* ============================================================
-```
-
-## Settings and Paths
-
-- All paths defined in `settings.do` via global macros
-- No hardcoded absolute paths in analysis scripts
-- Use `$raw`, `$cleaned`, `$figures`, `$tables` globals
-- Point Overleaf paths to Dropbox-synced directories
-
-## Packages
-
-Key packages (install via `ssc install` or `net install`):
-- **Regression:** reghdfe, ivreghdfe
-- **Output:** estout (esttab, eststo, estadd)
-- **Figures:** coefplot, palettes, cleanplots, binscatter, binscatter2, cdfplot
-- **Data:** egenmore, regsave
-- **Experimental:** (as needed) permute, ritest, wyoung, rwolf
-
-## Experimental Data Conventions
-
-- Cluster standard errors at session/group level by default (Moffatt: OLS without clustering has size 0.46)
-- Non-parametric tests for between-subject: `ranksum`, `ksmirnov`, `escftest`
-- Non-parametric tests for within-subject: `signrank`, `signtest`
-- Exact tests: `ttest ... , by() unequal` for t-tests; Fisher exact for small samples
-- Multiple hypothesis testing: `wyoung` (Romano-Wolf), `qqvalue` (Benjamini-Hochberg)
-- Structural estimation: `ml` for CRRA, `intreg`/`fmm` for heterogeneous agents, `asclogit` for social preferences
-
-## Table Output
-
-- Use `estout`/`esttab` for all regression tables
-- Output bare `.tex` tabular (no `\begin{table}`, no `\caption`)
-- The paper wraps tables in `threeparttable` with notes
-- Use `booktabs` style: `\toprule`, `\midrule`, `\bottomrule` (never `\hline`)
-- Standard stars: `* p<0.10, ** p<0.05, *** p<0.01`
-
-## Figure Output
-
-- Export as `.pdf` for paper, `.png` for slides (both when possible)
-- Use `graph export` with appropriate dimensions
-- Apply `cleanplots` or consistent scheme across all figures
-- Label all axes, include units
-- Use `palettes` for consistent color schemes
+When new package used: save `[LEARN:stata] New package: name — purpose` to MEMORY.md.
 
 ## Code Style
+- `local` for within-file constants; `global` only in settings.do
+- `cap log close _all` and `set more off` at top of master
+- `preserve`/`restore` for temporary manipulation; `tempfile` for intermediates
+- `set seed` once in main.do (reproducibility)
+- `log using` for every analysis do file
+- Never overwrite raw data
 
-- `set seed` once at top of master file if any stochastic operations
-- Comments explain WHY, not WHAT
-- Use `tempvar`, `tempname`, `tempfile` for temporary objects
-- `capture drop` before generating variables in iterative scripts
-- `preserve`/`restore` when making destructive transformations
-- `assert` for data integrity checks after merges and reshapes
+## Table Export
+- `texsave` for manual tables; `esttab`/`estout` for regression tables
+- Output to both local folder AND Overleaf directory
+- Format: `tostring var, force format(%10.3f) replace`
+- Stars: manual `replace coef=coef+"*" if pval<.05` or esttab options
+
+## Figures
+- `graph export` with `.pdf` and `.png`
+- Color palette in `.doh` file; opacity locals: `opmax`, `ophigh`, `opmed`, `oplow`
+- `binscatter`/`binscatter2` for binned scatter plots
+
+## Regression
+- `reghdfe` for OLS with high-dimensional FE
+- `ivreghdfe` for IV with high-dimensional FE
+- `regsave` for saving results to datasets
+- Cluster SEs at appropriate level (document why)

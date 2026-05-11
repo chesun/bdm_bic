@@ -28,16 +28,6 @@ slides/**/*.log
 slides/**/*.out
 supplementary/**/*.log
 supplementary/**/*.out
-# Advisor meetings, presentations, and plans/reviews sometimes compile
-# beamer decks in-place under quality_reports/. Scope LaTeX artifacts
-# to these subtrees explicitly (bare *.log / *.out remain unscoped
-# to avoid colliding with Stata logs or nohup.out elsewhere).
-quality_reports/advisor_meeting_*/**/*.log
-quality_reports/advisor_meeting_*/**/*.out
-quality_reports/presentations/**/*.log
-quality_reports/presentations/**/*.out
-presentations/**/*.log
-presentations/**/*.out
 
 # --- Python ---
 __pycache__/
@@ -93,9 +83,11 @@ CLAUDE.local.md
 # *.rds
 # output/**/*.rds
 
-# --- Behavioral: Qualtrics survey files ---
-# Default-ignore so reference/learning QSFs in master_supporting_docs/,
-# survey_design/, explorations/, etc. stay out of the repo.
-# Track only actual experiment implementations under experiments/qualtrics/.
-*.qsf
-!experiments/qualtrics/**/*.qsf
+# --- Academic PDFs ---
+# Default: gitignored to keep the template repo small (PDFs don't diff well
+# and bloat git history). In a fork where paper PDFs are load-bearing,
+# enable Git LFS and comment these lines out — see
+# .claude/rules/data-version-control.md (when present) or
+# quality_reports/plans/*lfs-dvc-migration-plan.md.
+master_supporting_docs/literature/papers/*.pdf
+master_supporting_docs/literature/papers/**/*.pdf

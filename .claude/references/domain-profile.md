@@ -4,7 +4,6 @@
 HOW TO USE: Fill this in manually OR let /discover (interactive interview) generate it.
 All agents read this file to calibrate their field-specific behavior.
 Delete sections that don't apply. Add sections specific to your field.
-If no field is specified, agents default to applied economics.
 -->
 
 ## Field

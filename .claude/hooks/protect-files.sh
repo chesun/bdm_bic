@@ -21,9 +21,6 @@ fi
 # ============================================================
 PROTECTED_PATTERNS=(
   "settings.json"
-  "strategy-memo-*.md"
-  "referee-report-*.md"
-  "quality-score-*.json"
 )
 
 BASENAME=$(basename "$FILE")

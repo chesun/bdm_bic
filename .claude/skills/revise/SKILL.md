@@ -17,16 +17,15 @@ Structure point-by-point referee responses with classification, agent routing pe
 
 ### Step 1: Parse Inputs
 1. Read referee report(s) from `$ARGUMENTS`
-2. Read the paper (Overleaf `Paper/main.tex` or specified path)
+2. Read the paper (paper/main.tex or specified path)
 3. Read revision protocol from rules
-4. Read existing scripts in `scripts/stata/` to know what analyses already exist
-5. Read pre-registration to check if referee requests conflict with pre-registered plan
+4. Read existing scripts to know what analyses already exist
 
 ### Step 2: Classify Every Comment
 
 | Class | Routing | Action |
 |-------|---------|--------|
-| **NEW ANALYSIS** | → Coder agent | Flag for user, create analysis task. Check if pre-registered — if not, label as exploratory. |
+| **NEW ANALYSIS** | → Coder agent | Flag for user, create analysis task |
 | **CLARIFICATION** | → Writer agent | Draft rewritten section |
 | **REWRITE** | → Writer agent | Draft structural revision |
 | **DISAGREE** | → User (mandatory) | Draft diplomatic pushback, flag for review |

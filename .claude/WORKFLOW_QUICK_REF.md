@@ -1,87 +1,83 @@
 # Workflow Quick Reference
 
-**Model:** Contractor (you direct, Claude orchestrates via dependency graph)
+**Model:** Contractor (you direct, Claude orchestrates)
 
 ---
 
-## The Research Pipeline
+## The Loop
 
 ```
-/discover interview → Research Spec + Domain Profile
+Your instruction
     ↓
-/discover lit → Literature Synthesis (Librarian + librarian-critic)
+[PLAN] (if multi-file or unclear) → Show plan → Your approval
     ↓
-/discover data → Data Assessment (Explorer + explorer-critic)
+[EXECUTE] Implement, verify, done
     ↓
-/strategize → Strategy Memo (Strategist + strategist-critic)
+[REPORT] Summary + what's ready
     ↓
-/analyze → Scripts + Output (Coder/Data-engineer + coder-critic)
-    ↓
-/write → Paper Sections (Writer + writer-critic)
-    ↓
-/review → Weighted Score + Peer Review (domain-referee + methods-referee)
-    ↓
-/submit → Final Gate (score >= 95, all components >= 80)
+Repeat
 ```
-
-Enter at any stage. Use `/new-project` for the full pipeline.
-
----
-
-## The 10 Commands
-
-| Command | What It Does |
-|---------|-------------|
-| `/new-project [topic]` | Full pipeline: idea to paper (orchestrated) |
-| `/discover [interview\|lit\|data]` | Research spec, literature review, or data discovery |
-| `/strategize [question]` | Identification strategy + Econometrician review |
-| `/analyze [dataset]` | End-to-end analysis: scripts, output, code review |
-| `/write [section]` | Draft paper sections + humanizer pass |
-| `/review [file]` | Multi-agent quality review + weighted score |
-| `/revise [report]` | Route referee comments, draft response letter |
-| `/talk [format]` | Beamer presentation from paper (4 formats) |
-| `/submit [journal]` | Final gate: score >= 95, all components >= 80 |
-| `/tools [subcommand]` | commit, compile, validate-bib, journal, learn, deploy, context |
-
----
-
-## Quality Gates at a Glance
-
-| Score | Gate | What It Means |
-|-------|------|--------------|
-| >= 95 | Submission | Ready for top-5 (all components >= 80) |
-| >= 90 | PR | Ready to merge (minor polish recommended) |
-| >= 80 | Commit | Ready to commit (address major issues before submission) |
-| < 80 | **Blocked** | Must fix critical/major issues |
-| -- | Advisory | Talks: reported only, non-blocking |
-
-Weighted aggregate: Literature 10% + Data 10% + Identification 25% + Code 15% + Paper 25% + Polish 10% + Replication 5%
 
 ---
 
 ## I Ask You When
 
-- **Design forks:** "Option A vs. Option B. Which?"
-- **Identification choice:** "CS DiD vs. Sun-Abraham for this setting?"
-- **Disagreement with referee:** "DISAGREE classification — please review"
-- **After 3 strikes:** "Coder and coder-critic can't agree — your call"
+- **Design forks:** "Option A (fast) vs. Option B (robust). Which?"
+- **Code ambiguity:** "Spec unclear on X. Assume Y?"
+- **Replication edge case:** "Just missed tolerance. Investigate?"
+- **Scope question:** "Also refactor Y while here, or focus on X?"
+
+---
 
 ## I Just Execute When
 
-- Code fix is obvious (bug, pattern)
-- Verification (compilation, tolerance checks)
+- Code fix is obvious (bug, pattern application)
+- Verification (tolerance checks, tests, compilation)
 - Documentation (logs, commits)
 - Plotting (per established standards)
+- Deployment (after you approve, I ship automatically)
+
+---
+
+## Quality Gates (No Exceptions)
+
+| Score | Action |
+|-------|--------|
+| >= 80 | Ready to commit |
+| < 80  | Fix blocking issues |
+
+---
+
+## Non-Negotiables (Customize These)
+
+<!-- Replace with YOUR project's locked-in preferences -->
+
+- [YOUR PATH CONVENTION] (e.g., `here::here()` for R, relative paths for LaTeX)
+- [YOUR SEED CONVENTION] (e.g., `set.seed()` once at top for stochastic code)
+- [YOUR FIGURE STANDARDS] (e.g., white bg, 300 DPI, custom theme)
+- [YOUR COLOR PALETTE] (e.g., institutional colors)
+- [YOUR TOLERANCE THRESHOLDS] (e.g., 1e-6 for point estimates)
+
+---
+
+## Preferences
+
+<!-- Fill in as you discover your working style -->
+
+**Visual:** [How you want figures/plots handled]
+**Reporting:** [Concise bullets? Detailed prose? Details on request?]
+**Session logs:** Always (post-plan, incremental, end-of-session)
+**Replication:** [How strict? Flag near-misses?]
 
 ---
 
 ## Exploration Mode
 
-For experimental work:
+For experimental work, use the **Fast-Track** workflow:
 - Work in `explorations/` folder
 - 60/100 quality threshold (vs. 80/100 for production)
-- No plan needed — just a research value check
-- See `.claude/rules/content-standards.md`
+- No plan needed — just a research value check (2 min)
+- See `.claude/rules/exploration-fast-track.md`
 
 ---
 
